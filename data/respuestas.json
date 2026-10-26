@@ -1,0 +1,5294 @@
+[
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Metodologia",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Gerencia Estrategica",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "5b47b922-2330-4109-8efb-65d7fb10a92c",
+    "timestamp": "2026-10-21T21:07:20.198Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "ba7318bb-6e9a-48a8-9630-d9ab0dab373c",
+    "timestamp": "2026-10-22T16:52:36.896Z",
+    "asignatura": "Finanzas Corporativas",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 1
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 2
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 3
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 4
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 7
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 5
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 4
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 3
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 2
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 1
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 2
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 3
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 4
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 7
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 7
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 7
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 7
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 5
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 4
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 3
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 2
+  },
+  {
+    "idDocente": "b0680876-f44d-4abb-886e-8b936feedd06",
+    "timestamp": "2026-10-22T17:34:17.984Z",
+    "asignatura": "estadistca",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 1
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "09b20055-e02f-4073-ab13-f9298cb7828d",
+    "timestamp": "2026-10-22T21:42:23.430Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Metodologia de la Investigacion I",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 7
+  },
+  {
+    "idDocente": "d70f1efd-0f0a-4135-9a23-8f5c487ee01d",
+    "timestamp": "2026-10-22T23:13:22.821Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 7
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "93d3ebf0-caa5-41d2-b630-73f101481ada",
+    "timestamp": "2026-10-23T21:45:46.307Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Estadistica Aplicada",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 5
+  },
+  {
+    "idDocente": "50227db6-ba1e-4a0d-9ffc-ae6f32092ef1",
+    "timestamp": "2026-10-23T22:24:27.240Z",
+    "asignatura": "Seminario de Tesis",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 5
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Metodologia de la Investigacion",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Didactica General",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "En mi clase procuro inspirar o motivar a mis estudiantes hacia la investigación a través de las estrategias que utilizo y mi práctica de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 2,
+    "itemTexto": "Genero espacios en la asignatura para la reflexión y el debate.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 3,
+    "itemTexto": "Aplico estrategias activas (ABP, ABPro, Estudio de Casos, Aula Invertida, entre otros) en las clases que imparto.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 4,
+    "itemTexto": "Fomento la lectura crítica de textos científicos (artículos, tesis, libros, etc.) en temas vinculados con las asignaturas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 5,
+    "itemTexto": "Desarrollo actividades que requieren habilidades para identificar problemas o situaciones que requieran investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 6,
+    "itemTexto": "Oriento a mis estudiantes sobre cómo buscar información en diversas fuentes para la fundamentación de los trabajos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 7,
+    "itemTexto": "Fomento el uso de TIC para gestión de referencias bibliográficas (Mendeley, Zotero, etc.).",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 8,
+    "itemTexto": "Exijo el uso de normas APA o normas técnicas para la presentación de informes y tareas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 9,
+    "itemTexto": "Incluyo actividades para diseñar y aplicar instrumentos de recolección de datos en el contexto de la asignatura.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 10,
+    "itemTexto": "Fomento el uso de softwares y técnicas para el análisis e interpretación de datos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 11,
+    "itemTexto": "Establezco asignaciones que requieren documentos académicos (informes, artículos, reportes) con rigor científico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "A",
+    "itemNum": 12,
+    "itemTexto": "Proporciono acompañamiento para guiar procesos investigativos al estudiantado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Búsqueda y sistematización de información científica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 2,
+    "itemTexto": "Reseña académica.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 3,
+    "itemTexto": "Ensayo teórico.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 4,
+    "itemTexto": "Aula invertida.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 5,
+    "itemTexto": "Aprendizaje Basado en Problemas.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 6,
+    "itemTexto": "Estudio de casos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 7,
+    "itemTexto": "Aprendizaje Basado en Proyectos.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 8,
+    "itemTexto": "Preseminario investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 9,
+    "itemTexto": "Ensayo teórico con esquema investigativo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 10,
+    "itemTexto": "Semilleros o grupos de investigación.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 11,
+    "itemTexto": "Prácticas de campo.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 12,
+    "itemTexto": "Elaboración de informes.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 13,
+    "itemTexto": "Elaboración de estado de arte.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 14,
+    "itemTexto": "Trabajo de grado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 15,
+    "itemTexto": "Trabajo cooperativo entre alumnado y profesorado.",
+    "valor": 6
+  },
+  {
+    "idDocente": "934ab3d2-30c1-4ecb-995f-ae39cfd38f38",
+    "timestamp": "2026-10-23T23:31:47.402Z",
+    "asignatura": "Evaluacion Educativa",
+    "matriz": "B",
+    "itemNum": 16,
+    "itemTexto": "Socialización y publicación de resultados de investigación.",
+    "valor": 6
+  }
+]

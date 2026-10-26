@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es-NI">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Investigación Formativa | FCAE - Universidad Americana</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- NAVEGACIÓN INSTITUCIONAL -->
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <div class="brand-wrapper">
+        <img src="image/UAMdoc.png" alt="UAM - Doctorado en Educación" class="header-logo">
+      </div>
+    </div>
+  </header>
+
+  <!-- BARRA DE PROGRESO FLOTANTE -->
+  <div class="sticky-progress-bar">
+    <div class="progress-container">
+      <div class="progress-metric" id="progress-text">Progreso: 0%</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar"></div>
+      </div>
+      <div class="progress-items-count" id="progress-count">0 completados</div>
+    </div>
+  </div>
+
+  <main class="main-container">
+
+    <!-- WIZARD STEPPER POR ETAPAS -->
+    <nav class="survey-stepper" id="survey-stepper" aria-label="Navegación de etapas de la encuesta">
+      <button type="button" class="step-item active" data-step="1" id="step-btn-1">
+        <span class="step-number">1</span>
+        <span class="step-label">Consentimiento</span>
+      </button>
+      <div class="step-divider" id="step-div-1"></div>
+
+      <button type="button" class="step-item" data-step="2" id="step-btn-2">
+        <span class="step-number">2</span>
+        <span class="step-label">Datos Generales</span>
+      </button>
+      <div class="step-divider" id="step-div-2"></div>
+
+      <button type="button" class="step-item" data-step="3" id="step-btn-3">
+        <span class="step-number">3</span>
+        <span class="step-label">Competencias</span>
+      </button>
+      <div class="step-divider" id="step-div-3"></div>
+
+      <button type="button" class="step-item" data-step="4" id="step-btn-4">
+        <span class="step-number">4</span>
+        <span class="step-label">Asignaturas y Matrices</span>
+      </button>
+      <div class="step-divider" id="step-div-4"></div>
+
+      <button type="button" class="step-item" data-step="5" id="step-btn-5">
+        <span class="step-number">5</span>
+        <span class="step-label">Valoración Entorno</span>
+      </button>
+    </nav>
+
+    <!-- BANNER DE ERRORES / AVISOS -->
+    <div id="error-banner" class="alert-box alert-danger" style="display: none;"></div>
+
+    <form id="survey-form" novalidate>
+
+      <!-- ============================================================== -->
+      <!-- ETAPA 1: CONSENTIMIENTO INFORMADO                              -->
+      <!-- ============================================================== -->
+      <div class="stage-pane active" id="stage-1">
+        <section class="section-card" id="sec-consent">
+          <div class="section-header">
+            <h2 class="section-title">Etapa 1 — Consentimiento Informado</h2>
+            <span class="section-badge">Obligatorio</span>
+          </div>
+          <div class="instruction-box"
+            style="background:#ffffff; border-left-color: var(--gold); color: var(--text-main);">
+            <p style="margin-bottom: 10px;">
+              <strong>Estimado(a) docente:</strong> Mi nombre es <strong>Marco Vinicio Sandino Castillo</strong>,
+              estudiante del programa de doctorado en Educación de la Universidad Americana. Actualmente desarrollo mi
+              tesis doctoral titulada:
+            </p>
+            <p style="margin-bottom: 10px; font-weight: 600; color: #0099A8;">
+              <em>"Modelo de gestión participativo de investigación formativa y desarrollo de competencias
+                investigativas
+                en las carreras de la FCAE-UAM"</em>.
+            </p>
+            <p style="margin-bottom: 10px;">
+              El objetivo general es diseñar un modelo de gestión participativo de investigación formativa que
+              fortalezca
+              el desarrollo de competencias investigativas en el estudiantado y las estrategias didácticas del
+              profesorado
+              en las carreras de grado de la FCAE-UAM, durante el año 2026.
+            </p>
+            <p style="margin-bottom: 10px;">
+              Solicito su apoyo para completar esta encuesta, que recoge la percepción del profesorado de la FCAE de la
+              UAM sobre competencias investigativas, estrategias de enseñanza-aprendizaje e integración de la
+              investigación formativa en la práctica curricular.
+            </p>
+            <p style="margin-bottom: 0;">
+              <strong>Tiempo estimado:</strong> 15–20 minutos. &nbsp;|&nbsp; <strong>Confidencialidad:</strong> Sus
+              respuestas serán tratadas de forma estrictamente anónima y agregada, con propósitos académicos y de
+              investigación.
+            </p>
+          </div>
+          <div class="form-group" style="margin-bottom: 0; padding: 8px 0;">
+            <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 15px;">
+              <input type="checkbox" id="chk-consent"
+                style="width: 22px; height: 22px; accent-color: #0099A8; margin-top: 1px;">
+              <span><strong>He leído la información y acepto participar voluntariamente en esta encuesta.</strong><span
+                  class="required">*</span></span>
+            </label>
+          </div>
+
+          <div class="stage-nav-bar" style="justify-content: flex-end;">
+            <button type="button" class="btn btn-primary btn-lg" id="btn-next-1">
+              Comenzar Encuesta (Datos Generales) ➜
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- ETAPA 2: DATOS GENERALES                                       -->
+      <!-- ============================================================== -->
+      <div class="stage-pane" id="stage-2">
+        <section class="section-card" id="sec-generales">
+          <div class="section-header">
+            <h2 class="section-title">Etapa 2 — Datos Generales</h2>
+            <span class="section-badge">Demografía y Trayectoria</span>
+          </div>
+          <div class="instruction-box">
+            Complete la información sociodemográfica y de trayectoria académica. Recuerde que sus respuestas son
+            confidenciales.
+          </div>
+
+          <!-- Columna de 3: Edad, Años experiencia profesional, Años experiencia docente -->
+          <div class="grid-3">
+            <div class="form-group">
+              <label for="txt-edad">Edad (años cumplidos)<span class="required">*</span></label>
+              <input type="number" id="txt-edad" class="form-control" min="20" max="80" placeholder="20 a 80" required>
+            </div>
+
+            <div class="form-group">
+              <label for="txt-exp-prof">Años de experiencia profesional<span class="required">*</span></label>
+              <input type="number" id="txt-exp-prof" class="form-control" min="0" max="70" placeholder="0 a 70"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="txt-exp-doc">Años de experiencia docente<span class="required">*</span></label>
+              <input type="number" id="txt-exp-doc" class="form-control" min="0" max="70" placeholder="0 a 70" required>
+            </div>
+          </div>
+
+          <!-- Columna de 2: Género y Grado académico máximo -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label for="cmb-genero">Género<span class="required">*</span></label>
+              <select id="cmb-genero" class="form-control" required>
+                <option value="">-- Seleccione una opción --</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="txt-grado">Grado académico máximo obtenido<span class="required">*</span></label>
+              <input type="text" id="txt-grado" class="form-control" maxlength="100"
+                placeholder="Ej. Maestría en Administración de Empresas, Doctorado en Educación..." required>
+            </div>
+          </div>
+
+          <!-- Colaboración interna -->
+          <div class="form-group yn-question-block"
+            style="padding-top: 10px; border-top: 1px solid var(--border-light);">
+            <label>En los últimos 3 años, ¿ha colaborado en proyectos de investigación de la universidad?<span
+                class="required">*</span></label>
+            <div class="yn-inline-row">
+              <div class="yn-toggle-group">
+                <label class="yn-pill yn-pill-si">
+                  <input type="radio" name="rad-colab-int" value="Sí">
+                  <span class="yn-pill-label">Sí</span>
+                </label>
+                <label class="yn-pill yn-pill-no">
+                  <input type="radio" name="rad-colab-int" value="No">
+                  <span class="yn-pill-label">No</span>
+                </label>
+              </div>
+              <div id="panel-colab-int" class="yn-inline-input-wrapper" style="display: none;">
+                <input type="text" id="txt-colab-int-cual" class="form-control yn-inline-input" maxlength="200"
+                  placeholder="¿Cuál? Especifique el proyecto o línea de investigación">
+              </div>
+              <div id="notice-colab-int" class="yn-feedback-notice yn-inline-notice" style="display: none;">
+                <span class="notice-icon">✓</span> No aplica. Continúe adelante.
+              </div>
+            </div>
+          </div>
+
+          <!-- Colaboración externa -->
+          <div class="form-group yn-question-block"
+            style="padding-top: 10px; border-top: 1px solid var(--border-light);">
+            <label>En los últimos 3 años, ¿ha colaborado en proyectos de investigación externos a la universidad?<span
+                class="required">*</span></label>
+            <div class="yn-inline-row">
+              <div class="yn-toggle-group">
+                <label class="yn-pill yn-pill-si">
+                  <input type="radio" name="rad-colab-ext" value="Sí">
+                  <span class="yn-pill-label">Sí</span>
+                </label>
+                <label class="yn-pill yn-pill-no">
+                  <input type="radio" name="rad-colab-ext" value="No">
+                  <span class="yn-pill-label">No</span>
+                </label>
+              </div>
+              <div id="panel-colab-ext" class="yn-inline-input-wrapper" style="display: none;">
+                <input type="text" id="txt-colab-ext-cual" class="form-control yn-inline-input" maxlength="200"
+                  placeholder="¿Cuál? Especifique institución u organismo patrocinador">
+              </div>
+              <div id="notice-colab-ext" class="yn-feedback-notice yn-inline-notice" style="display: none;">
+                <span class="notice-icon">✓</span> No aplica. Continúe adelante.
+              </div>
+            </div>
+          </div>
+
+          <!-- Publicaciones -->
+          <div class="form-group yn-question-block"
+            style="padding-top: 10px; border-top: 1px solid var(--border-light); margin-bottom: 0;">
+            <label>En los últimos 3 años, ¿ha publicado resultados de investigación en artículos científicos?<span
+                class="required">*</span></label>
+            <div class="yn-inline-row">
+              <div class="yn-toggle-group">
+                <label class="yn-pill yn-pill-si">
+                  <input type="radio" name="rad-pub" value="Sí">
+                  <span class="yn-pill-label">Sí</span>
+                </label>
+                <label class="yn-pill yn-pill-no">
+                  <input type="radio" name="rad-pub" value="No">
+                  <span class="yn-pill-label">No</span>
+                </label>
+              </div>
+              <div id="panel-pub" class="yn-inline-input-wrapper" style="display: none;">
+                <input type="text" id="txt-pub-cual" class="form-control yn-inline-input" maxlength="300"
+                  placeholder="¿Cuál? Especifique título del artículo o revista indexada">
+              </div>
+              <div id="notice-pub" class="yn-feedback-notice yn-inline-notice" style="display: none;">
+                <span class="notice-icon">✓</span> No aplica. Continúe adelante.
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-nav-bar">
+            <button type="button" class="btn btn-secondary" id="btn-prev-2">
+              ⮜ Anterior (Consentimiento)
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-next-2">
+              Continuar a Competencias Investigativas ➜
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- ETAPA 3: COMPETENCIAS INVESTIGATIVAS DEL DOCENTE (Q3)          -->
+      <!-- ============================================================== -->
+      <div class="stage-pane" id="stage-3">
+        <section class="section-card" id="sec-q3">
+          <div class="section-header">
+            <h2 class="section-title">Etapa 3 — Competencias Investigativas del Docente (Q3)</h2>
+            <span class="section-badge">7 Ítems</span>
+          </div>
+          <div class="instruction-box">
+            Marque el grado en que está de acuerdo con las siguientes afirmaciones respecto a sus competencias
+            investigativas.
+          </div>
+          <div class="scale-legend-box">
+            <strong>Escala Likert:</strong> 1 = Totalmente en desacuerdo | 2 = En desacuerdo | 3 = Ligeramente en
+            desacuerdo | 4 = Ni de acuerdo ni en desacuerdo | 5 = Ligeramente de acuerdo | 6 = De acuerdo | 7 =
+            Totalmente
+            de acuerdo.
+          </div>
+
+          <div class="matrix-responsive-container">
+            <table class="matrix-table" id="table-q3">
+              <thead>
+                <tr>
+                  <th class="col-desc">Afirmación</th>
+                  <th class="col-opt">1<span class="scale-subtext">Tot. Desac.</span></th>
+                  <th class="col-opt">2<span class="scale-subtext">Desacuerdo</span></th>
+                  <th class="col-opt">3<span class="scale-subtext">Lig. Desac.</span></th>
+                  <th class="col-opt">4<span class="scale-subtext">Neutral</span></th>
+                  <th class="col-opt">5<span class="scale-subtext">Lig. Acuerdo</span></th>
+                  <th class="col-opt">6<span class="scale-subtext">De Acuerdo</span></th>
+                  <th class="col-opt">7<span class="scale-subtext">Tot. Acuerdo</span></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-q3"></tbody>
+            </table>
+          </div>
+
+          <div class="stage-nav-bar">
+            <button type="button" class="btn btn-secondary" id="btn-prev-3">
+              ⮜ Anterior (Datos Generales)
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-next-3">
+              Continuar a Asignaturas y Matrices ➜
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- ETAPA 4: REGISTRO DE ASIGNATURAS + MATRICES A Y B               -->
+      <!-- ============================================================== -->
+      <div class="stage-pane" id="stage-4">
+        <section class="section-card" id="sec-asignaturas-matrices">
+          <div class="section-header">
+            <h2 class="section-title">Etapa 4 — Registro de Asignaturas y Matrices de Evaluación</h2>
+            <span class="section-badge">Asignaturas + Matriz A y B</span>
+          </div>
+          <div class="instruction-box">
+            Indique las asignaturas que imparte actualmente (1 a 5). A medida que escriba, edite o elimine una
+            asignatura en el registro, se actualizarán <strong>al instante</strong> las dos tablas de evaluación:
+            <strong>Matriz A</strong> (12 ítems de práctica docente) y <strong>Matriz B</strong> (16 ítems de
+            estrategias), conservando las respuestas ya seleccionadas.
+          </div>
+
+          <!-- Selector rápido de cantidad de asignaturas -->
+          <div class="subject-qty-bar">
+            <span class="qty-title"><span class="point-number-inline">›</span> Cantidad de asignaturas a evaluar:</span>
+            <div class="subject-qty-chips" id="qty-chips">
+              <button type="button" class="btn-qty-chip" data-qty="1">1</button>
+              <button type="button" class="btn-qty-chip" data-qty="2">2</button>
+              <button type="button" class="btn-qty-chip active" data-qty="3">3</button>
+              <button type="button" class="btn-qty-chip" data-qty="4">4</button>
+              <button type="button" class="btn-qty-chip" data-qty="5">5</button>
+            </div>
+          </div>
+
+          <div id="subjects-container"></div>
+          <div id="subjects-dup-notice" class="alert-box alert-danger" style="display: none; margin-top: 8px; margin-bottom: 12px;"></div>
+
+          <div class="subject-actions-bar" style="margin-bottom: 22px;">
+            <button type="button" id="btn-add-subject" class="btn btn-secondary">
+              + Agregar otra asignatura
+            </button>
+          </div>
+
+          <!-- CONTENEDOR DE MATRICES CONSOLIDADAS CON PESTAÑAS (SECCIÓN 4) -->
+          <div id="sec-matrices">
+            <div id="matrices-render-container"></div>
+          </div>
+
+          <div class="stage-nav-bar">
+            <button type="button" class="btn btn-secondary" id="btn-prev-4">
+              ⮜ Anterior (Competencias)
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-next-4">
+              Continuar a Valoración del Entorno ➜
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- ETAPA 5: VALORACIÓN DEL ENTORNO (Q6) Y FINALIZACIÓN            -->
+      <!-- ============================================================== -->
+      <div class="stage-pane" id="stage-5">
+        <section class="section-card" id="sec-q6">
+          <div class="section-header">
+            <h2 class="section-title">Etapa 5 — Valoración del Entorno Institucional (Q6)</h2>
+            <span class="section-badge">10 Ítems • Final</span>
+          </div>
+          <div class="instruction-box">
+            Marque el grado en que está de acuerdo con las siguientes afirmaciones respecto a su valoración del entorno
+            institucional y curricular para la implementación de la investigación formativa.
+          </div>
+          <div class="scale-legend-box">
+            <strong>Escala Likert:</strong> 1 = Totalmente en desacuerdo | 2 = En desacuerdo | 3 = Ligeramente en
+            desacuerdo | 4 = Ni de acuerdo ni en desacuerdo | 5 = Ligeramente de acuerdo | 6 = De acuerdo | 7 =
+            Totalmente
+            de acuerdo.
+          </div>
+
+          <div class="matrix-responsive-container">
+            <table class="matrix-table" id="table-q6">
+              <thead>
+                <tr>
+                  <th class="col-desc">Afirmación</th>
+                  <th class="col-opt">1<span class="scale-subtext">Tot. Desac.</span></th>
+                  <th class="col-opt">2<span class="scale-subtext">Desacuerdo</span></th>
+                  <th class="col-opt">3<span class="scale-subtext">Lig. Desac.</span></th>
+                  <th class="col-opt">4<span class="scale-subtext">Neutral</span></th>
+                  <th class="col-opt">5<span class="scale-subtext">Lig. Acuerdo</span></th>
+                  <th class="col-opt">6<span class="scale-subtext">De Acuerdo</span></th>
+                  <th class="col-opt">7<span class="scale-subtext">Tot. Acuerdo</span></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-q6"></tbody>
+            </table>
+          </div>
+
+          <div
+            style="background: #f8fcfd; border: 1px solid var(--accent-border); border-left: 4px solid #0099A8; border-radius: 6px; padding: 14px 18px; margin-top: 20px;">
+            <p style="font-size: 14px; color: var(--text-main); margin-bottom: 0;">
+              <strong>Verificación final:</strong> Al pulsar el botón <strong>"Finalizar y Enviar Encuesta"</strong>,
+              sus respuestas quedarán consolidadas en el repositorio analítico de la investigación.
+            </p>
+          </div>
+
+          <div class="stage-nav-bar">
+            <button type="button" class="btn btn-secondary" id="btn-prev-5">
+              ⮜ Anterior (Asignaturas y Matrices)
+            </button>
+            <button type="submit" id="btn-submit" class="btn btn-primary btn-lg"
+              style="box-shadow: 0 4px 12px rgba(0, 153, 168, 0.35);">
+              ✓ Finalizar y Enviar Encuesta
+            </button>
+          </div>
+        </section>
+      </div>
+
+    </form>
+
+    <!-- ============================================================== -->
+    <!-- PANTALLA Y CUADRO DE AGRADECIMIENTO POR SU TIEMPO Y EL ESTUDIO -->
+    <!-- ============================================================== -->
+    <div id="card-success" class="gratitude-card" style="display: none;">
+      <div class="gratitude-badge-wrapper">✓</div>
+      <h2 class="gratitude-title">
+        ¡Agradecimiento Sincero por su Tiempo y Colaboración!
+      </h2>
+      <p
+        style="font-size: 15.5px; color: var(--text-muted); max-width: 680px; margin: 0 auto 16px auto; line-height: 1.55;">
+        Sus respuestas han sido registradas exitosamente con estricto anonimato en la base de datos de la investigación.
+      </p>
+
+      <div class="gratitude-message-box">
+        <p style="margin-bottom: 12px;">
+          <strong>Estimado(a) profesor(a):</strong> Expresamos nuestro más profundo agradecimiento por dedicar su
+          valioso
+          tiempo, conocimiento y experiencia docente a completar este instrumento.
+        </p>
+        <p style="margin-bottom: 12px;">
+          Su colaboración es fundamental para el estudio de investigación doctoral:
+          <span class="gratitude-study-title">"Modelo de gestión participativo de investigación formativa y desarrollo
+            de competencias investigativas en las carreras de la FCAE-UAM"</span>.
+        </p>
+        <p style="margin-bottom: 0;">
+          Los resultados y percepciones recopilados permitirán diseñar propuestas pedagógicas orientadas a fortalecer
+          las estrategias didácticas del profesorado y el desarrollo de competencias investigativas en el estudiantado.
+        </p>
+      </div>
+
+      <div class="gratitude-receipt-box">
+        <span>Identificador único de su envío (Folio de registro):</span>
+        <code id="receipt-id">UUID-GENERADO</code>
+        <span style="display: block; font-size: 12px; margin-top: 4px; color: #64748b;" id="receipt-timestamp"></span>
+      </div>
+
+      <div class="gratitude-footer-signature">
+        <strong>Marco Vinicio Sandino Castillo</strong><br>
+        Doctorado en Educación • Tesis Doctoral 2026<br>
+        Facultad de Ciencias Administrativas y Económicas (FCAE) — Universidad Americana (UAM)
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

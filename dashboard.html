@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es-NI">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero de Resultados | Encuesta de Investigación Formativa FCAE-UAM</title>
+  <meta name="description"
+    content="Tablero analítico de la encuesta de investigación formativa FCAE-UAM: perfiles docentes, flujos, esquemas del modelo y distribución de respuestas por sección con filtros.">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="dash-shell">
+
+    <!-- ============================ BARRA LATERAL ============================ -->
+    <aside class="dash-sidebar" id="dash-sidebar">
+      <div class="sidebar-brand">
+        <img src="image/UAMdoc.png" alt="UAM - Doctorado en Educación" class="sidebar-logo">
+      </div>
+      <p class="sidebar-caption">Tablero analítico</p>
+
+      <nav class="sidebar-nav" id="sidebar-nav" aria-label="Secciones del tablero">
+        <button type="button" class="nav-item active" data-view="resumen" id="nav-resumen">
+          <span class="nav-icon">◎</span><span class="nav-text">Resumen general</span>
+        </button>
+        <button type="button" class="nav-item" data-view="flujos" id="nav-flujos">
+          <span class="nav-icon">⇄</span><span class="nav-text">Flujos y esquemas</span>
+        </button>
+        <div class="nav-group-label">Secciones del instrumento</div>
+        <button type="button" class="nav-item" data-view="q3" id="nav-q3">
+          <span class="nav-icon nav-icon-code">Q3</span><span class="nav-text">Competencias</span>
+        </button>
+        <button type="button" class="nav-item" data-view="A" id="nav-a">
+          <span class="nav-icon nav-icon-code">A</span><span class="nav-text">Práctica docente</span>
+        </button>
+        <button type="button" class="nav-item" data-view="B" id="nav-b">
+          <span class="nav-icon nav-icon-code">B</span><span class="nav-text">Estrategias</span>
+        </button>
+        <button type="button" class="nav-item" data-view="q6" id="nav-q6">
+          <span class="nav-icon nav-icon-code">Q6</span><span class="nav-text">Entorno institucional</span>
+        </button>
+        <div class="nav-group-label">Registros</div>
+        <button type="button" class="nav-item" data-view="datos" id="nav-datos">
+          <span class="nav-icon">▤</span><span class="nav-text">Datos y exportación</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" class="sidebar-link" id="link-encuesta">← Ir a la encuesta</a>
+      </div>
+    </aside>
+
+    <!-- ============================ CONTENIDO ============================ -->
+    <div class="dash-main">
+
+      <header class="dash-hero">
+        <div class="hero-text">
+          <span class="hero-kicker">Tesis doctoral · FCAE-UAM 2026</span>
+          <h1 class="hero-title">Tablero de Resultados de la Encuesta</h1>
+          <p class="hero-sub" id="hero-sub">Cargando respuestas…</p>
+        </div>
+        <div class="hero-actions">
+          <button type="button" class="btn-ghost" id="btn-refresh" title="Volver a leer los datos">⟳ Actualizar</button>
+          <button type="button" class="btn-ghost" id="btn-theme" title="Cambiar tema claro / oscuro">◐ Tema</button>
+          <button type="button" class="btn-ghost btn-ghost-danger" id="btn-eliminar-prueba" title="Eliminar datos de prueba para iniciar la recolección real">🗑 Limpiar datos de prueba</button>
+        </div>
+      </header>
+
+      <!-- FILTROS GLOBALES -->
+      <section class="filter-panel" id="filter-panel" aria-label="Filtros globales">
+        <div class="filter-head">
+          <div>
+            <h2 class="filter-title">Filtros globales</h2>
+            <p class="filter-hint">Se aplican a todas las vistas. Cada sección tiene además sus propios filtros.</p>
+          </div>
+          <div class="filter-meta">
+            <span class="filter-count" id="filter-count">—</span>
+            <button type="button" class="btn-link" id="btn-reset-filters">Limpiar filtros</button>
+          </div>
+        </div>
+        <div class="filter-grid" id="filter-grid"></div>
+        <div class="active-chips" id="active-chips"></div>
+      </section>
+
+      <!-- ESTADOS -->
+      <div class="state-box" id="state-box" hidden></div>
+
+      <!-- VISTAS -->
+      <main id="views">
+        <section class="view active" id="view-resumen" data-view="resumen"></section>
+        <section class="view" id="view-flujos" data-view="flujos"></section>
+        <section class="view" id="view-likert" data-view="likert"></section>
+        <section class="view" id="view-datos" data-view="datos"></section>
+      </main>
+
+      <footer class="dash-footer">
+        Marco Vinicio Sandino Castillo · Doctorado en Educación · Universidad Americana (UAM)
+      </footer>
+    </div>
+  </div>
+
+  <div class="dash-tooltip" id="dash-tooltip" role="tooltip"></div>
+
+  <!-- MODAL DE CONFIRMACIÓN PARA ELIMINAR DATA DE PRUEBA -->
+  <div class="modal-backdrop" id="modal-clear-data" role="dialog" aria-modal="true" aria-labelledby="modal-clear-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-danger">⚠️</div>
+        <div class="modal-header-text">
+          <h3 class="modal-title" id="modal-clear-title">Eliminar data de prueba</h3>
+          <p class="modal-subtitle">Preparar plataforma para la recolección real de respuestas</p>
+        </div>
+        <button type="button" class="modal-close" id="btn-close-modal" aria-label="Cerrar ventana modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-prompt">¿Deseas vaciar la base de datos de prueba para comenzar a registrar las respuestas reales de los docentes?</p>
+        
+        <div class="modal-info-box">
+          <div class="modal-stat-item">
+            <span class="modal-stat-number" id="modal-count-docentes">—</span>
+            <span class="modal-stat-label">Docentes registrados</span>
+          </div>
+          <div class="modal-stat-divider"></div>
+          <div class="modal-stat-item">
+            <span class="modal-stat-number" id="modal-count-respuestas">—</span>
+            <span class="modal-stat-label">Respuestas matrices (A/B)</span>
+          </div>
+        </div>
+
+        <ul class="modal-bullet-list">
+          <li><strong>Se limpiarán:</strong> <code>data/docentes.json</code> y <code>data/respuestas.json</code>.</li>
+          <li><strong>Respaldo automático:</strong> El servidor guardará automáticamente una copia en <code>data/backups/</code> antes de vaciar.</li>
+          <li><strong>Descarga directa:</strong> Puedes descargar una copia JSON de tus datos de prueba en tu equipo antes de proceder.</li>
+        </ul>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn" id="btn-download-backup" title="Descargar archivo JSON con los datos actuales">⬇ Descargar copia JSON</button>
+        <div class="modal-actions-right">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-clear">Cancelar</button>
+          <button type="button" class="btn btn-danger-solid" id="btn-confirm-clear">
+            <span id="btn-confirm-clear-text">🗑 Sí, eliminar data de prueba</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST DE NOTIFICACIÓN -->
+  <div class="dash-toast" id="dash-toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>
