@@ -67,6 +67,28 @@ body {
   align-items: center;
 }
 
+.brand-home-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.brand-home-link:hover {
+  opacity: 0.88;
+}
+
+.brand-home-link:active {
+  transform: scale(0.985);
+}
+
+.brand-home-link:focus-visible {
+  outline: 2px solid #0099A8;
+  outline-offset: 4px;
+}
+
 .header-logo {
   height: 52px;
   width: auto;
@@ -1398,7 +1420,9 @@ input[type="checkbox"] {
   border-radius: 8px;
   padding: 12px 18px;
   display: inline-block;
-  margin: 10px 0 18px 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  margin: 10px 0 16px 0;
   font-size: 13.5px;
   color: var(--text-muted);
 }
@@ -1412,6 +1436,15 @@ input[type="checkbox"] {
   margin-top: 4px;
 }
 
+.gratitude-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 4px 0 20px 0;
+}
+
 .gratitude-footer-signature {
   font-size: 13.5px;
   color: var(--text-muted);
@@ -1421,29 +1454,515 @@ input[type="checkbox"] {
   line-height: 1.5;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .top-nav {
-    padding: 14px 16px;
+/* ==========================================================================
+   DISEÑO RESPONSIVE PARA TABLET Y MÓVIL (EXCLUSIVO DE LA ENCUESTA)
+   ========================================================================== */
+
+/* TABLETS (701px a 1024px) */
+@media (max-width: 1024px) {
+  .main-container {
+    margin: 20px auto;
+    padding: 0 16px;
   }
-  .brand-title {
-    font-size: 16px;
-  }
+
   .section-card {
-    padding: 18px 14px;
+    padding: 22px 20px;
   }
-  .section-title {
-    font-size: 17px;
+
+  .survey-stepper {
+    padding: 10px 12px;
+    gap: 4px;
   }
-  table.matrix-table th.col-opt .scale-subtext {
+
+  .step-item {
+    padding: 6px 8px;
+    gap: 6px;
+  }
+
+  .step-number {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .step-label {
+    font-size: 12px;
+  }
+
+  .step-divider {
+    min-width: 8px;
+    margin: 0 2px;
+  }
+
+  table.matrix-table-unified th.col-item-text {
+    min-width: 240px;
+    width: 35%;
+  }
+
+  table.matrix-table-unified th.col-subject-eval {
+    min-width: 165px;
+    padding: 10px;
+  }
+
+  select.matrix-select {
+    min-width: 145px;
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MÓVILES Y TABLETS VERTICALES COMPACTAS (hasta 700px) */
+@media (max-width: 700px) {
+  body {
+    padding-bottom: 48px;
+  }
+
+  .top-nav {
+    padding: 10px 14px;
+  }
+
+  .header-logo {
+    height: 44px;
+  }
+
+  /* Barra de progreso flotante en 2 líneas limpias sin desborde */
+  .sticky-progress-bar {
+    padding: 8px 14px;
+  }
+
+  .progress-container {
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+
+  .progress-metric {
+    min-width: 0;
+    font-size: 13px;
+    order: 1;
+  }
+
+  .progress-items-count {
+    font-size: 12px;
+    margin-left: auto;
+    order: 2;
+  }
+
+  .progress-track {
+    flex: 1 1 100%;
+    width: 100%;
+    height: 8px;
+    order: 3;
+  }
+
+  /* Stepper adaptable: números visibles en las 5 etapas y etiqueta en la etapa activa */
+  .survey-stepper {
+    padding: 8px 10px;
+    margin-bottom: 16px;
+    gap: 4px;
+    scrollbar-width: none;
+  }
+
+  .survey-stepper::-webkit-scrollbar {
     display: none;
   }
-  table.matrix-table th.col-opt {
-    font-size: 11px;
-    padding: 8px 3px;
+
+  .step-item {
+    padding: 5px 6px;
+    gap: 6px;
+    flex-shrink: 0;
   }
-  .progress-metric {
-    min-width: 90px;
+
+  .step-item:not(.active) .step-label {
+    display: none;
+  }
+
+  .step-item.active {
+    background: var(--accent);
+    border: 1px solid var(--accent-border);
+    padding: 5px 10px;
+  }
+
+  .step-divider {
+    min-width: 6px;
+    margin: 0 1px;
+  }
+
+  /* Contenedores y encabezados de tarjeta */
+  .main-container {
+    margin: 14px auto;
+    padding: 0 10px;
+  }
+
+  .section-card {
+    padding: 18px 14px;
+    margin-bottom: 18px;
+  }
+
+  .section-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px 10px;
+  }
+
+  .section-title {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .instruction-box {
+    padding: 10px 12px;
+    font-size: 13.5px;
+    margin-bottom: 16px;
+  }
+
+  .scale-legend-box {
+    padding: 9px 12px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Campos de formulario (16px previene zoom automático en iOS Safari) */
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .form-control {
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  /* Bloques Sí / No en Etapa 2 apilados ergonómicamente */
+  .yn-inline-row {
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .yn-toggle-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .yn-pill {
+    display: flex;
+    width: 100%;
+  }
+
+  .yn-pill-label {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .yn-inline-input-wrapper {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .yn-inline-input {
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .yn-inline-notice {
+    width: 100%;
+    white-space: normal;
+    height: auto;
+    min-height: 38px;
+    line-height: 1.35;
+  }
+
+  /* Tablas Likert (Etapa 3 Q3 y Etapa 5 Q6) convertidas en tarjetas táctiles 1-7 sin scroll lateral */
+  .matrix-responsive-container {
+    border: none;
+    background: transparent;
+    overflow-x: visible;
+    margin-bottom: 18px;
+  }
+
+  table.matrix-table {
+    min-width: 0;
+    width: 100%;
+    display: block;
+  }
+
+  table.matrix-table thead {
+    display: none;
+  }
+
+  table.matrix-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  table.matrix-table tr {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 153, 168, 0.06);
+  }
+
+  table.matrix-table tr:nth-child(even) td,
+  table.matrix-table tr:hover td {
+    background-color: transparent;
+  }
+
+  table.matrix-table td.desc-cell {
+    grid-column: 1 / -1;
+    background-color: #f8fcfd !important;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-light);
+    border-right: none;
+    font-size: 13.8px;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+
+  table.matrix-table td:not(.desc-cell) {
+    padding: 6px 2px;
+    border-bottom: none;
+    border-right: 1px solid var(--border-light);
+  }
+
+  table.matrix-table td:last-child {
+    border-right: none;
+  }
+
+  .cell-radio-label {
+    flex-direction: column;
+    gap: 4px;
+    min-height: 48px;
+    padding: 4px 0;
+  }
+
+  .cell-radio-label:hover {
+    transform: none;
+  }
+
+  .cell-radio-label::after {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    line-height: 1;
+  }
+
+  table.matrix-table td:nth-child(2) .cell-radio-label::after { content: "1"; }
+  table.matrix-table td:nth-child(3) .cell-radio-label::after { content: "2"; }
+  table.matrix-table td:nth-child(4) .cell-radio-label::after { content: "3"; }
+  table.matrix-table td:nth-child(5) .cell-radio-label::after { content: "4"; }
+  table.matrix-table td:nth-child(6) .cell-radio-label::after { content: "5"; }
+  table.matrix-table td:nth-child(7) .cell-radio-label::after { content: "6"; }
+  table.matrix-table td:nth-child(8) .cell-radio-label::after { content: "7"; }
+
+  table.matrix-table td:not(.desc-cell):has(input:checked) {
+    background-color: var(--accent) !important;
+  }
+
+  table.matrix-table td:not(.desc-cell):has(input:checked) .cell-radio-label::after {
+    color: #007783;
+  }
+
+  /* Etapa 4: Registro de Asignaturas y Matrices A y B en tarjetas táctiles por ítem */
+  .subject-qty-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .subject-qty-chips {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .btn-qty-chip {
+    flex: 1;
+    max-width: 54px;
+    height: 40px;
+  }
+
+  .subject-row {
+    gap: 8px;
+  }
+
+  .subject-index-badge {
+    width: 30px;
+    height: 30px;
     font-size: 13px;
+  }
+
+  .subject-row .btn-delete-subject {
+    padding: 9px 11px;
+    font-size: 13px;
+    min-height: 44px;
+    flex-shrink: 0;
+  }
+
+  .subject-actions-bar .btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .matrices-sync-bar {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .matrix-heading {
+    font-size: 15.5px;
+    line-height: 1.35;
+  }
+
+  .matrix-table-scroll-wrapper {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    overflow-x: visible;
+    margin-bottom: 20px;
+  }
+
+  table.matrix-table-unified,
+  table.matrix-table-unified tbody {
+    display: block;
+    width: 100%;
+  }
+
+  table.matrix-table-unified thead {
+    display: none;
+  }
+
+  table.matrix-table-unified tr {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #ffffff;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 153, 168, 0.06);
+  }
+
+  table.matrix-table-unified td.item-desc-cell {
+    display: block;
+    background: #f8fcfd;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-light);
+    border-right: none;
+    font-size: 13.8px;
+    line-height: 1.45;
+  }
+
+  table.matrix-table-unified td.cell-matrix-eval {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 10px 14px;
+    text-align: left;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  table.matrix-table-unified td.cell-matrix-eval:last-child {
+    border-bottom: none;
+  }
+
+  table.matrix-table-unified td.cell-matrix-eval::before {
+    content: attr(data-subject-label);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #007783;
+    line-height: 1.3;
+  }
+
+  select.matrix-select {
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+    padding: 9px 12px;
+  }
+
+  /* Navegación de etapas apilada (acción principal arriba al alcance del pulgar) */
+  .stage-nav-bar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 16px;
+  }
+
+  .stage-nav-bar .btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    font-size: 15px;
+  }
+
+  /* Tarjeta final de agradecimiento en móvil */
+  .gratitude-card {
+    padding: 26px 16px;
+  }
+
+  .gratitude-badge-wrapper {
+    width: 62px;
+    height: 62px;
+    font-size: 30px;
+    margin-bottom: 14px;
+  }
+
+  .gratitude-title {
+    font-size: 21px;
+  }
+
+  .gratitude-message-box {
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .gratitude-receipt-box {
+    display: block;
+    width: 100%;
+    padding: 12px;
+  }
+
+  .gratitude-receipt-box code {
+    font-size: 13.5px;
+    word-break: break-all;
+  }
+
+  .gratitude-actions .btn {
+    width: 100%;
+    min-height: 46px;
+  }
+}
+
+/* MÓVILES MUY PEQUEÑOS (hasta 400px) */
+@media (max-width: 400px) {
+  .header-logo {
+    height: 38px;
+  }
+
+  .step-item.active .step-label {
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .section-card {
+    padding: 15px 12px;
   }
 }

@@ -14,8 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Almacén reactivo de respuestas por ID único de fila de asignatura (conserva selecciones al editar/eliminar)
   const estadoRespuestasMatrices = {};
 
+  // Constantes de sincronización en vivo con el tablero (dashboard.html)
+  const SYNC_CHANNEL_NAME = 'encuesta_fcae_sync_v1';
+  const LS_SYNC_PING_KEY = 'encuesta_fcae_last_sync_v1';
+  const LS_LOCAL_SUBMISSIONS_KEY = 'encuesta_fcae_envios_locales_v1';
+
   // Elementos DOM principales
   const form = document.getElementById('survey-form');
+  const brandHomeLink = document.getElementById('brand-home-link');
+  const btnRestartSurvey = document.getElementById('btn-restart-survey');
   const chkConsent = document.getElementById('chk-consent');
   const btnSubmit = document.getElementById('btn-submit');
   const btnAddSubject = document.getElementById('btn-add-subject');
@@ -573,7 +580,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (nameEl) nameEl.textContent = nombreCorto;
       });
 
-      // Actualizar atributos aria-label de los desplegables de esa columna
+      // Actualizar etiquetas responsivas móviles en celdas <td> y aria-label en desplegables
+      const etiquetaMovil = 'Asignatura ' + (j + 1) + ': ' + truncarTexto(asig.nombre, 34);
+      const cellsCol = matricesContainer.querySelectorAll('td.cell-matrix-eval[data-col-subject-id="' + sid + '"]');
+      cellsCol.forEach(function(td) {
+        td.setAttribute('data-subject-label', etiquetaMovil);
+      });
+
       const selectsCol = matricesContainer.querySelectorAll('select.matrix-select[data-subject-id="' + sid + '"]');
       selectsCol.forEach(function(sel) {
         const itemIdx = parseInt(sel.getAttribute('data-item'), 10);
@@ -641,7 +654,8 @@ document.addEventListener('DOMContentLoaded', function() {
       activas.forEach(function(asig, j) {
         const guardadoA = (estadoRespuestasMatrices[asig.id] && estadoRespuestasMatrices[asig.id].A[i]) || '';
         const clsSelectedA = guardadoA ? ' is-selected' : '';
-        htmlA += '<td class="cell-matrix-eval" id="cell-A-' + i + '-' + j + '">' +
+        const etiquetaMovilA = 'Asignatura ' + (j + 1) + ': ' + truncarTexto(asig.nombre, 34);
+        htmlA += '<td class="cell-matrix-eval" id="cell-A-' + i + '-' + j + '" data-col-subject-id="' + escapeHtml(asig.id) + '" data-subject-label="' + escapeHtml(etiquetaMovilA) + '">' +
           '<select name="A_ITEM' + i + '_' + j + '" id="sel-A-' + i + '-' + j + '" data-subject-id="' + escapeHtml(asig.id) + '" data-matriz="A" data-item="' + i + '" class="form-control matrix-select' + clsSelectedA + '" aria-label="Evaluación ' + escapeHtml(asig.nombre) + ' Ítem ' + (i + 1) + '">' +
             '<option value="">-- Seleccionar (1-7) --</option>';
         for (let v = 1; v <= 7; v++) {
@@ -689,7 +703,8 @@ document.addEventListener('DOMContentLoaded', function() {
       activas.forEach(function(asig, j) {
         const guardadoB = (estadoRespuestasMatrices[asig.id] && estadoRespuestasMatrices[asig.id].B[i]) || '';
         const clsSelectedB = guardadoB ? ' is-selected' : '';
-        htmlB += '<td class="cell-matrix-eval" id="cell-B-' + i + '-' + j + '">' +
+        const etiquetaMovilB = 'Asignatura ' + (j + 1) + ': ' + truncarTexto(asig.nombre, 34);
+        htmlB += '<td class="cell-matrix-eval" id="cell-B-' + i + '-' + j + '" data-col-subject-id="' + escapeHtml(asig.id) + '" data-subject-label="' + escapeHtml(etiquetaMovilB) + '">' +
           '<select name="B_ITEM' + i + '_' + j + '" id="sel-B-' + i + '-' + j + '" data-subject-id="' + escapeHtml(asig.id) + '" data-matriz="B" data-item="' + i + '" class="form-control matrix-select' + clsSelectedB + '" aria-label="Evaluación ' + escapeHtml(asig.nombre) + ' Ítem ' + (i + 1) + '">' +
             '<option value="">-- Seleccionar (1-7) --</option>';
         for (let v = 1; v <= 7; v++) {
@@ -1046,7 +1061,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const txtOriginal = btnSubmit.textContent;
     btnSubmit.textContent = 'Enviando y validando registro...';
 
-    // Envío: detecta si está en Google Apps Script o en entorno local Node.js
+    // Envío: detecta si está en Google Apps Script, servidor Node.js local o entorno estático (GitHub Pages)
     if (typeof google !== 'undefined' && google.script && google.script.run) {
       google.script.run
         .withSuccessHandler(procesarRespuestaServidor)
@@ -1057,7 +1072,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .processForm(payload);
     } else {
-      // Simulación local mediante Fetch a API local (con fallback estático para GitHub Pages)
       fetch('api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1067,12 +1081,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
-      .then(procesarRespuestaServidor)
+      .then(function(data) {
+        procesarRespuestaServidor(data);
+      })
       .catch(function() {
-        // Fallback simulación pura en cliente si no hay servidor backend levantado (ej. GitHub Pages)
+        // Entorno estático (ej. GitHub Pages o Live Server): persistir localmente con estructura idéntica al servidor para alimentar el dashboard
+        const localId = generateUuid();
+        const localTimestamp = new Date().toISOString();
+        guardarEnvioLocalParaDashboard(payload, localId, localTimestamp);
         setTimeout(function() {
-          procesarRespuestaServidor({ ok: true, id: generateUuid() });
-        }, 700);
+          procesarRespuestaServidor({ ok: true, id: localId });
+        }, 450);
       });
     }
 
@@ -1082,6 +1101,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (res && res.ok) {
         try { localStorage.removeItem('encuesta_fcae_v1'); } catch (e) {}
+        notificarDashboardEnVivo({
+          type: 'survey_submitted',
+          id: res.id,
+          ts: Date.now()
+        });
         form.style.display = 'none';
         if (stepperNav) stepperNav.style.display = 'none';
         successCard.style.display = 'block';
@@ -1098,6 +1122,148 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+
+  // Notifica al instante al Tablero de Resultados (dashboard.html) abierto en otra pestaña o ventana
+  function notificarDashboardEnVivo(evento) {
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel(SYNC_CHANNEL_NAME);
+        bc.postMessage(evento);
+        bc.close();
+      }
+    } catch (e) {}
+    try {
+      localStorage.setItem(LS_SYNC_PING_KEY, JSON.stringify(evento));
+    } catch (e) {}
+  }
+
+  // Persiste la respuesta en formato docente + matriz larga (N x 28) cuando se ejecuta sin backend Node (ej. GitHub Pages)
+  function guardarEnvioLocalParaDashboard(payload, respondentId, timestamp) {
+    try {
+      let store = { docentes: [], respuestas: [] };
+      const raw = localStorage.getItem(LS_LOCAL_SUBMISSIONS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.docentes) && Array.isArray(parsed.respuestas)) {
+          store = parsed;
+        }
+      }
+
+      store.docentes.push({
+        id: respondentId,
+        timestamp: timestamp,
+        edad: payload.edad,
+        genero: payload.genero,
+        expProfesional: payload.expProfesional,
+        expDocente: payload.expDocente,
+        gradoAcademico: payload.gradoAcademico,
+        colabInterna: payload.colabInterna,
+        colabInternaCual: payload.colabInternaCual,
+        colabExterna: payload.colabExterna,
+        colabExternaCual: payload.colabExternaCual,
+        publicaciones: payload.publicaciones,
+        publicacionesCual: payload.publicacionesCual,
+        q3: payload.q3,
+        q6: payload.q6,
+        totalAsignaturas: payload.asignaturas ? payload.asignaturas.length : 0
+      });
+
+      if (Array.isArray(payload.matrices)) {
+        payload.matrices.forEach(function(asigObj) {
+          const asigNombre = asigObj.asignatura;
+          if (Array.isArray(asigObj.matrizA)) {
+            asigObj.matrizA.forEach(function(it) {
+              store.respuestas.push({
+                idDocente: respondentId,
+                timestamp: timestamp,
+                asignatura: asigNombre,
+                matriz: 'A',
+                itemNum: it.num,
+                itemTexto: it.texto,
+                valor: it.valor
+              });
+            });
+          }
+          if (Array.isArray(asigObj.matrizB)) {
+            asigObj.matrizB.forEach(function(it) {
+              store.respuestas.push({
+                idDocente: respondentId,
+                timestamp: timestamp,
+                asignatura: asigNombre,
+                matriz: 'B',
+                itemNum: it.num,
+                itemTexto: it.texto,
+                valor: it.valor
+              });
+            });
+          }
+        });
+      }
+
+      localStorage.setItem(LS_LOCAL_SUBMISSIONS_KEY, JSON.stringify(store));
+    } catch (e) {}
+  }
+
+  // Reinicia completamente el instrumento para permitir un nuevo llenado limpio desde la Etapa 1
+  function reiniciarEncuestaCompleta() {
+    try { localStorage.removeItem('encuesta_fcae_v1'); } catch (e) {}
+    ocultarError();
+    form.reset();
+
+    // Ocultar paneles y avisos condicionales Sí/No
+    ['panel-colab-int', 'notice-colab-int', 'panel-colab-ext', 'notice-colab-ext', 'panel-pub', 'notice-pub'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+
+    document.querySelectorAll('.is-invalid, .has-error, .is-selected').forEach(function(el) {
+      el.classList.remove('is-invalid', 'has-error', 'is-selected');
+    });
+
+    // Reiniciar estado de asignaturas y matrices A y B (3 filas vacías por defecto)
+    Object.keys(estadoRespuestasMatrices).forEach(function(k) {
+      delete estadoRespuestasMatrices[k];
+    });
+    subjectsContainer.innerHTML = '';
+    matricesGeneradas = false;
+    asignaturasActivas = [];
+    idsAsignaturasRenderizadas = [];
+    for (let i = 0; i < 3; i++) {
+      crearFilaAsignatura('', true);
+    }
+    renumerarFilasAsignatura();
+
+    // Restaurar visibilidad del asistente y posicionarse en Etapa 1
+    successCard.style.display = 'none';
+    form.style.display = 'block';
+    if (stepperNav) stepperNav.style.display = '';
+
+    for (let i = 1; i <= TOTAL_ETAPAS; i++) {
+      const pane = document.getElementById('stage-' + i);
+      if (pane) {
+        if (i === 1) pane.classList.add('active');
+        else pane.classList.remove('active');
+      }
+    }
+    etapaActual = 1;
+    actualizarStepperUI(1);
+    calcularProgreso();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (btnRestartSurvey) {
+    btnRestartSurvey.addEventListener('click', reiniciarEncuestaCompleta);
+  }
+
+  // Recargar inicio al pulsar el logo institucional UAM Doctorado
+  if (brandHomeLink) {
+    brandHomeLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      try { localStorage.removeItem('encuesta_fcae_v1'); } catch (err) {}
+      window.scrollTo(0, 0);
+      window.location.href = window.location.pathname;
+    });
+  }
 
   function mostrarError(msg, target) {
     errorBanner.textContent = msg;

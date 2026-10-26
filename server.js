@@ -26,9 +26,38 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml'
 };
 
+// Clientes suscritos por Server-Sent Events (SSE) para actualizar el dashboard al instante
+const sseClients = new Set();
+
+function notificarClientesSSE(evento) {
+  const dataStr = `data: ${JSON.stringify(evento)}\n\n`;
+  sseClients.forEach(clientRes => {
+    try {
+      clientRes.write(dataStr);
+    } catch (e) {
+      sseClients.delete(clientRes);
+    }
+  });
+}
+
 const server = http.createServer((req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   const pathname = parsedUrl.pathname;
+
+  // Endpoint SSE: Canal en tiempo real para actualización automática del dashboard
+  if (req.method === 'GET' && pathname === '/api/events') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream; charset=UTF-8',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive'
+    });
+    res.write(`data: ${JSON.stringify({ type: 'connected', ts: Date.now() })}\n\n`);
+    sseClients.add(res);
+    req.on('close', () => {
+      sseClients.delete(res);
+    });
+    return;
+  }
 
   // Endpoint API: Recepción de respuestas
   if (req.method === 'POST' && pathname === '/api/submit') {
@@ -109,6 +138,7 @@ const server = http.createServer((req, res) => {
         fs.writeFileSync(respuestasFile, JSON.stringify(respuestasList, null, 2), 'utf8');
 
         console.log(`[SUBMIT OK] Docente registrado: ${respondentId} | Asignaturas: ${payload.asignaturas.length} | Filas generadas: ${(payload.asignaturas.length * 28)}`);
+        notificarClientesSSE({ type: 'survey_submitted', id: respondentId, timestamp: timestamp });
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true, id: respondentId }));
@@ -180,6 +210,7 @@ const server = http.createServer((req, res) => {
       fs.writeFileSync(respuestasFile, JSON.stringify([], null, 2), 'utf8');
 
       console.log(`[RESET OK] Data de prueba eliminada (${conteoDocentes} docentes, ${conteoRespuestas} respuestas respaldados en /data/backups/). Plataforma lista para recibir datos reales.`);
+      notificarClientesSSE({ type: 'data_reset', timestamp: new Date().toISOString() });
 
       res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
       res.end(JSON.stringify({

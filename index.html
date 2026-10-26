@@ -14,7 +14,10 @@
   <header class="top-nav">
     <div class="top-nav-inner">
       <div class="brand-wrapper">
-        <img src="image/UAMdoc.png" alt="UAM - Doctorado en Educación" class="header-logo">
+        <a href="index.html" id="brand-home-link" class="brand-home-link" title="Volver al inicio de la encuesta"
+          aria-label="Recargar el inicio de la encuesta">
+          <img src="image/UAMdoc.png" alt="UAM - Doctorado en Educación" class="header-logo">
+        </a>
       </div>
     </div>
   </header>
@@ -119,7 +122,7 @@
 
           <div class="stage-nav-bar" style="justify-content: flex-end;">
             <button type="button" class="btn btn-primary btn-lg" id="btn-next-1">
-              Comenzar Encuesta (Datos Generales) ➜
+              Comenzar Encuesta ➜
             </button>
           </div>
         </section>
@@ -256,10 +259,10 @@
 
           <div class="stage-nav-bar">
             <button type="button" class="btn btn-secondary" id="btn-prev-2">
-              ⮜ Anterior (Consentimiento)
+              ⮜ Volver
             </button>
             <button type="button" class="btn btn-primary" id="btn-next-2">
-              Continuar a Competencias Investigativas ➜
+              Siguiente ➜
             </button>
           </div>
         </section>
@@ -305,10 +308,10 @@
 
           <div class="stage-nav-bar">
             <button type="button" class="btn btn-secondary" id="btn-prev-3">
-              ⮜ Anterior (Datos Generales)
+              ⮜ Volver
             </button>
             <button type="button" class="btn btn-primary" id="btn-next-3">
-              Continuar a Asignaturas y Matrices ➜
+              Siguiente ➜
             </button>
           </div>
         </section>
@@ -358,10 +361,10 @@
 
           <div class="stage-nav-bar">
             <button type="button" class="btn btn-secondary" id="btn-prev-4">
-              ⮜ Anterior (Competencias)
+              ⮜ Volver
             </button>
             <button type="button" class="btn btn-primary" id="btn-next-4">
-              Continuar a Valoración del Entorno ➜
+              Siguiente
             </button>
           </div>
         </section>
@@ -415,11 +418,11 @@
 
           <div class="stage-nav-bar">
             <button type="button" class="btn btn-secondary" id="btn-prev-5">
-              ⮜ Anterior (Asignaturas y Matrices)
+              ⮜ Volver
             </button>
             <button type="submit" id="btn-submit" class="btn btn-primary btn-lg"
               style="box-shadow: 0 4px 12px rgba(0, 153, 168, 0.35);">
-              ✓ Finalizar y Enviar Encuesta
+              ✓ Finalizar y Enviar
             </button>
           </div>
         </section>
@@ -461,6 +464,12 @@
         <span>Identificador único de su envío (Folio de registro):</span>
         <code id="receipt-id">UUID-GENERADO</code>
         <span style="display: block; font-size: 12px; margin-top: 4px; color: #64748b;" id="receipt-timestamp"></span>
+      </div>
+
+      <div class="gratitude-actions">
+        <button type="button" id="btn-restart-survey" class="btn btn-primary btn-lg">
+          ↺ Volver a iniciar encuesta
+        </button>
       </div>
 
       <div class="gratitude-footer-signature">

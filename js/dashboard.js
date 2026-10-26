@@ -1612,6 +1612,66 @@
     if (modal) modal.hidden = true;
   }
 
+  const SYNC_CHANNEL_NAME = 'encuesta_fcae_sync_v1';
+  const LS_SYNC_PING_KEY = 'encuesta_fcae_last_sync_v1';
+  const LS_LOCAL_SUBMISSIONS_KEY = 'encuesta_fcae_envios_locales_v1';
+  const LS_BASELINE_CLEARED_KEY = 'encuesta_fcae_baseline_cleared_v1';
+
+  let modoServidorActivo = false;
+  let sseStream = null;
+  let syncDebounceTimer = null;
+  let ultimoSyncTs = 0;
+
+  function leerEnviosLocales() {
+    try {
+      const raw = localStorage.getItem(LS_LOCAL_SUBMISSIONS_KEY);
+      if (!raw) return { docentes: [], respuestas: [] };
+      const parsed = JSON.parse(raw);
+      return {
+        docentes: Array.isArray(parsed && parsed.docentes) ? parsed.docentes : [],
+        respuestas: Array.isArray(parsed && parsed.respuestas) ? parsed.respuestas : []
+      };
+    } catch (e) {
+      return { docentes: [], respuestas: [] };
+    }
+  }
+
+  function combinarDatosConLocales(base) {
+    const locales = leerEnviosLocales();
+    const baseDocentes = Array.isArray(base && base.docentes) ? base.docentes : [];
+    const baseRespuestas = Array.isArray(base && base.respuestas) ? base.respuestas : [];
+    if (!locales.docentes.length) {
+      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas };
+    }
+
+    const idsExistentes = new Set(baseDocentes.map(d => d && d.id).filter(Boolean));
+    const nuevosDocentes = locales.docentes.filter(d => d && d.id && !idsExistentes.has(d.id));
+    if (!nuevosDocentes.length) {
+      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas };
+    }
+
+    const idsNuevos = new Set(nuevosDocentes.map(d => d.id));
+    const nuevasRespuestas = locales.respuestas.filter(r => r && idsNuevos.has(r.idDocente));
+    return {
+      generado: new Date().toISOString(),
+      docentes: baseDocentes.concat(nuevosDocentes),
+      respuestas: baseRespuestas.concat(nuevasRespuestas)
+    };
+  }
+
+  function emitirSyncTablero(evento) {
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel(SYNC_CHANNEL_NAME);
+        bc.postMessage(evento);
+        bc.close();
+      }
+    } catch (e) {}
+    try {
+      localStorage.setItem(LS_SYNC_PING_KEY, JSON.stringify(evento));
+    } catch (e) {}
+  }
+
   async function ejecutarEliminarDataPrueba() {
     const btnConfirm = $('#btn-confirm-clear');
     const txtConfirm = $('#btn-confirm-clear-text');
@@ -1621,13 +1681,34 @@
     }
     if (txtConfirm) txtConfirm.textContent = '⏳ Eliminando y respaldando…';
 
-    try {
-      const resp = await fetch('/api/reset', { method: 'POST' });
-      const data = await resp.json().catch(() => ({}));
+    const cantActual = state.docentes.length;
 
-      if (!resp.ok || !data.ok) {
-        throw new Error(data.error || `Error ${resp.status} al eliminar datos`);
-      }
+    try {
+      let limpioEnServidor = false;
+      let cantDoc = cantActual;
+
+      try {
+        const resp = await fetch('api/reset', { method: 'POST' });
+        const data = await resp.json().catch(() => ({}));
+        if (resp.ok && data.ok) {
+          limpioEnServidor = true;
+          if (data.eliminados && typeof data.eliminados.docentes === 'number') {
+            cantDoc = data.eliminados.docentes;
+          }
+        }
+      } catch (e) { /* modo estático / GitHub Pages */ }
+
+      try {
+        localStorage.removeItem(LS_LOCAL_SUBMISSIONS_KEY);
+        if (limpioEnServidor) {
+          localStorage.removeItem(LS_BASELINE_CLEARED_KEY);
+        } else {
+          localStorage.setItem(LS_BASELINE_CLEARED_KEY, '1');
+        }
+      } catch (e) {}
+
+      ultimoSyncTs = Date.now();
+      emitirSyncTablero({ type: 'data_reset', ts: ultimoSyncTs });
 
       cerrarModalEliminar();
 
@@ -1641,8 +1722,10 @@
 
       $('#hero-sub').textContent = '0 docentes · 0 asignaturas distintas · Base de datos limpia y lista para datos reales';
 
-      const cantDoc = data.eliminados ? data.eliminados.docentes : 'prueba';
-      mostrarToast(`✅ <strong>Base de datos limpia:</strong> Se eliminaron ${cantDoc} registros de prueba. Se guardó un respaldo automático en <code>data/backups/</code>. ¡Listo para recibir datos reales!`, 7500);
+      const detalleRespaldo = limpioEnServidor
+        ? 'Se guardó un respaldo automático en <code>data/backups/</code>.'
+        : 'Registros locales limpiados en este navegador.';
+      mostrarToast(`✅ <strong>Base de datos limpia:</strong> Se eliminaron ${cantDoc} registros de prueba. ${detalleRespaldo} ¡Listo para recibir datos reales!`, 7500);
     } catch (err) {
       console.error(err);
       mostrarToast(`❌ <strong>Error al vaciar datos:</strong> ${esc(err.message)}`, 6000);
@@ -1656,7 +1739,7 @@
   }
 
   // ==========================================================================
-  // 13. CARGA DE DATOS
+  // 13. CARGA DE DATOS Y SINCRONIZACIÓN AUTOMÁTICA EN TIEMPO REAL
   // ==========================================================================
   async function fetchJSON(url) {
     const r = await fetch(url, { cache: 'no-store' });
@@ -1664,17 +1747,115 @@
     return r.json();
   }
 
+  function asegurarConexionSSE() {
+    if (!modoServidorActivo || sseStream || typeof EventSource === 'undefined') return;
+    try {
+      sseStream = new EventSource('api/events');
+      sseStream.onmessage = ev => {
+        try {
+          const msg = JSON.parse(ev.data || '{}');
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset') {
+            programarActualizacionEnVivo(msg.type);
+          }
+        } catch (e) {}
+      };
+      sseStream.onerror = () => {
+        if (sseStream) {
+          sseStream.close();
+          sseStream = null;
+        }
+      };
+    } catch (e) {}
+  }
+
+  function programarActualizacionEnVivo(tipo) {
+    clearTimeout(syncDebounceTimer);
+    syncDebounceTimer = setTimeout(async () => {
+      await cargar();
+      if (tipo === 'survey_submitted') {
+        mostrarToast('✨ <strong>Nueva encuesta finalizada:</strong> El tablero se actualizó automáticamente con el nuevo registro.', 5500);
+      } else if (tipo === 'data_reset') {
+        mostrarToast('ℹ️ <strong>Base de datos reiniciada:</strong> El tablero se ha sincronizado.', 4500);
+      }
+    }, 220);
+  }
+
+  function iniciarEscuchaEnVivo() {
+    try {
+      const r = localStorage.getItem(LS_SYNC_PING_KEY);
+      if (r) ultimoSyncTs = (JSON.parse(r) || {}).ts || 0;
+    } catch (e) {}
+
+    // 1. BroadcastChannel entre pestañas del mismo navegador (instantáneo en local y GitHub Pages)
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        const bc = new BroadcastChannel(SYNC_CHANNEL_NAME);
+        bc.onmessage = ev => {
+          const msg = ev && ev.data;
+          if (!msg || !msg.type) return;
+          if (msg.ts && msg.ts <= ultimoSyncTs) return;
+          if (msg.ts) ultimoSyncTs = msg.ts;
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset') {
+            programarActualizacionEnVivo(msg.type);
+          }
+        };
+      }
+    } catch (e) {}
+
+    // 2. Respaldo por evento storage entre ventanas/pestañas
+    window.addEventListener('storage', e => {
+      if (e.key === LS_SYNC_PING_KEY && e.newValue) {
+        try {
+          const msg = JSON.parse(e.newValue);
+          if (msg && msg.ts && msg.ts > ultimoSyncTs) {
+            ultimoSyncTs = msg.ts;
+            programarActualizacionEnVivo(msg.type);
+          }
+        } catch (err) {}
+      } else if (e.key === LS_LOCAL_SUBMISSIONS_KEY) {
+        programarActualizacionEnVivo('survey_submitted');
+      }
+    });
+
+    // 3. Al volver a enfocar la pestaña del dashboard, verificar si hubo envíos recientes
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState !== 'visible') return;
+      try {
+        const raw = localStorage.getItem(LS_SYNC_PING_KEY);
+        if (raw) {
+          const msg = JSON.parse(raw);
+          if (msg && msg.ts && msg.ts > ultimoSyncTs) {
+            ultimoSyncTs = msg.ts;
+            programarActualizacionEnVivo(msg.type);
+          }
+        }
+      } catch (e) {}
+    });
+  }
+
   async function obtenerDatos() {
     if (typeof google !== 'undefined' && google.script && google.script.run) {
       return new Promise((res, rej) => google.script.run.withSuccessHandler(res).withFailureHandler(rej).getDashboardData());
     }
     try {
-      const j = await fetchJSON('/api/resultados');
-      if (j && Array.isArray(j.docentes)) return j;
-    } catch (e) { /* se intenta con los archivos estáticos */ }
-    const docentes = await fetchJSON('data/docentes.json');
-    const respuestas = await fetchJSON('data/respuestas.json').catch(() => []);
-    return { docentes, respuestas };
+      const j = await fetchJSON('api/resultados');
+      if (j && Array.isArray(j.docentes)) {
+        modoServidorActivo = true;
+        asegurarConexionSSE();
+        return combinarDatosConLocales(j);
+      }
+    } catch (e) {
+      modoServidorActivo = false;
+    }
+
+    let baseEst = { docentes: [], respuestas: [] };
+    const limpiadoLocal = leerLS(LS_BASELINE_CLEARED_KEY) === '1';
+    if (!limpiadoLocal) {
+      const docentes = await fetchJSON('data/docentes.json');
+      const respuestas = await fetchJSON('data/respuestas.json').catch(() => []);
+      baseEst = { docentes, respuestas };
+    }
+    return combinarDatosConLocales(baseEst);
   }
 
   async function cargar() {
@@ -1824,6 +2005,7 @@
       box.hidden = false;
       box.innerHTML = '<strong>No se pudo cargar la librería de gráficos</strong>Verifique la conexión a Internet (Chart.js se carga desde jsDelivr).';
     }
+    iniciarEscuchaEnVivo();
     cargar();
   }
 
