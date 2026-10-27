@@ -2,6 +2,9 @@
 # CLOUDFLARE PAGES - REDIRECCIONES Y RUTAS LIMPIAS
 # ==============================================================================
 
-/dashboard    /dashboard.html   200
-/encuesta     /index.html       200
-
+/dashboard      /dashboard.html   302
+/dashboard/     /dashboard.html   302
+/tablero        /dashboard.html   302
+/tablero/       /dashboard.html   302
+/encuesta       /index.html       302
+/encuesta/      /index.html       302
