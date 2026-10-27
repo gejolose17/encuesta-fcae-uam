@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const txtColabExtCual = document.getElementById('txt-colab-ext-cual');
       if (radExt.value === 'Sí' && !txtColabExtCual.value.trim()) {
         txtColabExtCual.classList.add('is-invalid');
-        mostrarError('Especifique el organismo o institución patrocinadora externa.', txtColabExtCual);
+        mostrarError('Especifique el proyecto o línea de investigación externa en el campo correspondiente.', txtColabExtCual);
         return false;
       }
 
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const txtPubCual = document.getElementById('txt-pub-cual');
       if (radPub.value === 'Sí' && !txtPubCual.value.trim()) {
         txtPubCual.classList.add('is-invalid');
-        mostrarError('Especifique el título o revista indexada de su publicación.', txtPubCual);
+        mostrarError('Especifique el proyecto o línea de investigación de su publicación en el campo correspondiente.', txtPubCual);
         return false;
       }
 
