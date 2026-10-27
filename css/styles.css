@@ -57,9 +57,77 @@ body {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-dashboard-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f0fbfc;
+  color: #0099A8;
+  border: 1px solid rgba(0, 153, 168, 0.35);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.btn-dashboard-nav:hover {
+  background: #0099A8;
+  color: #ffffff;
+  border-color: #0099A8;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 153, 168, 0.25);
+}
+
+.btn-dashboard-nav:active {
+  transform: translateY(0);
+}
+
+.survey-footer {
+  margin-top: 40px;
+  padding: 22px 20px;
+  border-top: 1px solid var(--border-light, #e2e8f0);
+  background: #ffffff;
+  color: var(--text-muted, #64748b);
+  font-size: 13px;
+}
+
+.survey-footer-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.survey-footer-link {
+  color: #0099A8;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+
+.survey-footer-link:hover {
+  color: #007783;
+  text-decoration: underline;
 }
 
 .brand-wrapper {
@@ -1971,6 +2039,18 @@ input[type="checkbox"] {
 
   .header-logo {
     height: 44px;
+  }
+
+  .btn-dashboard-nav {
+    padding: 6px 12px;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .survey-footer-inner {
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
   }
 
   /* Barra de progreso flotante en 2 líneas limpias sin desborde */
