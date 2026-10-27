@@ -30,10 +30,28 @@
         <div class="progress-fill" id="progress-bar"></div>
       </div>
       <div class="progress-items-count" id="progress-count">0 completados</div>
+      <button type="button" id="btn-save-progress-top" class="btn-save-progress" title="Pausar y guardar el avance de la encuesta">
+        💾 Guardar
+      </button>
     </div>
   </div>
 
   <main class="main-container">
+
+    <!-- BANNER DE REANUDACIÓN DE BORRADOR GUARDADO -->
+    <div id="draft-resume-banner" class="draft-resume-banner" style="display: none;">
+      <div class="draft-resume-content">
+        <span class="draft-resume-icon">💾</span>
+        <div class="draft-resume-text">
+          <strong>Borrador guardado disponible:</strong>
+          <span>Tiene un avance guardado del <em id="draft-saved-date">...</em> (<span id="draft-saved-stage">Etapa 1</span>). ¿Desea continuarlo?</span>
+        </div>
+      </div>
+      <div class="draft-resume-actions">
+        <button type="button" id="btn-resume-draft" class="btn btn-primary btn-sm">▶ Continuar encuesta</button>
+        <button type="button" id="btn-discard-draft" class="btn btn-ghost-discard btn-sm">✕ Empezar de nuevo</button>
+      </div>
+    </div>
 
     <!-- WIZARD STEPPER POR ETAPAS -->
     <nav class="survey-stepper" id="survey-stepper" aria-label="Navegación de etapas de la encuesta">
@@ -261,6 +279,9 @@
             <button type="button" class="btn btn-secondary" id="btn-prev-2">
               ⮜ Volver
             </button>
+            <button type="button" class="btn btn-outline-save btn-save-stage" title="Pausar y guardar el avance">
+              💾 Guardar
+            </button>
             <button type="button" class="btn btn-primary" id="btn-next-2">
               Siguiente ➜
             </button>
@@ -309,6 +330,9 @@
           <div class="stage-nav-bar">
             <button type="button" class="btn btn-secondary" id="btn-prev-3">
               ⮜ Volver
+            </button>
+            <button type="button" class="btn btn-outline-save btn-save-stage" title="Pausar y guardar el avance">
+              💾 Guardar
             </button>
             <button type="button" class="btn btn-primary" id="btn-next-3">
               Siguiente ➜
@@ -362,6 +386,9 @@
           <div class="stage-nav-bar">
             <button type="button" class="btn btn-secondary" id="btn-prev-4">
               ⮜ Volver
+            </button>
+            <button type="button" class="btn btn-outline-save btn-save-stage" title="Pausar y guardar el avance">
+              💾 Guardar
             </button>
             <button type="button" class="btn btn-primary" id="btn-next-4">
               Siguiente
@@ -420,6 +447,9 @@
             <button type="button" class="btn btn-secondary" id="btn-prev-5">
               ⮜ Volver
             </button>
+            <button type="button" class="btn btn-outline-save btn-save-stage" title="Pausar y guardar el avance">
+              💾 Guardar
+            </button>
             <button type="submit" id="btn-submit" class="btn btn-primary btn-lg"
               style="box-shadow: 0 4px 12px rgba(0, 153, 168, 0.35);">
               ✓ Finalizar y Enviar
@@ -460,10 +490,63 @@
         </p>
       </div>
 
-      <div class="gratitude-receipt-box">
-        <span>Identificador único de su envío (Folio de registro):</span>
-        <code id="receipt-id">UUID-GENERADO</code>
-        <span style="display: block; font-size: 12px; margin-top: 4px; color: #64748b;" id="receipt-timestamp"></span>
+      <!-- INVITACIÓN A TALLERES COLABORATIVOS DE DISEÑO Y VALIDACIÓN (SEGUNDA ETAPA) -->
+      <div class="workshop-invitation-box" id="workshop-invitation-box">
+        <div class="workshop-badge-label">Segunda Etapa de la Investigación</div>
+        <p class="workshop-invitation-text">
+          En una segunda etapa del trabajo de tesis, se realizarán talleres de diseño colaborativo y validación para la construcción de un modelo de investigación formativa para la FCAE.
+        </p>
+
+        <!-- Botón de apertura -->
+        <div id="workshop-trigger-container" class="workshop-trigger-container">
+          <button type="button" id="btn-participar-taller" class="btn btn-secondary btn-lg workshop-optin-btn">
+            🤝 Sí, me gustaría
+          </button>
+        </div>
+
+        <!-- Formulario breve de contacto (desplegable) -->
+        <div id="workshop-form-container" class="workshop-form-container" style="display: none;">
+          <form id="workshop-form" novalidate>
+            <h3 class="workshop-form-title">Registro de Contacto para los Talleres Colaborativos</h3>
+            <p class="workshop-form-desc">
+              Por favor comparta sus datos para hacerle llegar oportunamente la convocatoria, fechas y dinámicas de los talleres:
+            </p>
+
+            <div class="grid grid-3 workshop-fields-grid">
+              <div class="form-group">
+                <label for="txt-taller-nombre" class="form-label">Nombre completo <span class="req">*</span></label>
+                <input type="text" id="txt-taller-nombre" class="form-control" placeholder="Ej. Dr. Juan Pérez" required maxlength="150">
+              </div>
+              <div class="form-group">
+                <label for="txt-taller-telefono" class="form-label">Teléfono <span class="req">*</span></label>
+                <input type="tel" id="txt-taller-telefono" class="form-control" placeholder="Ej. 8888-8888" required maxlength="30">
+              </div>
+              <div class="form-group">
+                <label for="txt-taller-email" class="form-label">Correo electrónico <span class="req">*</span></label>
+                <input type="email" id="txt-taller-email" class="form-control" placeholder="ejemplo@uam.edu.ni" required maxlength="120">
+              </div>
+            </div>
+
+            <div id="workshop-form-error" class="alert-box alert-danger" style="display: none; margin-top: 12px; margin-bottom: 12px;"></div>
+
+            <div class="workshop-actions-row">
+              <button type="submit" id="btn-submit-taller" class="btn btn-primary">
+                ✓ Registrar mis datos para los talleres
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Confirmación tras registrar datos de taller -->
+        <div id="workshop-confirmed-box" class="workshop-confirmed-box" style="display: none;">
+          <span class="confirmed-icon">✓</span>
+          <div class="confirmed-text">
+            <strong>¡Muchas gracias por su valiosa disposición y compromiso académico!</strong>
+            <p id="workshop-confirmed-msg">
+              Hemos registrado satisfactoriamente sus datos de contacto. Le notificaremos oportunamente sobre la programación de los talleres de diseño y validación del modelo.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div class="gratitude-actions">
@@ -480,6 +563,28 @@
     </div>
 
   </main>
+
+  <!-- MODAL DE CONFIRMACIÓN DE PROGRESO GUARDADO (PAUSAR Y RETOMAR) -->
+  <div id="save-draft-modal" class="save-modal-backdrop" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="save-modal-title">
+    <div class="save-modal-card">
+      <div class="save-modal-icon">💾</div>
+      <h3 class="save-modal-title" id="save-modal-title">Progreso Guardado con Éxito</h3>
+      <p class="save-modal-desc">
+        Tus respuestas, asignaturas ingresadas y selecciones de matrices han quedado guardadas de forma segura en este navegador. Puedes cerrar la ventana con tranquilidad y al regresar podrás retomar la encuesta exactamente donde la dejaste.
+      </p>
+      <div class="save-modal-meta" id="save-modal-meta">
+        Fecha de guardado: Justo ahora
+      </div>
+      <div class="save-modal-actions">
+        <button type="button" id="btn-close-save-modal" class="btn btn-primary">
+          Continuar respondiendo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST RÁPIDO DE GUARDADO AUTOMÁTICO / MANUAL -->
+  <div id="survey-toast" class="survey-toast" role="status" aria-live="polite"></div>
 
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>

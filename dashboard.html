@@ -45,6 +45,10 @@
         <button type="button" class="nav-item" data-view="datos" id="nav-datos">
           <span class="nav-icon">▤</span><span class="nav-text">Datos y exportación</span>
         </button>
+        <button type="button" class="nav-item" data-view="talleres" id="nav-talleres">
+          <span class="nav-icon">👥</span><span class="nav-text">Talleres colaborativos</span>
+          <span class="sidebar-badge" id="badge-talleres-count">0</span>
+        </button>
       </nav>
 
       <div class="sidebar-footer">
@@ -93,6 +97,7 @@
         <section class="view" id="view-flujos" data-view="flujos"></section>
         <section class="view" id="view-likert" data-view="likert"></section>
         <section class="view" id="view-datos" data-view="datos"></section>
+        <section class="view" id="view-talleres" data-view="talleres"></section>
       </main>
 
       <footer class="dash-footer">
@@ -128,11 +133,16 @@
             <span class="modal-stat-number" id="modal-count-respuestas">—</span>
             <span class="modal-stat-label">Respuestas matrices (A/B)</span>
           </div>
+          <div class="modal-stat-divider"></div>
+          <div class="modal-stat-item">
+            <span class="modal-stat-number" id="modal-count-talleres">—</span>
+            <span class="modal-stat-label">Participantes talleres</span>
+          </div>
         </div>
 
         <ul class="modal-bullet-list">
-          <li><strong>Se limpiarán:</strong> <code>data/docentes.json</code> y <code>data/respuestas.json</code>.</li>
-          <li><strong>Respaldo automático:</strong> El servidor guardará automáticamente una copia en <code>data/backups/</code> antes de vaciar.</li>
+          <li><strong>Se limpiarán:</strong> <code>data/docentes.json</code>, <code>data/respuestas.json</code> y <code>data/talleres.json</code>.</li>
+          <li><strong>Respaldo automático:</strong> El servidor guardará automáticamente copias en <code>data/backups/</code> antes de vaciar.</li>
           <li><strong>Descarga directa:</strong> Puedes descargar una copia JSON de tus datos de prueba en tu equipo antes de proceder.</li>
         </ul>
       </div>

@@ -528,6 +528,14 @@ body {
 /* ==========================================================================
    SECCIÓN 4: MATRICES A Y B CON ASIGNATURAS COMO COLUMNAS
    ========================================================================== */
+/* Contenedor fluido en Etapa 4 para pantallas de escritorio (hasta 5 asignaturas) */
+body.stage-4-active .main-container,
+.main-container:has(#stage-4.active) {
+  max-width: 1320px;
+  width: 95%;
+  transition: max-width 0.25s ease;
+}
+
 .matrix-section-block {
   margin-top: 14px;
   margin-bottom: 28px;
@@ -548,13 +556,14 @@ body {
 table.matrix-table-unified {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13.5px;
+  font-size: 13px;
+  table-layout: auto;
 }
 
 table.matrix-table-unified th {
   background-color: #0099A8;
   color: #ffffff;
-  padding: 12px 14px;
+  padding: 10px 10px;
   font-weight: 600;
   text-align: center;
   vertical-align: middle;
@@ -563,15 +572,107 @@ table.matrix-table-unified th {
 
 table.matrix-table-unified th.col-item-text {
   text-align: left;
-  padding-left: 16px;
-  min-width: 320px;
-  max-width: 440px;
-  width: 38%;
+  padding-left: 14px;
+  min-width: 230px;
+  width: 30%;
 }
 
 table.matrix-table-unified th.col-subject-eval {
-  min-width: 200px;
-  padding: 10px 14px;
+  min-width: 110px;
+  padding: 8px 6px;
+}
+
+/* Adaptabilidad fluida por cantidad de asignaturas evaluadas (1 a 5) en escritorio */
+table.matrix-table-unified[data-subject-count="5"] th.col-item-text,
+table.matrix-table-unified[data-subject-count="5"] td.item-desc-cell {
+  width: 26%;
+  min-width: 210px;
+  max-width: 280px;
+  font-size: 12.5px;
+  padding: 8px 10px;
+  line-height: 1.38;
+}
+
+table.matrix-table-unified[data-subject-count="5"] th.col-subject-eval,
+table.matrix-table-unified[data-subject-count="5"] td.cell-matrix-eval {
+  width: 14.8%;
+  min-width: 105px;
+  padding: 6px 4px;
+}
+
+table.matrix-table-unified[data-subject-count="5"] select.matrix-select {
+  min-width: 98px;
+  font-size: 11.5px;
+  padding: 5px 4px;
+  height: 35px;
+}
+
+table.matrix-table-unified[data-subject-count="5"] .subject-header-name {
+  max-width: 125px;
+  font-size: 11.8px;
+}
+
+table.matrix-table-unified[data-subject-count="4"] th.col-item-text,
+table.matrix-table-unified[data-subject-count="4"] td.item-desc-cell {
+  width: 28%;
+  min-width: 230px;
+  font-size: 12.8px;
+  padding: 8px 11px;
+}
+
+table.matrix-table-unified[data-subject-count="4"] th.col-subject-eval,
+table.matrix-table-unified[data-subject-count="4"] td.cell-matrix-eval {
+  width: 18%;
+  min-width: 120px;
+  padding: 7px 5px;
+}
+
+table.matrix-table-unified[data-subject-count="4"] select.matrix-select {
+  min-width: 112px;
+  font-size: 12px;
+  padding: 6px 5px;
+  height: 36px;
+}
+
+table.matrix-table-unified[data-subject-count="4"] .subject-header-name {
+  max-width: 145px;
+  font-size: 12.2px;
+}
+
+table.matrix-table-unified[data-subject-count="3"] th.col-item-text,
+table.matrix-table-unified[data-subject-count="3"] td.item-desc-cell {
+  width: 34%;
+  min-width: 250px;
+}
+
+table.matrix-table-unified[data-subject-count="3"] th.col-subject-eval,
+table.matrix-table-unified[data-subject-count="3"] td.cell-matrix-eval {
+  width: 22%;
+  min-width: 140px;
+}
+
+table.matrix-table-unified[data-subject-count="2"] th.col-item-text,
+table.matrix-table-unified[data-subject-count="2"] td.item-desc-cell {
+  width: 40%;
+  min-width: 280px;
+}
+
+table.matrix-table-unified[data-subject-count="2"] th.col-subject-eval,
+table.matrix-table-unified[data-subject-count="2"] td.cell-matrix-eval {
+  width: 30%;
+  min-width: 160px;
+}
+
+table.matrix-table-unified[data-subject-count="1"] th.col-item-text,
+table.matrix-table-unified[data-subject-count="1"] td.item-desc-cell {
+  width: 50%;
+  min-width: 300px;
+}
+
+table.matrix-table-unified[data-subject-count="1"] th.col-subject-eval,
+table.matrix-table-unified[data-subject-count="1"] td.cell-matrix-eval {
+  width: 50%;
+  min-width: 180px;
 }
 
 .subject-header-badge {
@@ -587,18 +688,18 @@ table.matrix-table-unified th.col-subject-eval {
 }
 
 .subject-header-name {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 210px;
+  max-width: 180px;
   margin: 0 auto;
   cursor: help;
 }
 
 table.matrix-table-unified td {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-bottom: 1px solid var(--border-light);
   border-right: 1px solid #f1f5f9;
   vertical-align: middle;
@@ -607,23 +708,23 @@ table.matrix-table-unified td {
 
 table.matrix-table-unified td.item-desc-cell {
   text-align: left;
-  padding-left: 16px;
-  line-height: 1.45;
+  padding-left: 14px;
+  line-height: 1.42;
   color: var(--text-main);
   font-weight: 500;
 }
 
 table.matrix-table-unified td.cell-matrix-eval {
   text-align: center;
-  padding: 8px 10px;
+  padding: 7px 8px;
 }
 
 /* Desplegable interactivo 1-7 por celda de matriz */
 select.matrix-select {
   width: 100%;
-  min-width: 170px;
-  padding: 8px 10px;
-  font-size: 13.5px;
+  min-width: 110px;
+  padding: 7px 8px;
+  font-size: 12.5px;
   font-family: inherit;
   font-weight: 500;
   color: var(--text-main);
@@ -1455,6 +1556,349 @@ input[type="checkbox"] {
 }
 
 /* ==========================================================================
+   COMPONENTES NUEVOS: GUARDAR/PAUSAR, BORRADOR Y TALLERES COLABORATIVOS
+   ========================================================================== */
+
+/* Botón Guardar en la barra de progreso */
+.btn-save-progress {
+  background: #ffffff;
+  color: #007783;
+  border: 1.5px solid #0099A8;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.btn-save-progress:hover {
+  background: #0099A8;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 153, 168, 0.25);
+}
+
+/* Botón Guardar en las barras de navegación de cada etapa */
+.btn-outline-save {
+  background: #ffffff;
+  color: #007783;
+  border: 1.5px solid #b2e6eb;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-save:hover {
+  background: #e6f7f9;
+  border-color: #0099A8;
+  color: #005a63;
+}
+
+/* Banner superior para reanudar borrador guardado */
+.draft-resume-banner {
+  background: #f0fbfb;
+  border: 1.5px solid #0099A8;
+  border-left: 6px solid #0099A8;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 3px 10px rgba(0, 153, 168, 0.1);
+  animation: fadeIn 0.3s ease;
+  flex-wrap: wrap;
+}
+
+.draft-resume-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.draft-resume-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.draft-resume-text {
+  font-size: 13.5px;
+  color: #0f2530;
+  line-height: 1.45;
+}
+
+.draft-resume-text strong {
+  display: block;
+  color: #007783;
+  font-size: 14px;
+}
+
+.draft-resume-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 13px;
+  min-height: 36px;
+  border-radius: 6px;
+}
+
+.btn-ghost-discard {
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-ghost-discard:hover {
+  background: #f1f5f9;
+  color: #334155;
+  border-color: #94a3b8;
+}
+
+/* Modal de confirmación al guardar */
+.save-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 37, 48, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.save-modal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+  border-top: 5px solid #0099A8;
+}
+
+.save-modal-icon {
+  width: 60px;
+  height: 60px;
+  background: #e6f7f9;
+  color: #0099A8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 16px;
+  border: 2px solid #b2e6eb;
+}
+
+.save-modal-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 21px;
+  color: #007783;
+  margin-bottom: 8px;
+}
+
+.save-modal-desc {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.save-modal-meta {
+  font-size: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.save-modal-actions .btn {
+  width: 100%;
+}
+
+/* Toast de notificación rápida */
+.survey-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #06323a;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border: 1px solid #0099A8;
+  font-size: 13.5px;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  max-width: 420px;
+  line-height: 1.4;
+}
+
+.survey-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sección de Talleres Colaborativos (Segunda Etapa) */
+.workshop-invitation-box {
+  background: #ffffff;
+  border: 1.5px solid #b2e6eb;
+  border-left: 5px solid #c59b27;
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 22px auto 26px auto;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0, 153, 168, 0.06);
+}
+
+.workshop-badge-label {
+  display: inline-block;
+  background: #fef8eb;
+  color: #946c0d;
+  border: 1px solid #f2dfa7;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.workshop-invitation-text {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #1e293b;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.workshop-trigger-container {
+  text-align: center;
+  padding-top: 6px;
+}
+
+.workshop-optin-btn {
+  background: #0099A8;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 153, 168, 0.28);
+}
+
+.workshop-optin-btn:hover {
+  background: #007f8c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 153, 168, 0.38);
+}
+
+.workshop-form-container {
+  margin-top: 18px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  animation: fadeIn 0.3s ease;
+}
+
+.workshop-form-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  color: #007783;
+  margin-bottom: 4px;
+}
+
+.workshop-form-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.workshop-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.workshop-actions-row {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.workshop-confirmed-box {
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.confirmed-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.confirmed-text strong {
+  display: block;
+  color: #15803d;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.confirmed-text p {
+  font-size: 13.5px;
+  color: #166534;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
    DISEÑO RESPONSIVE PARA TABLET Y MÓVIL (EXCLUSIVO DE LA ENCUESTA)
    ========================================================================== */
 
@@ -1947,6 +2391,40 @@ input[type="checkbox"] {
   .gratitude-actions .btn {
     width: 100%;
     min-height: 46px;
+  }
+
+  .workshop-invitation-box {
+    padding: 18px 14px;
+    margin: 18px 0;
+  }
+
+  .workshop-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .workshop-actions-row .btn,
+  .workshop-trigger-container .btn {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .draft-resume-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .draft-resume-actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .draft-resume-actions .btn {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
   }
 }
 

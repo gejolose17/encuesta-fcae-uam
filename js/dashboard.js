@@ -76,6 +76,7 @@
   const state = {
     docentes: [],
     asignaturas: [],
+    talleres: [],
     generado: null,
     filtros: { desde: '', hasta: '' },
     vista: 'resumen',
@@ -615,6 +616,11 @@
         ${kpi({ label: 'Docentes', valor: docs.length, pie: `de ${state.docentes.length} registros totales`, color: '#0099A8', barra: pct(docs.length, state.docentes.length) })}
         ${kpi({ label: 'Asignaturas evaluadas', valor: totalAsig, pie: `${unicas} asignaturas distintas`, color: '#c59b27' })}
         ${kpi({ label: 'Edad promedio', valor: fmt(media(docs.map(d => d.edad)), 1), sufijo: 'años', pie: `Exp. docente: ${fmt(media(docs.map(d => d.expDocente)), 1)} años`, color: '#6c63d9' })}
+        <article class="card kpi" style="--kpi-color:#c59b27; cursor:pointer;" data-goto="talleres" title="Ver lista de participantes para talleres colaborativos">
+          <div class="kpi-label">Talleres colaborativos ➜</div>
+          <div class="kpi-value">${state.talleres ? state.talleres.length : 0}</div>
+          <div class="kpi-foot">${state.talleres && state.talleres.length ? 'participantes registrados' : 'sin inscritos aún'}</div>
+        </article>
         ${kpi({ label: 'Q3 · Competencias', valor: fmt(mQ3), sufijo: '/ 7', pie: `${fmt(favDe(allQ3), 0)}% favorable (5–7)`, color: colorMedia(mQ3), barra: barraMedia(mQ3) })}
         ${kpi({ label: 'A · Práctica docente', valor: fmt(mA), sufijo: '/ 7', pie: `${fmt(favDe(allA), 0)}% frecuente (5–7)`, color: colorMedia(mA), barra: barraMedia(mA) })}
         ${kpi({ label: 'B · Estrategias', valor: fmt(mB), sufijo: '/ 7', pie: `${fmt(favDe(allB), 0)}% dominio alto (5–7)`, color: colorMedia(mB), barra: barraMedia(mB) })}
@@ -1520,10 +1526,144 @@
   }
 
   // ==========================================================================
+  // VISTA DE PARTICIPANTES EN TALLERES COLABORATIVOS (SEGUNDA ETAPA)
+  // ==========================================================================
+  function renderTalleres() {
+    const el = $('#view-talleres');
+    if (!el) return;
+    const talleres = state.talleres || [];
+    const conTel = talleres.filter(t => t.telefono && t.telefono.trim()).length;
+    const conEmail = talleres.filter(t => t.email && t.email.trim()).length;
+
+    el.innerHTML = `
+      <div class="view-head">
+        <div>
+          <h2 class="view-title">Participantes en Talleres Colaborativos</h2>
+          <p class="view-desc">Docentes de la FCAE que han manifestado su disposición e interés en participar en los talleres de diseño colaborativo y validación para la construcción del modelo de investigación formativa (Segunda Etapa de Tesis).</p>
+        </div>
+      </div>
+
+      <div class="talleres-intro-card">
+        <div class="talleres-intro-header">
+          <div class="talleres-icon-badge">👥</div>
+          <div>
+            <div class="talleres-intro-title">Segunda Etapa: Talleres de Co-Diseño y Validación Metodológica</div>
+            <div class="talleres-intro-desc">
+              Esta sección consolida el directorio de contacto de los docentes que completaron la encuesta y aceptaron ser convocados a las sesiones de talleres colaborativos. Puede exportar el listado a Excel/CSV, descargar JSON o copiar directamente todos los correos electrónicos para enviar la convocatoria por correo institucional.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-kpi" style="margin-bottom: 22px;">
+        ${kpi({ label: 'Docentes registrados', valor: talleres.length, pie: 'Interesados en talleres colaborativos', color: '#0099A8' })}
+        ${kpi({ label: 'Con correo electrónico', valor: conEmail, pie: pct(conEmail, talleres.length) + '% con correo de contacto', color: '#c59b27' })}
+        ${kpi({ label: 'Con teléfono directo', valor: conTel, pie: pct(conTel, talleres.length) + '% con número telefónico', color: '#2fb380' })}
+      </div>
+
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <h3 class="card-title">Directorio de Contacto (${talleres.length})</h3>
+            <p class="card-sub">Búsqueda rápida en vivo y herramientas de exportación</p>
+          </div>
+          <div class="card-actions">
+            <input type="search" id="talleres-search" placeholder="🔍 Buscar por nombre, teléfono o correo…" class="input-search" style="min-width: 280px;">
+            <button type="button" class="btn-ghost" id="btn-copy-talleres-emails" title="Copiar todos los correos electrónicos separados por coma">📋 Copiar correos</button>
+            <button type="button" class="btn-ghost" id="btn-csv-talleres" title="Descargar planilla CSV / Excel con los participantes">⬇ Descargar CSV</button>
+            <button type="button" class="btn-ghost" id="btn-json-talleres" title="Descargar datos en formato JSON">⬇ JSON</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="tabla-talleres">
+            <thead>
+              <tr>
+                <th style="width: 50px;">#</th>
+                <th>Fecha de registro</th>
+                <th>Nombre completo</th>
+                <th>Teléfono de contacto</th>
+                <th>Correo electrónico</th>
+                <th>Origen</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${talleres.map((t, idx) => {
+                const f = t.timestamp ? new Date(t.timestamp) : null;
+                const fStr = f ? (f.toLocaleDateString('es-NI', { dateStyle: 'medium' }) + ' ' + f.toLocaleTimeString('es-NI', { timeStyle: 'short' })) : '—';
+                const telClean = t.telefono ? t.telefono.replace(/[^\d+]/g, '') : '';
+                return `<tr>
+                  <td style="font-weight:700; color:var(--muted);">${idx + 1}</td>
+                  <td>${esc(fStr)}</td>
+                  <td><strong>${esc(t.nombre || '—')}</strong></td>
+                  <td>${t.telefono ? `<a href="tel:${esc(telClean)}" class="talleres-link-phone" title="Llamar">📞 ${esc(t.telefono)}</a>` : '—'}</td>
+                  <td>${t.email ? `<a href="mailto:${esc(t.email)}" class="talleres-link-email" title="Enviar correo">✉️ ${esc(t.email)}</a>` : '—'}</td>
+                  <td><span class="badge-tag-survey">Encuesta FCAE</span></td>
+                </tr>`;
+              }).join('') || '<tr><td colspan="6" style="text-align:center;padding:36px;color:var(--muted)">Aún no hay docentes registrados para los talleres colaborativos. Aparecerán aquí automáticamente cuando completen la encuesta y elijan la opción "Sí, me gustaría".</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </article>`;
+
+    const inpSearch = $('#talleres-search');
+    if (inpSearch) {
+      inpSearch.addEventListener('input', e => {
+        const q = normTexto(e.target.value);
+        $$('#tabla-talleres tbody tr').forEach(tr => {
+          tr.style.display = !q || normTexto(tr.textContent).indexOf(q) >= 0 ? '' : 'none';
+        });
+      });
+    }
+
+    const btnCopy = $('#btn-copy-talleres-emails');
+    if (btnCopy) {
+      btnCopy.addEventListener('click', () => {
+        const correos = talleres.map(t => (t.email || '').trim()).filter(Boolean);
+        if (!correos.length) {
+          mostrarToast('ℹ️ No hay correos registrados para copiar.', 3000);
+          return;
+        }
+        const texto = correos.join(', ');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(texto)
+            .then(() => mostrarToast(`📋 <strong>${correos.length} correos copiados</strong> al portapapeles listos para su cliente de correo.`))
+            .catch(() => prompt('Copie la siguiente lista de correos:', texto));
+        } else {
+          prompt('Copie la siguiente lista de correos:', texto);
+        }
+      });
+    }
+
+    const btnCsv = $('#btn-csv-talleres');
+    if (btnCsv) {
+      btnCsv.addEventListener('click', () => {
+        const cab = ['N', 'Fecha_Registro', 'Nombre_Completo', 'Telefono', 'Correo_Electronico', 'ID_Registro'];
+        const filas = talleres.map((t, i) => [
+          i + 1,
+          t.timestamp || '',
+          t.nombre || '',
+          t.telefono || '',
+          t.email || '',
+          t.id || ''
+        ]);
+        descargarCSV(`participantes_talleres_fcae_${hoy()}.csv`, [cab].concat(filas));
+      });
+    }
+
+    const btnJson = $('#btn-json-talleres');
+    if (btnJson) {
+      btnJson.addEventListener('click', () => {
+        descargar(`participantes_talleres_fcae_${hoy()}.json`, JSON.stringify(talleres, null, 2), 'application/json');
+      });
+    }
+  }
+
+  // ==========================================================================
   // 12. NAVEGACIÓN Y RENDER
   // ==========================================================================
   function irVista(v) {
-    if (['resumen', 'flujos', 'datos'].concat(VISTAS_LIKERT).indexOf(v) < 0) v = 'resumen';
+    if (['resumen', 'flujos', 'datos', 'talleres'].concat(VISTAS_LIKERT).indexOf(v) < 0) v = 'resumen';
     state.vista = v;
     $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === v));
     if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v);
@@ -1537,10 +1677,15 @@
     actualizarResumenFiltros(docs);
 
     const v = state.vista;
-    const contId = v === 'resumen' ? 'view-resumen' : v === 'flujos' ? 'view-flujos' : v === 'datos' ? 'view-datos' : 'view-likert';
+    const contId = v === 'resumen' ? 'view-resumen' : v === 'flujos' ? 'view-flujos' : v === 'datos' ? 'view-datos' : v === 'talleres' ? 'view-talleres' : 'view-likert';
     $$('.view').forEach(x => x.classList.toggle('active', x.id === contId));
 
     actualizarBotonEliminar();
+
+    if (v === 'talleres') {
+      renderTalleres();
+      return;
+    }
 
     if (!state.docentes.length) {
       $('#' + contId).innerHTML = `
@@ -1599,7 +1744,9 @@
     if (!modal) return;
     const cDoc = $('#modal-count-docentes');
     const cResp = $('#modal-count-respuestas');
+    const cTal = $('#modal-count-talleres');
     if (cDoc) cDoc.textContent = state.docentes.length;
+    if (cTal) cTal.textContent = state.talleres.length;
     if (cResp) {
       const tot = state.docentes.reduce((acc, d) => acc + ((d.matrices ? d.matrices.length : 0) * 28), 0);
       cResp.textContent = tot;
@@ -1615,6 +1762,7 @@
   const SYNC_CHANNEL_NAME = 'encuesta_fcae_sync_v1';
   const LS_SYNC_PING_KEY = 'encuesta_fcae_last_sync_v1';
   const LS_LOCAL_SUBMISSIONS_KEY = 'encuesta_fcae_envios_locales_v1';
+  const LS_TALLERES_KEY = 'encuesta_fcae_talleres_v1';
   const LS_BASELINE_CLEARED_KEY = 'encuesta_fcae_baseline_cleared_v1';
 
   let modoServidorActivo = false;
@@ -1636,18 +1784,39 @@
     }
   }
 
+  function leerTalleresLocales() {
+    try {
+      const raw = localStorage.getItem(LS_TALLERES_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function combinarTalleres(baseTalleres) {
+    const locales = leerTalleresLocales();
+    const arrBase = Array.isArray(baseTalleres) ? baseTalleres : [];
+    if (!locales.length) return arrBase;
+    const ids = new Set(arrBase.map(t => t.id || (t.email + '_' + t.nombre)));
+    const nuevos = locales.filter(t => !ids.has(t.id || (t.email + '_' + t.nombre)));
+    return arrBase.concat(nuevos);
+  }
+
   function combinarDatosConLocales(base) {
     const locales = leerEnviosLocales();
+    const talleresCombinados = combinarTalleres(base && base.talleres);
     const baseDocentes = Array.isArray(base && base.docentes) ? base.docentes : [];
     const baseRespuestas = Array.isArray(base && base.respuestas) ? base.respuestas : [];
     if (!locales.docentes.length) {
-      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas };
+      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados };
     }
 
     const idsExistentes = new Set(baseDocentes.map(d => d && d.id).filter(Boolean));
     const nuevosDocentes = locales.docentes.filter(d => d && d.id && !idsExistentes.has(d.id));
     if (!nuevosDocentes.length) {
-      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas };
+      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados };
     }
 
     const idsNuevos = new Set(nuevosDocentes.map(d => d.id));
@@ -1655,7 +1824,8 @@
     return {
       generado: new Date().toISOString(),
       docentes: baseDocentes.concat(nuevosDocentes),
-      respuestas: baseRespuestas.concat(nuevasRespuestas)
+      respuestas: baseRespuestas.concat(nuevasRespuestas),
+      talleres: talleresCombinados
     };
   }
 
@@ -1700,6 +1870,7 @@
 
       try {
         localStorage.removeItem(LS_LOCAL_SUBMISSIONS_KEY);
+        localStorage.removeItem(LS_TALLERES_KEY);
         if (limpioEnServidor) {
           localStorage.removeItem(LS_BASELINE_CLEARED_KEY);
         } else {
@@ -1715,6 +1886,9 @@
       // Limpiar estado en memoria
       state.docentes = [];
       state.asignaturas = [];
+      state.talleres = [];
+      const badgeT = $('#badge-talleres-count');
+      if (badgeT) badgeT.textContent = '0';
       Object.keys(state.filtros).forEach(k => { state.filtros[k] = ''; });
 
       construirFiltros();
@@ -1754,7 +1928,7 @@
       sseStream.onmessage = ev => {
         try {
           const msg = JSON.parse(ev.data || '{}');
-          if (msg.type === 'survey_submitted' || msg.type === 'data_reset') {
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered') {
             programarActualizacionEnVivo(msg.type);
           }
         } catch (e) {}
@@ -1776,6 +1950,8 @@
         mostrarToast('✨ <strong>Nueva encuesta finalizada:</strong> El tablero se actualizó automáticamente con el nuevo registro.', 5500);
       } else if (tipo === 'data_reset') {
         mostrarToast('ℹ️ <strong>Base de datos reiniciada:</strong> El tablero se ha sincronizado.', 4500);
+      } else if (tipo === 'workshop_registered') {
+        mostrarToast('👥 <strong>Nuevo registro en talleres:</strong> Un docente se inscribió en los talleres colaborativos.', 5500);
       }
     }, 220);
   }
@@ -1795,7 +1971,7 @@
           if (!msg || !msg.type) return;
           if (msg.ts && msg.ts <= ultimoSyncTs) return;
           if (msg.ts) ultimoSyncTs = msg.ts;
-          if (msg.type === 'survey_submitted' || msg.type === 'data_reset') {
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered') {
             programarActualizacionEnVivo(msg.type);
           }
         };
@@ -1814,6 +1990,8 @@
         } catch (err) {}
       } else if (e.key === LS_LOCAL_SUBMISSIONS_KEY) {
         programarActualizacionEnVivo('survey_submitted');
+      } else if (e.key === LS_TALLERES_KEY) {
+        programarActualizacionEnVivo('workshop_registered');
       }
     });
 
@@ -1848,12 +2026,13 @@
       modoServidorActivo = false;
     }
 
-    let baseEst = { docentes: [], respuestas: [] };
+    let baseEst = { docentes: [], respuestas: [], talleres: [] };
     const limpiadoLocal = leerLS(LS_BASELINE_CLEARED_KEY) === '1';
     if (!limpiadoLocal) {
       const docentes = await fetchJSON('data/docentes.json');
       const respuestas = await fetchJSON('data/respuestas.json').catch(() => []);
-      baseEst = { docentes, respuestas };
+      const talleres = await fetchJSON('data/talleres.json').catch(() => []);
+      baseEst = { docentes, respuestas, talleres };
     }
     return combinarDatosConLocales(baseEst);
   }
@@ -1868,13 +2047,17 @@
       const prep = preparar(data || {});
       state.docentes = prep.docentes;
       state.asignaturas = prep.asignaturas;
+      state.talleres = Array.isArray(data && data.talleres) ? data.talleres : [];
       state.generado = (data && data.generado) || new Date().toISOString();
+      const badgeT = $('#badge-talleres-count');
+      if (badgeT) badgeT.textContent = state.talleres.length;
       box.hidden = true;
       construirFiltros();
       render();
       const g = new Date(state.generado);
       if (state.docentes.length > 0) {
-        $('#hero-sub').textContent = `${state.docentes.length} docentes · ${state.asignaturas.length} asignaturas distintas · Actualizado ${g.toLocaleDateString('es-NI', { dateStyle: 'medium' })} ${g.toLocaleTimeString('es-NI', { timeStyle: 'short' })}`;
+        const strTalleres = state.talleres.length ? ` · ${state.talleres.length} en talleres` : '';
+        $('#hero-sub').textContent = `${state.docentes.length} docentes · ${state.asignaturas.length} asignaturas distintas${strTalleres} · Actualizado ${g.toLocaleDateString('es-NI', { dateStyle: 'medium' })} ${g.toLocaleTimeString('es-NI', { timeStyle: 'short' })}`;
       } else {
         $('#hero-sub').textContent = '0 docentes · 0 asignaturas distintas · Base de datos limpia y lista para datos reales';
       }
@@ -1996,7 +2179,7 @@
 
     const inicial = location.hash.slice(1);
     if (inicial) {
-      state.vista = ['resumen', 'flujos', 'datos'].concat(VISTAS_LIKERT).indexOf(inicial) >= 0 ? inicial : 'resumen';
+      state.vista = ['resumen', 'flujos', 'datos', 'talleres'].concat(VISTAS_LIKERT).indexOf(inicial) >= 0 ? inicial : 'resumen';
       $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === state.vista));
     }
 

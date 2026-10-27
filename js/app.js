@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const SYNC_CHANNEL_NAME = 'encuesta_fcae_sync_v1';
   const LS_SYNC_PING_KEY = 'encuesta_fcae_last_sync_v1';
   const LS_LOCAL_SUBMISSIONS_KEY = 'encuesta_fcae_envios_locales_v1';
+  const LS_FULL_DRAFT_KEY = 'encuesta_fcae_borrador_completo_v1';
+  const LS_TALLERES_KEY = 'encuesta_fcae_talleres_v1';
+
+  // ID del último envío finalizado
+  let ultimoEnvioId = null;
 
   // Elementos DOM principales
   const form = document.getElementById('survey-form');
@@ -38,6 +43,32 @@ document.addEventListener('DOMContentLoaded', function() {
   const progressText = document.getElementById('progress-text');
   const progressCount = document.getElementById('progress-count');
   const stepperNav = document.getElementById('survey-stepper');
+
+  // Elementos de Guardado / Pausar / Retomar borrador
+  const btnSaveProgressTop = document.getElementById('btn-save-progress-top');
+  const btnsSaveStage = document.querySelectorAll('.btn-save-stage');
+  const draftResumeBanner = document.getElementById('draft-resume-banner');
+  const draftSavedDateEl = document.getElementById('draft-saved-date');
+  const draftSavedStageEl = document.getElementById('draft-saved-stage');
+  const btnResumeDraft = document.getElementById('btn-resume-draft');
+  const btnDiscardDraft = document.getElementById('btn-discard-draft');
+  const saveDraftModal = document.getElementById('save-draft-modal');
+  const saveModalMeta = document.getElementById('save-modal-meta');
+  const btnCloseSaveModal = document.getElementById('btn-close-save-modal');
+  const surveyToast = document.getElementById('survey-toast');
+
+  // Elementos de la sección de talleres colaborativos (segunda etapa)
+  const workshopInvitationBox = document.getElementById('workshop-invitation-box');
+  const btnParticiparTaller = document.getElementById('btn-participar-taller');
+  const workshopTriggerContainer = document.getElementById('workshop-trigger-container');
+  const workshopFormContainer = document.getElementById('workshop-form-container');
+  const workshopForm = document.getElementById('workshop-form');
+  const txtTallerNombre = document.getElementById('txt-taller-nombre');
+  const txtTallerTelefono = document.getElementById('txt-taller-telefono');
+  const txtTallerEmail = document.getElementById('txt-taller-email');
+  const workshopFormError = document.getElementById('workshop-form-error');
+  const workshopConfirmedBox = document.getElementById('workshop-confirmed-box');
+  const btnSubmitTaller = document.getElementById('btn-submit-taller');
 
   // Botones de navegación entre etapas
   const btnNext1 = document.getElementById('btn-next-1');
@@ -132,12 +163,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (paneNuevo) paneNuevo.classList.add('active');
 
     etapaActual = nuevaEtapa;
+    if (nuevaEtapa === 4) {
+      document.body.classList.add('stage-4-active');
+    } else {
+      document.body.classList.remove('stage-4-active');
+    }
     actualizarStepperUI(nuevaEtapa);
 
     // Scroll suave hacia la parte superior del formulario
     window.scrollTo({ top: Math.max(0, (stepperNav ? stepperNav.offsetTop - 70 : 0)), behavior: 'smooth' });
 
     calcularProgreso();
+    guardarBorradorSilencioso();
     return true;
   }
 
@@ -555,6 +592,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Actualiza únicamente encabezados y etiquetas en vivo sin reconstruir los <select> (preserva foco y estado)
   function actualizarEncabezadosMatricesEnVivo(activas) {
+    const tableA = document.getElementById('table-matA');
+    if (tableA) tableA.setAttribute('data-subject-count', activas.length);
+    const tableB = document.getElementById('table-matB');
+    if (tableB) tableB.setAttribute('data-subject-count', activas.length);
+
     activas.forEach(function(asig, j) {
       const sid = asig.id;
       const nombreCorto = truncarTexto(asig.nombre, 22);
@@ -633,7 +675,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let htmlA = '<div class="matrix-heading">Matriz A — Práctica docente e investigación formativa (12 ítems)</div>' +
       '<div class="scale-legend-box"><strong>Escala Likert:</strong> 1 = Nunca | 2 = Casi nunca | 3 = Ocasionalmente | 4 = A veces | 5 = Frecuentemente | 6 = Casi siempre | 7 = Siempre</div>' +
       '<div class="matrix-table-scroll-wrapper">' +
-        '<table class="matrix-table-unified" id="table-matA">' +
+        '<table class="matrix-table-unified" id="table-matA" data-subject-count="' + activas.length + '">' +
           '<thead>' +
             '<tr>' +
               '<th class="col-item-text">Ítem / Práctica Docente</th>';
@@ -682,7 +724,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let htmlB = '<div class="matrix-heading" style="margin-top: 32px;">Matriz B — Conocimiento y aplicación de estrategias (16 ítems)</div>' +
       '<div class="scale-legend-box"><strong>Escala Likert:</strong> 1 = Nulo | 2 = Muy bajo | 3 = Bajo | 4 = Medio | 5 = Moderadamente alto | 6 = Alto | 7 = Experto</div>' +
       '<div class="matrix-table-scroll-wrapper">' +
-        '<table class="matrix-table-unified" id="table-matB">' +
+        '<table class="matrix-table-unified" id="table-matB" data-subject-count="' + activas.length + '">' +
           '<thead>' +
             '<tr>' +
               '<th class="col-item-text">Ítem / Estrategia de Enseñanza-Aprendizaje</th>';
@@ -1100,7 +1142,11 @@ document.addEventListener('DOMContentLoaded', function() {
       btnSubmit.textContent = txtOriginal;
 
       if (res && res.ok) {
-        try { localStorage.removeItem('encuesta_fcae_v1'); } catch (e) {}
+        try {
+          localStorage.removeItem('encuesta_fcae_v1');
+          localStorage.removeItem(LS_FULL_DRAFT_KEY);
+        } catch (e) {}
+        ultimoEnvioId = res.id;
         notificarDashboardEnVivo({
           type: 'survey_submitted',
           id: res.id,
@@ -1108,12 +1154,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         form.style.display = 'none';
         if (stepperNav) stepperNav.style.display = 'none';
+        if (draftResumeBanner) draftResumeBanner.style.display = 'none';
         successCard.style.display = 'block';
-        receiptIdEl.textContent = res.id;
+        if (receiptIdEl) receiptIdEl.textContent = res.id;
         if (receiptTimestampEl) {
           const ahora = new Date();
           receiptTimestampEl.textContent = 'Fecha de recepción: ' + ahora.toLocaleDateString('es-NI', { dateStyle: 'long' }) + ' a las ' + ahora.toLocaleTimeString('es-NI', { timeStyle: 'short' });
         }
+
+        // Restablecer vista de invitación a talleres
+        if (workshopInvitationBox) workshopInvitationBox.style.display = 'block';
+        if (workshopTriggerContainer) workshopTriggerContainer.style.display = 'block';
+        if (workshopFormContainer) workshopFormContainer.style.display = 'none';
+        if (workshopConfirmedBox) workshopConfirmedBox.style.display = 'none';
+        if (workshopForm) workshopForm.reset();
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         const etapa = res ? res.stage : 'desconocida';
@@ -1206,9 +1261,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Reinicia completamente el instrumento para permitir un nuevo llenado limpio desde la Etapa 1
   function reiniciarEncuestaCompleta() {
-    try { localStorage.removeItem('encuesta_fcae_v1'); } catch (e) {}
+    try {
+      localStorage.removeItem('encuesta_fcae_v1');
+      localStorage.removeItem(LS_FULL_DRAFT_KEY);
+    } catch (e) {}
+    ultimoEnvioId = null;
     ocultarError();
     form.reset();
+    document.body.classList.remove('stage-4-active');
+    if (draftResumeBanner) draftResumeBanner.style.display = 'none';
 
     // Ocultar paneles y avisos condicionales Sí/No
     ['panel-colab-int', 'notice-colab-int', 'panel-colab-ext', 'notice-colab-ext', 'panel-pub', 'notice-pub'].forEach(function(id) {
@@ -1232,6 +1293,12 @@ document.addEventListener('DOMContentLoaded', function() {
       crearFilaAsignatura('', true);
     }
     renumerarFilasAsignatura();
+
+    // Restablecer formulario de talleres
+    if (workshopTriggerContainer) workshopTriggerContainer.style.display = 'block';
+    if (workshopFormContainer) workshopFormContainer.style.display = 'none';
+    if (workshopConfirmedBox) workshopConfirmedBox.style.display = 'none';
+    if (workshopForm) workshopForm.reset();
 
     // Restaurar visibilidad del asistente y posicionarse en Etapa 1
     successCard.style.display = 'none';
@@ -1280,37 +1347,402 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ==========================================================================
-  // 8. BORRADOR EN LOCALSTORAGE
+  // 8. SISTEMA DE GUARDAR, PAUSAR Y RETOMAR BORRADOR COMPLETO
   // ==========================================================================
-  function guardarBorradorLocal() {
+  let timerAutoSave = null;
+  let toastSurveyTimer = null;
+
+  function mostrarToastSurvey(mensaje, duracion = 4200) {
+    if (!surveyToast) return;
+    surveyToast.innerHTML = mensaje;
+    surveyToast.classList.add('show');
+    clearTimeout(toastSurveyTimer);
+    toastSurveyTimer = setTimeout(function() {
+      surveyToast.classList.remove('show');
+    }, duracion);
+  }
+
+  function recopilarBorradorActual() {
+    capturarRespuestasMatricesDOM();
+    const txtEdad = document.getElementById('txt-edad');
+    const cmbGenero = document.getElementById('cmb-genero');
+    const txtExpProf = document.getElementById('txt-exp-prof');
+    const txtExpDoc = document.getElementById('txt-exp-doc');
+    const txtGrado = document.getElementById('txt-grado');
+    const radInt = document.querySelector('input[name="rad-colab-int"]:checked');
+    const txtColabIntCual = document.getElementById('txt-colab-int-cual');
+    const radExt = document.querySelector('input[name="rad-colab-ext"]:checked');
+    const txtColabExtCual = document.getElementById('txt-colab-ext-cual');
+    const radPub = document.querySelector('input[name="rad-pub"]:checked');
+    const txtPubCual = document.getElementById('txt-pub-cual');
+
+    const q3 = [];
+    for (let i = 0; i < ITEMS_Q3.length; i++) {
+      const r = document.querySelector('input[name="rad-q3-' + i + '"]:checked');
+      q3.push(r ? parseInt(r.value, 10) : null);
+    }
+
+    const q6 = [];
+    for (let i = 0; i < ITEMS_Q6.length; i++) {
+      const r = document.querySelector('input[name="rad-q6-' + i + '"]:checked');
+      q6.push(r ? parseInt(r.value, 10) : null);
+    }
+
+    const rows = subjectsContainer ? subjectsContainer.getElementsByClassName('subject-row') : [];
+    const asignaturasList = [];
+    for (let i = 0; i < rows.length; i++) {
+      const inp = rows[i].querySelector('.subject-input');
+      const sid = rows[i].getAttribute('data-subject-id');
+      asignaturasList.push({
+        id: sid,
+        nombre: inp ? inp.value : ''
+      });
+    }
+
+    return {
+      version: 1,
+      timestamp: new Date().toISOString(),
+      etapaActual: etapaActual,
+      consent: chkConsent ? chkConsent.checked : false,
+      datosGenerales: {
+        edad: txtEdad ? txtEdad.value : '',
+        genero: cmbGenero ? cmbGenero.value : '',
+        expProf: txtExpProf ? txtExpProf.value : '',
+        expDoc: txtExpDoc ? txtExpDoc.value : '',
+        grado: txtGrado ? txtGrado.value : '',
+        colabInterna: radInt ? radInt.value : '',
+        colabInternaCual: txtColabIntCual ? txtColabIntCual.value : '',
+        colabExterna: radExt ? radExt.value : '',
+        colabExternaCual: txtColabExtCual ? txtColabExtCual.value : '',
+        publicaciones: radPub ? radPub.value : '',
+        publicacionesCual: txtPubCual ? txtPubCual.value : ''
+      },
+      q3: q3,
+      asignaturas: asignaturasList,
+      estadoRespuestasMatrices: JSON.parse(JSON.stringify(estadoRespuestasMatrices)),
+      q6: q6
+    };
+  }
+
+  function guardarBorradorSilencioso() {
     try {
-      const draft = {
-        edad: document.getElementById('txt-edad').value,
-        genero: document.getElementById('cmb-genero').value,
-        expProf: document.getElementById('txt-exp-prof').value,
-        expDoc: document.getElementById('txt-exp-doc').value,
-        grado: document.getElementById('txt-grado').value
-      };
-      localStorage.setItem('encuesta_fcae_v1', JSON.stringify(draft));
+      const draft = recopilarBorradorActual();
+      localStorage.setItem(LS_FULL_DRAFT_KEY, JSON.stringify(draft));
     } catch (e) {}
   }
 
-  function cargarBorradorLocal() {
+  function guardarBorradorManual(etapaOrigen) {
     try {
-      const raw = localStorage.getItem('encuesta_fcae_v1');
-      if (raw) {
-        const draft = JSON.parse(raw);
-        if (draft.edad) document.getElementById('txt-edad').value = draft.edad;
-        if (draft.genero) document.getElementById('cmb-genero').value = draft.genero;
-        if (draft.expProf) document.getElementById('txt-exp-prof').value = draft.expProf;
-        if (draft.expDoc) document.getElementById('txt-exp-doc').value = draft.expDoc;
-        if (draft.grado) document.getElementById('txt-grado').value = draft.grado;
+      const draft = recopilarBorradorActual();
+      localStorage.setItem(LS_FULL_DRAFT_KEY, JSON.stringify(draft));
+
+      if (saveModalMeta) {
+        const ahora = new Date();
+        const horaStr = ahora.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit' });
+        saveModalMeta.textContent = 'Guardado el ' + ahora.toLocaleDateString('es-NI', { dateStyle: 'medium' }) + ' a las ' + horaStr + ' (Etapa ' + etapaActual + ')';
       }
+
+      if (saveDraftModal) {
+        saveDraftModal.style.display = 'flex';
+      } else {
+        mostrarToastSurvey('💾 <strong>Progreso guardado:</strong> Puedes cerrar la ventana y continuar después.', 5000);
+      }
+    } catch (e) {
+      mostrarToastSurvey('⚠️ No se pudo guardar el borrador en el almacenamiento local.', 4000);
+    }
+  }
+
+  function restaurarBorradorCompleto(draft) {
+    if (!draft) return;
+
+    // 1. Consentimiento
+    if (chkConsent) {
+      chkConsent.checked = Boolean(draft.consent);
+    }
+
+    // 2. Datos generales
+    if (draft.datosGenerales) {
+      const dg = draft.datosGenerales;
+      const txtEdad = document.getElementById('txt-edad');
+      const cmbGenero = document.getElementById('cmb-genero');
+      const txtExpProf = document.getElementById('txt-exp-prof');
+      const txtExpDoc = document.getElementById('txt-exp-doc');
+      const txtGrado = document.getElementById('txt-grado');
+      if (txtEdad) txtEdad.value = dg.edad || '';
+      if (cmbGenero) cmbGenero.value = dg.genero || '';
+      if (txtExpProf) txtExpProf.value = dg.expProf || '';
+      if (txtExpDoc) txtExpDoc.value = dg.expDoc || '';
+      if (txtGrado) txtGrado.value = dg.grado || '';
+
+      // Preguntas Sí / No
+      if (dg.colabInterna) {
+        const rad = document.querySelector('input[name="rad-colab-int"][value="' + dg.colabInterna + '"]');
+        if (rad) {
+          rad.checked = true;
+          const box = document.getElementById('panel-colab-int');
+          const not = document.getElementById('notice-colab-int');
+          if (box) box.style.display = dg.colabInterna === 'Sí' ? 'block' : 'none';
+          if (not) not.style.display = dg.colabInterna === 'No' ? 'inline-flex' : 'none';
+          const txt = document.getElementById('txt-colab-int-cual');
+          if (txt) txt.value = dg.colabInternaCual || '';
+        }
+      }
+
+      if (dg.colabExterna) {
+        const rad = document.querySelector('input[name="rad-colab-ext"][value="' + dg.colabExterna + '"]');
+        if (rad) {
+          rad.checked = true;
+          const box = document.getElementById('panel-colab-ext');
+          const not = document.getElementById('notice-colab-ext');
+          if (box) box.style.display = dg.colabExterna === 'Sí' ? 'block' : 'none';
+          if (not) not.style.display = dg.colabExterna === 'No' ? 'inline-flex' : 'none';
+          const txt = document.getElementById('txt-colab-ext-cual');
+          if (txt) txt.value = dg.colabExternaCual || '';
+        }
+      }
+
+      if (dg.publicaciones) {
+        const rad = document.querySelector('input[name="rad-pub"][value="' + dg.publicaciones + '"]');
+        if (rad) {
+          rad.checked = true;
+          const box = document.getElementById('panel-pub');
+          const not = document.getElementById('notice-pub');
+          if (box) box.style.display = dg.publicaciones === 'Sí' ? 'block' : 'none';
+          if (not) not.style.display = dg.publicaciones === 'No' ? 'inline-flex' : 'none';
+          const txt = document.getElementById('txt-pub-cual');
+          if (txt) txt.value = dg.publicacionesCual || '';
+        }
+      }
+    }
+
+    // 3. Q3
+    if (Array.isArray(draft.q3)) {
+      draft.q3.forEach(function(val, idx) {
+        if (val !== null && val !== undefined) {
+          const rad = document.querySelector('input[name="rad-q3-' + idx + '"][value="' + val + '"]');
+          if (rad) rad.checked = true;
+        }
+      });
+    }
+
+    // 4. Asignaturas y Matrices
+    if (draft.estadoRespuestasMatrices && typeof draft.estadoRespuestasMatrices === 'object') {
+      Object.keys(estadoRespuestasMatrices).forEach(function(k) { delete estadoRespuestasMatrices[k]; });
+      Object.assign(estadoRespuestasMatrices, draft.estadoRespuestasMatrices);
+    }
+
+    if (Array.isArray(draft.asignaturas) && draft.asignaturas.length > 0) {
+      subjectsContainer.innerHTML = '';
+      draft.asignaturas.forEach(function(item) {
+        const row = document.createElement('div');
+        row.className = 'subject-row';
+        const sid = item.id || ('subj_' + (++subjectIdCounter));
+        row.setAttribute('data-subject-id', sid);
+        if (!estadoRespuestasMatrices[sid]) {
+          estadoRespuestasMatrices[sid] = { A: {}, B: {} };
+        }
+        row.innerHTML =
+          '<div class="subject-index-badge"></div>' +
+          '<input type="text" class="form-control subject-input" maxlength="150" value="' + escapeHtml(item.nombre || '') + '">' +
+          '<button type="button" class="btn btn-danger btn-delete-subject">Eliminar</button>';
+        subjectsContainer.appendChild(row);
+      });
+      renumerarFilasAsignatura();
+    }
+
+    // 5. Q6
+    if (Array.isArray(draft.q6)) {
+      draft.q6.forEach(function(val, idx) {
+        if (val !== null && val !== undefined) {
+          const rad = document.querySelector('input[name="rad-q6-' + idx + '"][value="' + val + '"]');
+          if (rad) rad.checked = true;
+        }
+      });
+    }
+
+    // 6. Transición a la etapa guardada
+    const dest = draft.etapaActual && draft.etapaActual >= 1 && draft.etapaActual <= TOTAL_ETAPAS ? draft.etapaActual : 1;
+    cambiarEtapa(dest, false);
+    if (draftResumeBanner) draftResumeBanner.style.display = 'none';
+    calcularProgreso();
+    mostrarToastSurvey('✓ <strong>Avance reanudado:</strong> Se cargaron sus respuestas hasta la Etapa ' + dest + '.');
+  }
+
+  function comprobarBorradorGuardado() {
+    try {
+      const raw = localStorage.getItem(LS_FULL_DRAFT_KEY);
+      if (!raw) return;
+      const draft = JSON.parse(raw);
+      if (!draft || !draft.timestamp) return;
+
+      const fecha = new Date(draft.timestamp);
+      const fechaTexto = fecha.toLocaleDateString('es-NI', { dateStyle: 'short' }) + ' ' + fecha.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit' });
+      if (draftSavedDateEl) draftSavedDateEl.textContent = fechaTexto;
+      if (draftSavedStageEl) draftSavedStageEl.textContent = 'Etapa ' + (draft.etapaActual || 1);
+      if (draftResumeBanner) draftResumeBanner.style.display = 'flex';
     } catch (e) {}
   }
-  cargarBorradorLocal();
 
-  form.addEventListener('input', calcularProgreso);
-  form.addEventListener('change', calcularProgreso);
+  // Eventos de botones de Guardado y Modal
+  if (btnSaveProgressTop) {
+    btnSaveProgressTop.addEventListener('click', function() {
+      guardarBorradorManual(etapaActual);
+    });
+  }
+
+  btnsSaveStage.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      guardarBorradorManual(etapaActual);
+    });
+  });
+
+  if (btnCloseSaveModal) {
+    btnCloseSaveModal.addEventListener('click', function() {
+      if (saveDraftModal) saveDraftModal.style.display = 'none';
+    });
+  }
+
+  if (saveDraftModal) {
+    saveDraftModal.addEventListener('click', function(e) {
+      if (e.target === saveDraftModal) {
+        saveDraftModal.style.display = 'none';
+      }
+    });
+  }
+
+  if (btnResumeDraft) {
+    btnResumeDraft.addEventListener('click', function() {
+      try {
+        const raw = localStorage.getItem(LS_FULL_DRAFT_KEY);
+        if (raw) restaurarBorradorCompleto(JSON.parse(raw));
+      } catch (e) {}
+    });
+  }
+
+  if (btnDiscardDraft) {
+    btnDiscardDraft.addEventListener('click', function() {
+      try { localStorage.removeItem(LS_FULL_DRAFT_KEY); } catch (e) {}
+      if (draftResumeBanner) draftResumeBanner.style.display = 'none';
+      mostrarToastSurvey('Borrador descartado. Iniciando encuesta limpia.');
+    });
+  }
+
+  // ==========================================================================
+  // 9. FORMULARIO DE TALLERES COLABORATIVOS (SEGUNDA ETAPA)
+  // ==========================================================================
+  if (btnParticiparTaller) {
+    btnParticiparTaller.addEventListener('click', function() {
+      if (workshopTriggerContainer) workshopTriggerContainer.style.display = 'none';
+      if (workshopFormContainer) {
+        workshopFormContainer.style.display = 'block';
+        if (txtTallerNombre) txtTallerNombre.focus();
+      }
+    });
+  }
+
+  if (workshopForm) {
+    workshopForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (workshopFormError) workshopFormError.style.display = 'none';
+
+      const nombre = txtTallerNombre ? txtTallerNombre.value.trim() : '';
+      const telefono = txtTallerTelefono ? txtTallerTelefono.value.trim() : '';
+      const email = txtTallerEmail ? txtTallerEmail.value.trim() : '';
+
+      if (!nombre || nombre.length < 3) {
+        if (workshopFormError) {
+          workshopFormError.textContent = 'Por favor ingrese su nombre completo.';
+          workshopFormError.style.display = 'block';
+        }
+        if (txtTallerNombre) txtTallerNombre.focus();
+        return;
+      }
+
+      if (!telefono || telefono.length < 6) {
+        if (workshopFormError) {
+          workshopFormError.textContent = 'Por favor ingrese un número de teléfono válido para coordinar la invitación.';
+          workshopFormError.style.display = 'block';
+        }
+        if (txtTallerTelefono) txtTallerTelefono.focus();
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        if (workshopFormError) {
+          workshopFormError.textContent = 'Por favor ingrese una dirección de correo electrónico válida.';
+          workshopFormError.style.display = 'block';
+        }
+        if (txtTallerEmail) txtTallerEmail.focus();
+        return;
+      }
+
+      const payloadTaller = {
+        id: generateUuid(),
+        surveyId: ultimoEnvioId || null,
+        nombre: nombre,
+        telefono: telefono,
+        email: email.toLowerCase(),
+        timestamp: new Date().toISOString()
+      };
+
+      if (btnSubmitTaller) {
+        btnSubmitTaller.disabled = true;
+        btnSubmitTaller.textContent = 'Registrando sus datos...';
+      }
+
+      // Guardar localmente
+      guardarTallerLocal(payloadTaller);
+
+      // Notificar al dashboard en vivo
+      notificarDashboardEnVivo({
+        type: 'workshop_registered',
+        taller: payloadTaller,
+        ts: Date.now()
+      });
+
+      // Enviar al servidor si está disponible
+      fetch('api/taller', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadTaller)
+      })
+      .catch(function() { /* Entorno estático GitHub Pages */ })
+      .finally(function() {
+        if (btnSubmitTaller) {
+          btnSubmitTaller.disabled = false;
+          btnSubmitTaller.textContent = '✓ Registrar mis datos para los talleres';
+        }
+        if (workshopFormContainer) workshopFormContainer.style.display = 'none';
+        if (workshopConfirmedBox) workshopConfirmedBox.style.display = 'flex';
+        mostrarToastSurvey('✨ <strong>¡Muchas gracias!</strong> Sus datos para los talleres colaborativos han sido registrados.');
+      });
+    });
+  }
+
+  function guardarTallerLocal(tallerObj) {
+    try {
+      let lista = [];
+      const raw = localStorage.getItem(LS_TALLERES_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) lista = parsed;
+      }
+      lista.push(tallerObj);
+      localStorage.setItem(LS_TALLERES_KEY, JSON.stringify(lista));
+    } catch (e) {}
+  }
+
+  comprobarBorradorGuardado();
+
+  form.addEventListener('input', function() {
+    calcularProgreso();
+    clearTimeout(timerAutoSave);
+    timerAutoSave = setTimeout(guardarBorradorSilencioso, 650);
+  });
+  form.addEventListener('change', function() {
+    calcularProgreso();
+    guardarBorradorSilencioso();
+  });
   calcularProgreso();
 });

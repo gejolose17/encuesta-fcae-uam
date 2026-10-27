@@ -151,6 +151,53 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Endpoint API: Registro de participantes para talleres colaborativos (segunda etapa)
+  if (req.method === 'POST' && pathname === '/api/taller') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body);
+        const tallerId = payload.id || crypto.randomUUID();
+        const timestamp = payload.timestamp || new Date().toISOString();
+
+        const talleresFile = path.join(DATA_DIR, 'talleres.json');
+        let talleresList = [];
+        if (fs.existsSync(talleresFile)) {
+          try {
+            talleresList = JSON.parse(fs.readFileSync(talleresFile, 'utf8'));
+            if (!Array.isArray(talleresList)) talleresList = [];
+          } catch (e) {
+            talleresList = [];
+          }
+        }
+
+        const record = {
+          id: tallerId,
+          surveyId: payload.surveyId || null,
+          nombre: payload.nombre || '',
+          telefono: payload.telefono || '',
+          email: payload.email || '',
+          timestamp: timestamp
+        };
+
+        talleresList.push(record);
+        fs.writeFileSync(talleresFile, JSON.stringify(talleresList, null, 2), 'utf8');
+
+        console.log(`[TALLER OK] Participante registrado: ${record.nombre} (${record.email})`);
+        notificarClientesSSE({ type: 'workshop_registered', taller: record, timestamp: timestamp });
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: true, id: tallerId }));
+      } catch (err) {
+        console.error('[TALLER ERROR]', err);
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   // Endpoint API: Consulta de resultados para el tablero analítico (dashboard.html)
   if (req.method === 'GET' && pathname === '/api/resultados') {
     const leer = (nombre) => {
@@ -167,7 +214,8 @@ const server = http.createServer((req, res) => {
       ok: true,
       generado: new Date().toISOString(),
       docentes: leer('docentes.json'),
-      respuestas: leer('respuestas.json')
+      respuestas: leer('respuestas.json'),
+      talleres: leer('talleres.json')
     }));
     return;
   }
@@ -177,6 +225,7 @@ const server = http.createServer((req, res) => {
     try {
       const docentesFile = path.join(DATA_DIR, 'docentes.json');
       const respuestasFile = path.join(DATA_DIR, 'respuestas.json');
+      const talleresFile = path.join(DATA_DIR, 'talleres.json');
 
       const backupsDir = path.join(DATA_DIR, 'backups');
       if (!fs.existsSync(backupsDir)) {
@@ -186,6 +235,7 @@ const server = http.createServer((req, res) => {
       const ts = new Date().toISOString().replace(/[:.]/g, '-');
       let conteoDocentes = 0;
       let conteoRespuestas = 0;
+      let conteoTalleres = 0;
 
       // Generar copia de seguridad preventiva antes de limpiar
       if (fs.existsSync(docentesFile)) {
@@ -204,12 +254,21 @@ const server = http.createServer((req, res) => {
         } catch (e) {}
         fs.writeFileSync(path.join(backupsDir, `respuestas_backup_${ts}.json`), respRaw, 'utf8');
       }
+      if (fs.existsSync(talleresFile)) {
+        const tallRaw = fs.readFileSync(talleresFile, 'utf8');
+        try {
+          const tallParsed = JSON.parse(tallRaw);
+          conteoTalleres = Array.isArray(tallParsed) ? tallParsed.length : 0;
+        } catch (e) {}
+        fs.writeFileSync(path.join(backupsDir, `talleres_backup_${ts}.json`), tallRaw, 'utf8');
+      }
 
       // Vaciar los registros dejando arreglos vacíos listos para datos reales
       fs.writeFileSync(docentesFile, JSON.stringify([], null, 2), 'utf8');
       fs.writeFileSync(respuestasFile, JSON.stringify([], null, 2), 'utf8');
+      fs.writeFileSync(talleresFile, JSON.stringify([], null, 2), 'utf8');
 
-      console.log(`[RESET OK] Data de prueba eliminada (${conteoDocentes} docentes, ${conteoRespuestas} respuestas respaldados en /data/backups/). Plataforma lista para recibir datos reales.`);
+      console.log(`[RESET OK] Data de prueba eliminada (${conteoDocentes} docentes, ${conteoRespuestas} respuestas, ${conteoTalleres} talleres respaldados en /data/backups/). Plataforma lista para recibir datos reales.`);
       notificarClientesSSE({ type: 'data_reset', timestamp: new Date().toISOString() });
 
       res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
@@ -218,7 +277,8 @@ const server = http.createServer((req, res) => {
         mensaje: 'Data de prueba eliminada exitosamente. La base de datos está lista para recibir respuestas reales.',
         eliminados: {
           docentes: conteoDocentes,
-          respuestas: conteoRespuestas
+          respuestas: conteoRespuestas,
+          talleres: conteoTalleres
         },
         timestamp: new Date().toISOString()
       }));
