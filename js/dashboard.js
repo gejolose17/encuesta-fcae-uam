@@ -1504,6 +1504,69 @@
     descargar(nombre, '\ufeff' + filas.map(f => f.map(celdaCSV).join(',')).join('\r\n'), 'text/csv');
   }
 
+  function descargarExcel(nombre, titulo, subtitulo, cabeceras, filas) {
+    const ahora = new Date();
+    const fechaHora = ahora.toLocaleDateString('es-NI', { dateStyle: 'long' }) + ' ' + ahora.toLocaleTimeString('es-NI', { timeStyle: 'short' });
+    const htmlTable = `
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+      <head>
+        <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
+        <!--[if gte mso 9]>
+        <xml>
+          <x:ExcelWorkbook>
+            <x:ExcelWorksheets>
+              <x:ExcelWorksheet>
+                <x:Name>Talleres Colaborativos</x:Name>
+                <x:WorksheetOptions>
+                  <x:DisplayGridlines/>
+                </x:WorksheetOptions>
+              </x:ExcelWorksheet>
+            </x:ExcelWorksheets>
+          </x:ExcelWorkbook>
+        </xml>
+        <![endif]-->
+        <style>
+          .titulo-main { font-family: Calibri, Arial, sans-serif; font-size: 16pt; font-weight: bold; color: #0099A8; padding: 10px; }
+          .subtitulo { font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #555555; padding: 4px 10px; font-style: italic; }
+          .meta-info { font-family: Calibri, Arial, sans-serif; font-size: 9.5pt; color: #777777; padding: 4px 10px; }
+          th { background-color: #0099A8; color: #ffffff; font-family: Calibri, Arial, sans-serif; font-size: 11pt; font-weight: bold; padding: 10px 14px; border: 1px solid #007783; text-align: left; }
+          td { font-family: Calibri, Arial, sans-serif; font-size: 10.5pt; padding: 8px 12px; border: 1px solid #d0d7de; vertical-align: middle; }
+          .row-even { background-color: #f8fafc; }
+          .num-cell { text-align: center; font-weight: bold; color: #0099A8; }
+        </style>
+      </head>
+      <body>
+        <table>
+          <tr><td colspan="${cabeceras.length}" class="titulo-main">${esc(titulo)}</td></tr>
+          <tr><td colspan="${cabeceras.length}" class="subtitulo">${esc(subtitulo)}</td></tr>
+          <tr><td colspan="${cabeceras.length}" class="meta-info">Fecha de exportación: ${fechaHora} | Total de participantes registrados: ${filas.length}</td></tr>
+          <tr><td colspan="${cabeceras.length}"></td></tr>
+          <thead>
+            <tr>
+              ${cabeceras.map(c => `<th>${esc(c)}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${filas.map((f, i) => `
+              <tr class="${i % 2 === 0 ? 'row-even' : ''}">
+                ${f.map((v, cIdx) => `<td class="${cIdx === 0 ? 'num-cell' : ''}">${esc(String(v !== undefined && v !== null ? v : ''))}</td>`).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `;
+    descargar(nombre, '\ufeff' + htmlTable, 'application/vnd.ms-excel');
+  }
+
+  function obtenerIniciales(nombre) {
+    if (!nombre) return 'Doc';
+    const partes = nombre.trim().split(/\s+/).filter(Boolean);
+    if (partes.length === 1) return partes[0].substring(0, 2).toUpperCase();
+    return (partes[0][0] + partes[partes.length - 1][0]).toUpperCase();
+  }
+
   function exportarDocentes(docs) {
     const cab = ['id', 'fecha', 'genero', 'edad', 'rango_edad', 'grado_academico', 'grado_clasificado', 'exp_profesional', 'exp_docente',
       'colab_interna', 'colab_interna_cual', 'colab_externa', 'colab_externa_cual', 'publicaciones', 'publicaciones_cual', 'total_asignaturas']
@@ -1562,45 +1625,87 @@
       </div>
 
       <article class="card">
-        <div class="card-head">
+        <div class="card-head" style="flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
           <div>
             <h3 class="card-title">Directorio de Contacto (${talleres.length})</h3>
-            <p class="card-sub">Búsqueda rápida en vivo y herramientas de exportación</p>
+            <p class="card-sub">Docentes inscritos para las mesas de trabajo colaborativo para el modelo de investigación formativa</p>
           </div>
           <div class="card-actions">
-            <input type="search" id="talleres-search" placeholder="🔍 Buscar por nombre, teléfono o correo…" class="input-search" style="min-width: 280px;">
-            <button type="button" class="btn-ghost" id="btn-copy-talleres-emails" title="Copiar todos los correos electrónicos separados por coma">📋 Copiar correos</button>
-            <button type="button" class="btn-ghost" id="btn-csv-talleres" title="Descargar planilla CSV / Excel con los participantes">⬇ Descargar CSV</button>
-            <button type="button" class="btn-ghost" id="btn-json-talleres" title="Descargar datos en formato JSON">⬇ JSON</button>
+            <input type="search" id="talleres-search" placeholder="🔍 Buscar por nombre, teléfono o correo…" class="input-search" style="min-width: 250px;">
+            <button type="button" class="btn btn-excel" id="btn-excel-talleres" title="Exportar directorio completo de participantes a Microsoft Excel (.xls)">📗 Exportar a Excel</button>
+            <button type="button" class="btn btn-secondary" id="btn-csv-talleres" title="Descargar planilla CSV compatible con hojas de cálculo">⬇ CSV</button>
+            <button type="button" class="btn btn-secondary" id="btn-copy-talleres-emails" title="Copiar todos los correos electrónicos al portapapeles">📋 Copiar correos</button>
+            <button type="button" class="btn btn-secondary" id="btn-json-talleres" title="Descargar datos en formato JSON">⬇ JSON</button>
           </div>
         </div>
 
-        <div class="table-wrap">
-          <table class="data-table" id="tabla-talleres">
+        <div class="table-wrap table-wrap-talleres">
+          <table class="data-table tabla-talleres-espaciosa" id="tabla-talleres">
             <thead>
               <tr>
-                <th style="width: 50px;">#</th>
-                <th>Fecha de registro</th>
-                <th>Nombre completo</th>
-                <th>Teléfono de contacto</th>
-                <th>Correo electrónico</th>
-                <th>Origen</th>
+                <th style="width: 54px; text-align: center;">#</th>
+                <th style="min-width: 220px;">Docente / Participante</th>
+                <th style="min-width: 170px;">Teléfono de contacto</th>
+                <th style="min-width: 210px;">Correo electrónico</th>
+                <th style="min-width: 150px;">Fecha y hora</th>
+                <th style="min-width: 140px; text-align: center;">Estado</th>
               </tr>
             </thead>
             <tbody>
               ${talleres.map((t, idx) => {
                 const f = t.timestamp ? new Date(t.timestamp) : null;
-                const fStr = f ? (f.toLocaleDateString('es-NI', { dateStyle: 'medium' }) + ' ' + f.toLocaleTimeString('es-NI', { timeStyle: 'short' })) : '—';
+                const diaStr = f ? f.toLocaleDateString('es-NI', { dateStyle: 'medium' }) : '—';
+                const horaStr = f ? f.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit' }) : '';
                 const telClean = t.telefono ? t.telefono.replace(/[^\d+]/g, '') : '';
+                const iniciales = obtenerIniciales(t.nombre);
                 return `<tr>
-                  <td style="font-weight:700; color:var(--muted);">${idx + 1}</td>
-                  <td>${esc(fStr)}</td>
-                  <td><strong>${esc(t.nombre || '—')}</strong></td>
-                  <td>${t.telefono ? `<a href="tel:${esc(telClean)}" class="talleres-link-phone" title="Llamar">📞 ${esc(t.telefono)}</a>` : '—'}</td>
-                  <td>${t.email ? `<a href="mailto:${esc(t.email)}" class="talleres-link-email" title="Enviar correo">✉️ ${esc(t.email)}</a>` : '—'}</td>
-                  <td><span class="badge-tag-survey">Encuesta FCAE</span></td>
+                  <td style="text-align: center;">
+                    <span class="talleres-num-badge">${idx + 1}</span>
+                  </td>
+                  <td>
+                    <div class="talleres-user-cell">
+                      <div class="talleres-avatar">${esc(iniciales)}</div>
+                      <div class="talleres-user-info">
+                        <span class="talleres-user-name">${esc(t.nombre || 'Sin nombre declarado')}</span>
+                        <span class="talleres-user-sub">Docente FCAE</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    ${t.telefono 
+                      ? `<a href="tel:${esc(telClean)}" class="talleres-pill-phone" title="Llamar o registrar en WhatsApp">
+                          <span>📞</span> <span>${esc(t.telefono)}</span>
+                        </a>` 
+                      : '<span style="color:var(--muted); font-size: 13px;">—</span>'}
+                  </td>
+                  <td>
+                    ${t.email 
+                      ? `<a href="mailto:${esc(t.email)}" class="talleres-pill-email" title="Enviar correo institucional">
+                          <span>✉️</span> <span>${esc(t.email)}</span>
+                        </a>` 
+                      : '<span style="color:var(--muted); font-size: 13px;">—</span>'}
+                  </td>
+                  <td>
+                    <div class="talleres-fecha-box">
+                      <span class="talleres-fecha-dia">${esc(diaStr)}</span>
+                      ${horaStr ? `<span class="talleres-fecha-hora">⏰ ${esc(horaStr)}</span>` : ''}
+                    </div>
+                  </td>
+                  <td style="text-align: center;">
+                    <span class="talleres-status-badge">
+                      <span>✓</span> Confirmado
+                    </span>
+                  </td>
                 </tr>`;
-              }).join('') || '<tr><td colspan="6" style="text-align:center;padding:36px;color:var(--muted)">Aún no hay docentes registrados para los talleres colaborativos. Aparecerán aquí automáticamente cuando completen la encuesta y elijan la opción "Sí, me gustaría".</td></tr>'}
+              }).join('') || `<tr>
+                <td colspan="6" style="text-align:center; padding: 48px 20px; color: var(--muted);">
+                  <div style="font-size: 34px; margin-bottom: 10px;">👥</div>
+                  <div style="font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px;">Aún no hay docentes registrados en los talleres colaborativos</div>
+                  <div style="font-size: 13px; max-width: 520px; margin: 0 auto; line-height: 1.55; color: var(--muted);">
+                    Los contactos aparecerán automáticamente en esta tabla cuando los docentes finalicen la encuesta y acepten participar en los talleres de co-diseño ("Sí me gustaría").
+                  </div>
+                </td>
+              </tr>`}
             </tbody>
           </table>
         </div>
@@ -1613,6 +1718,51 @@
         $$('#tabla-talleres tbody tr').forEach(tr => {
           tr.style.display = !q || normTexto(tr.textContent).indexOf(q) >= 0 ? '' : 'none';
         });
+      });
+    }
+
+    const btnExcel = $('#btn-excel-talleres');
+    if (btnExcel) {
+      btnExcel.addEventListener('click', () => {
+        if (!talleres.length) {
+          mostrarToast('ℹ️ Aún no hay docentes registrados para exportar a Excel.', 3000);
+          return;
+        }
+        const cab = [
+          'N°',
+          'Fecha de Registro',
+          'Hora',
+          'Nombre Completo',
+          'Teléfono de Contacto',
+          'Correo Electrónico',
+          'Estado',
+          'Fuente',
+          'ID de Registro'
+        ];
+        const filas = talleres.map((t, i) => {
+          const f = t.timestamp ? new Date(t.timestamp) : null;
+          const fechaStr = f ? f.toLocaleDateString('es-NI', { dateStyle: 'medium' }) : '—';
+          const horaStr = f ? f.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit' }) : '—';
+          return [
+            i + 1,
+            fechaStr,
+            horaStr,
+            t.nombre || '',
+            t.telefono || '',
+            t.email || '',
+            'Confirmado para Co-Diseño',
+            'Encuesta Docente FCAE',
+            t.id || ''
+          ];
+        });
+        descargarExcel(
+          `participantes_talleres_fcae_${hoy()}.xls`,
+          'DIRECTORIO DE PARTICIPANTES - TALLERES COLABORATIVOS',
+          'Modelo de Investigación Formativa para la FCAE - Universidad Americana (UAM) - Segunda Etapa de Tesis',
+          cab,
+          filas
+        );
+        mostrarToast('📗 Archivo Excel descargado exitosamente.');
       });
     }
 
@@ -1638,23 +1788,38 @@
     const btnCsv = $('#btn-csv-talleres');
     if (btnCsv) {
       btnCsv.addEventListener('click', () => {
-        const cab = ['N', 'Fecha_Registro', 'Nombre_Completo', 'Telefono', 'Correo_Electronico', 'ID_Registro'];
-        const filas = talleres.map((t, i) => [
-          i + 1,
-          t.timestamp || '',
-          t.nombre || '',
-          t.telefono || '',
-          t.email || '',
-          t.id || ''
-        ]);
+        if (!talleres.length) {
+          mostrarToast('ℹ️ Aún no hay docentes registrados para exportar a CSV.', 3000);
+          return;
+        }
+        const cab = ['N', 'Fecha_Registro', 'Hora', 'Nombre_Completo', 'Telefono', 'Correo_Electronico', 'Estado', 'ID_Registro'];
+        const filas = talleres.map((t, i) => {
+          const f = t.timestamp ? new Date(t.timestamp) : null;
+          return [
+            i + 1,
+            f ? f.toLocaleDateString('es-NI') : '',
+            f ? f.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit' }) : '',
+            t.nombre || '',
+            t.telefono || '',
+            t.email || '',
+            'Confirmado para Co-Diseño',
+            t.id || ''
+          ];
+        });
         descargarCSV(`participantes_talleres_fcae_${hoy()}.csv`, [cab].concat(filas));
+        mostrarToast('📄 Archivo CSV descargado exitosamente.');
       });
     }
 
     const btnJson = $('#btn-json-talleres');
     if (btnJson) {
       btnJson.addEventListener('click', () => {
+        if (!talleres.length) {
+          mostrarToast('ℹ️ Aún no hay docentes registrados para exportar.', 3000);
+          return;
+        }
         descargar(`participantes_talleres_fcae_${hoy()}.json`, JSON.stringify(talleres, null, 2), 'application/json');
+        mostrarToast('📦 Archivo JSON descargado exitosamente.');
       });
     }
   }
