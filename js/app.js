@@ -314,6 +314,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
       }
 
+      // Validar que cada asignatura registrada tenga su nombre específico escrito por el docente
+      for (let k = 0; k < infoAsig.activas.length; k++) {
+        const asig = infoAsig.activas[k];
+        if (asig.esTemporal || !asig.nombreOriginal || !asig.nombreOriginal.trim()) {
+          if (asig.inputEl) {
+            asig.inputEl.classList.add('is-invalid');
+            asig.inputEl.focus();
+          }
+          const sugerencia = (infoAsig.activas.length > 1) ? ' (o elimine la fila con "Eliminar" si no imparte tantas asignaturas)' : '';
+          mostrarError('Por favor ingrese el nombre de la Asignatura ' + (k + 1) + ' que imparte actualmente' + sugerencia + '.', asig.inputEl || subjectsContainer);
+          return false;
+        }
+      }
+
       // Validar que todos los ítems de Matriz A estén respondidos (12 ítems x N asignaturas)
       for (let i = 0; i < ITEMS_MATRIZ_A.length; i++) {
         for (let j = 0; j < asignaturasActivas.length; j++) {
@@ -376,12 +390,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (btnNext4) btnNext4.addEventListener('click', () => cambiarEtapa(5));
 
   // Sincronización instantánea al editar cualquier campo en Registro de Asignaturas
-  subjectsContainer.addEventListener('input', function(e) {
+  function manejarCambioAsignatura(e) {
     if (e.target && e.target.classList.contains('subject-input')) {
       if (etapaActual === 4) ocultarError();
       sincronizarMatricesEnVivo();
     }
-  });
+  }
+  subjectsContainer.addEventListener('input', manejarCambioAsignatura);
+  subjectsContainer.addEventListener('change', manejarCambioAsignatura);
   if (btnPrev5) btnPrev5.addEventListener('click', () => cambiarEtapa(4, false));
 
   // Navegación interactiva haciendo clic en el stepper superior
@@ -470,7 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (progressText) progressText.textContent = 'Progreso: ' + porcentaje + '%';
     if (progressCount) progressCount.textContent = completados + ' de ' + totalEsperado + ' completados';
 
-    guardarBorradorLocal();
+    if (typeof guardarBorradorSilencioso === 'function') {
+      guardarBorradorSilencioso();
+    }
   }
 
   // ==========================================================================
@@ -529,6 +547,9 @@ document.addEventListener('DOMContentLoaded', function() {
       input.classList.remove('is-invalid');
 
       const val = input.value.trim();
+      const fallbackNombre = 'Asignatura ' + (idx + 1);
+      const nombreEfectivo = val || fallbackNombre;
+
       if (val) {
         const norm = val.toLowerCase();
         if (mapNorm.has(norm)) {
@@ -542,13 +563,16 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           mapNorm.set(norm, input);
         }
-        activas.push({
-          id: id,
-          nombre: val,
-          rowNum: idx + 1,
-          inputEl: input
-        });
       }
+
+      activas.push({
+        id: id,
+        nombre: nombreEfectivo,
+        nombreOriginal: val,
+        esTemporal: !val,
+        rowNum: idx + 1,
+        inputEl: input
+      });
     });
 
     if (subjectsDupNotice) {
@@ -972,27 +996,53 @@ document.addEventListener('DOMContentLoaded', function() {
   // 6. CAMPOS CONDICIONALES EN SECCIÓN 1 / ETAPA 2 (PREGUNTAS SÍ / NO)
   // ==========================================================================
   function vincularCondicional(radName, boxId, inputId, noticeId) {
-    const radios = document.getElementsByName(radName);
+    const radios = Array.from(document.getElementsByName(radName));
     const box = document.getElementById(boxId);
     const input = document.getElementById(inputId);
     const notice = noticeId ? document.getElementById(noticeId) : null;
 
-    radios.forEach(function(radio) {
-      radio.addEventListener('change', function() {
-        if (this.value === 'Sí') {
-          if (notice) notice.style.display = 'none';
+    function aplicarEstado() {
+      const checked = document.querySelector('input[name="' + radName + '"]:checked');
+      if (!checked) return;
+      const valor = String(checked.value || '').trim().toLowerCase();
+      const esSi = (valor === 'sí' || valor === 'si');
+
+      if (esSi) {
+        if (notice) notice.style.display = 'none';
+        if (box) {
           box.style.display = 'block';
+          box.style.visibility = 'visible';
+        }
+        if (input) {
           input.classList.remove('is-invalid');
-          input.focus();
-        } else {
-          box.style.display = 'none';
+          setTimeout(function() {
+            try { input.focus(); } catch (err) {}
+          }, 10);
+        }
+      } else {
+        if (box) box.style.display = 'none';
+        if (input) {
           input.value = '';
           input.classList.remove('is-invalid');
-          if (notice) notice.style.display = 'inline-flex';
         }
-        calcularProgreso();
-      });
+        if (notice) notice.style.display = 'inline-flex';
+      }
+      calcularProgreso();
+    }
+
+    radios.forEach(function(radio) {
+      radio.addEventListener('change', aplicarEstado);
+      radio.addEventListener('click', aplicarEstado);
+      const pillLabel = radio.closest('.yn-pill');
+      if (pillLabel) {
+        pillLabel.addEventListener('click', function() {
+          setTimeout(aplicarEstado, 15);
+        });
+      }
     });
+
+    // Sincronizar estado inicial al vincular
+    aplicarEstado();
   }
 
   vincularCondicional('rad-colab-int', 'panel-colab-int', 'txt-colab-int-cual', 'notice-colab-int');
