@@ -5290,5 +5290,23 @@
     "itemNum": 16,
     "itemTexto": "Socialización y publicación de resultados de investigación.",
     "valor": 6
+  },
+  {
+    "idDocente": "3b2919ce-4512-4f52-bfc0-ca67e031a300",
+    "timestamp": "2026-11-20T22:15:00.822Z",
+    "asignatura": "Contabilidad",
+    "matriz": "A",
+    "itemNum": 1,
+    "itemTexto": "Item 1",
+    "valor": 5
+  },
+  {
+    "idDocente": "3b2919ce-4512-4f52-bfc0-ca67e031a300",
+    "timestamp": "2026-11-20T22:15:00.822Z",
+    "asignatura": "Contabilidad",
+    "matriz": "B",
+    "itemNum": 1,
+    "itemTexto": "Item 1",
+    "valor": 5
   }
 ]

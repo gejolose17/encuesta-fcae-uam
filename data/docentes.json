@@ -294,5 +294,42 @@
       6
     ],
     "totalAsignaturas": 3
+  },
+  {
+    "id": "3b2919ce-4512-4f52-bfc0-ca67e031a300",
+    "timestamp": "2026-11-20T22:15:00.822Z",
+    "edad": 40,
+    "genero": "Femenino",
+    "expProfesional": 15,
+    "expDocente": 10,
+    "gradoAcademico": "Maestria",
+    "colabInterna": "No",
+    "colabInternaCual": "",
+    "colabExterna": "No",
+    "colabExternaCual": "",
+    "publicaciones": "No",
+    "publicacionesCual": "",
+    "q3": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+    ],
+    "q6": [
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+    ],
+    "totalAsignaturas": 1
   }
 ]
