@@ -2197,9 +2197,42 @@
     return `${docs.length}|${resps.length}|${tals.length}|${ultDoc}|${ultTal}`;
   }
 
+  async function sincronizarLocalesHaciaServidor(servidorData) {
+    try {
+      const locales = leerEnviosLocales();
+      const talleresLocales = leerTalleresLocales();
+      const servidorDocIds = new Set((servidorData?.docentes || []).map(d => d.id));
+      const servidorTalIds = new Set((servidorData?.talleres || []).map(t => t.id || (t.email + '_' + t.nombre)));
+
+      const nuevosDocentes = locales.docentes.filter(d => d && d.id && !servidorDocIds.has(d.id));
+      const nuevosDocIds = new Set(nuevosDocentes.map(d => d.id));
+      const nuevasRespuestas = locales.respuestas.filter(r => r && nuevosDocIds.has(r.idDocente));
+      const nuevosTalleres = talleresLocales.filter(t => t && !servidorTalIds.has(t.id || (t.email + '_' + t.nombre)));
+
+      if (nuevosDocentes.length === 0 && nuevosTalleres.length === 0) return;
+
+      console.log(`[SYNC AUTO] Sincronizando ${nuevosDocentes.length} docentes y ${nuevosTalleres.length} talleres locales a Cloudflare D1...`);
+      const resp = await fetch('/api/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          docentes: nuevosDocentes,
+          respuestas: nuevasRespuestas,
+          talleres: nuevosTalleres
+        })
+      });
+      const resData = await resp.json().catch(() => ({}));
+      if (resData && resData.ok) {
+        console.log('[SYNC AUTO OK] Datos locales resguardados exitosamente en Cloudflare D1.');
+      }
+    } catch (e) {
+      console.warn('[SYNC AUTO WARN] No se pudo sincronizar locales a la nube aún:', e.message);
+    }
+  }
+
   async function verificarActualizacionRemota() {
     try {
-      const j = await fetchJSON('api/resultados');
+      const j = await fetchJSON('/api/resultados');
       if (!j || !Array.isArray(j.docentes)) return;
       const nuevaFirma = calcularFirmaDatos(j);
       if (firmaDatosActual && nuevaFirma !== firmaDatosActual) {
@@ -2222,14 +2255,13 @@
       return new Promise((res, rej) => google.script.run.withSuccessHandler(res).withFailureHandler(rej).getDashboardData());
     }
     try {
-      const j = await fetchJSON('api/resultados');
+      const j = await fetchJSON('/api/resultados');
       if (j && Array.isArray(j.docentes)) {
         modoServidorActivo = true;
-        if (j.fuente === 'cloudflare-d1') {
-          return j;
-        }
-        asegurarConexionSSE();
-        return combinarDatosConLocales(j);
+        // Combinar con locales para no perder nada y sincronizar hacia Cloudflare D1
+        const datosCombinados = combinarDatosConLocales(j);
+        sincronizarLocalesHaciaServidor(j);
+        return datosCombinados;
       }
     } catch (e) {
       modoServidorActivo = false;
@@ -2238,7 +2270,7 @@
     let baseEst = { docentes: [], respuestas: [], talleres: [] };
     const limpiadoLocal = leerLS(LS_BASELINE_CLEARED_KEY) === '1';
     if (!limpiadoLocal) {
-      const docentes = await fetchJSON('data/docentes.json');
+      const docentes = await fetchJSON('data/docentes.json').catch(() => []);
       const respuestas = await fetchJSON('data/respuestas.json').catch(() => []);
       const talleres = await fetchJSON('data/talleres.json').catch(() => []);
       baseEst = { docentes, respuestas, talleres };

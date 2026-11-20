@@ -1164,7 +1164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .processForm(payload);
     } else {
-      fetch('api/submit', {
+      fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -1752,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       // Enviar al servidor si está disponible
-      fetch('api/taller', {
+      fetch('/api/taller', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadTaller)

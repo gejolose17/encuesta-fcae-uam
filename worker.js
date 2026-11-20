@@ -3,10 +3,11 @@
  * Encuesta de Investigación Formativa FCAE-UAM
  *
  * Endpoints:
- *   POST /api/submit      -> Guarda encuesta en D1 (tablas docentes + respuestas)
+ *   POST /api/submit      -> Guarda encuesta en D1 (chunked batch para soportar N asignaturas)
+ *   POST /api/sync        -> Sincroniza lotes de docentes/respuestas/talleres (idempotente)
  *   POST /api/taller      -> Guarda inscripción a talleres colaborativos en D1
- *   GET  /api/resultados  -> Devuelve docentes, respuestas y talleres (opcional ?desde=YYYY-MM-DD)
- *   POST /api/reset       -> Limpia registros de prueba en D1
+ *   GET  /api/resultados  -> Devuelve docentes, respuestas y talleres (sin pérdida de datos)
+ *   POST /api/reset       -> Limpia registros en D1
  */
 
 function jsonResponse(data, status = 200) {
@@ -14,7 +15,10 @@ function jsonResponse(data, status = 200) {
     status,
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Cache-Control': 'no-store'
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
     }
   });
 }
@@ -56,7 +60,11 @@ async function asegurarTablas(db) {
       telefono TEXT NOT NULL,
       email TEXT NOT NULL,
       timestamp TEXT NOT NULL
-    )`)
+    )`),
+    db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS uq_respuestas_item ON respuestas(idDocente, asignatura, matriz, itemNum)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_docentes_ts ON docentes(timestamp)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_respuestas_doc ON respuestas(idDocente)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_talleres_ts ON talleres(timestamp)`)
   ]);
 }
 
@@ -71,15 +79,15 @@ async function handleSubmit(request, env) {
 
   try {
     const payload = await request.json();
-    const respondentId = crypto.randomUUID();
-    const timestamp = new Date().toISOString();
+    const respondentId = payload.id || crypto.randomUUID();
+    const timestamp = payload.timestamp || new Date().toISOString();
 
     await asegurarTablas(env.DB);
 
     const statements = [];
     statements.push(
       env.DB.prepare(`
-        INSERT INTO docentes (
+        INSERT OR REPLACE INTO docentes (
           id, timestamp, edad, genero, expProfesional, expDocente, gradoAcademico,
           colabInterna, colabInternaCual, colabExterna, colabExternaCual,
           publicaciones, publicacionesCual, q3, q6, totalAsignaturas
@@ -105,7 +113,7 @@ async function handleSubmit(request, env) {
     );
 
     const insertResp = env.DB.prepare(`
-      INSERT INTO respuestas (idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor)
+      INSERT OR REPLACE INTO respuestas (idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `);
 
@@ -129,12 +137,123 @@ async function handleSubmit(request, env) {
       }
     }
 
-    await env.DB.batch(statements);
+    // Ejecutar en lotes de máximo 50 para respetar los límites de Cloudflare D1
+    for (let i = 0; i < statements.length; i += 50) {
+      await env.DB.batch(statements.slice(i, i + 50));
+    }
+
     return jsonResponse({ ok: true, id: respondentId, timestamp });
   } catch (err) {
     return jsonResponse({
       ok: false,
       stage: 'database',
+      error: err && err.message ? err.message : String(err)
+    }, 400);
+  }
+}
+
+async function handleSync(request, env) {
+  if (!env.DB) {
+    return jsonResponse({
+      ok: false,
+      error: 'Base de datos D1 (binding DB) no vinculada.'
+    }, 500);
+  }
+
+  try {
+    const body = await request.json();
+    const docentes = Array.isArray(body && body.docentes) ? body.docentes : [];
+    const respuestas = Array.isArray(body && body.respuestas) ? body.respuestas : [];
+    const talleres = Array.isArray(body && body.talleres) ? body.talleres : [];
+
+    await asegurarTablas(env.DB);
+
+    // 1. Sincronizar docentes
+    if (docentes.length > 0) {
+      const docStmts = docentes.map(d => {
+        return env.DB.prepare(`
+          INSERT OR REPLACE INTO docentes (
+            id, timestamp, edad, genero, expProfesional, expDocente, gradoAcademico,
+            colabInterna, colabInternaCual, colabExterna, colabExternaCual,
+            publicaciones, publicacionesCual, q3, q6, totalAsignaturas
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).bind(
+          d.id,
+          d.timestamp || new Date().toISOString(),
+          d.edad ?? null,
+          d.genero || '',
+          d.expProfesional ?? null,
+          d.expDocente ?? null,
+          d.gradoAcademico || '',
+          d.colabInterna || '',
+          d.colabInternaCual || '',
+          d.colabExterna || '',
+          d.colabExternaCual || '',
+          d.publicaciones || '',
+          d.publicacionesCual || '',
+          typeof d.q3 === 'string' ? d.q3 : JSON.stringify(d.q3 || []),
+          typeof d.q6 === 'string' ? d.q6 : JSON.stringify(d.q6 || []),
+          d.totalAsignaturas || 0
+        );
+      });
+      for (let i = 0; i < docStmts.length; i += 50) {
+        await env.DB.batch(docStmts.slice(i, i + 50));
+      }
+    }
+
+    // 2. Sincronizar respuestas
+    if (respuestas.length > 0) {
+      const respStmts = respuestas.map(r => {
+        return env.DB.prepare(`
+          INSERT OR REPLACE INTO respuestas (idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+        `).bind(
+          r.idDocente,
+          r.timestamp || new Date().toISOString(),
+          r.asignatura || '',
+          r.matriz || '',
+          Number(r.itemNum) || 0,
+          r.itemTexto || '',
+          Number(r.valor) || 0
+        );
+      });
+      for (let i = 0; i < respStmts.length; i += 50) {
+        await env.DB.batch(respStmts.slice(i, i + 50));
+      }
+    }
+
+    // 3. Sincronizar talleres
+    if (talleres.length > 0) {
+      const talStmts = talleres.map(t => {
+        return env.DB.prepare(`
+          INSERT OR REPLACE INTO talleres (id, surveyId, nombre, telefono, email, timestamp)
+          VALUES (?, ?, ?, ?, ?, ?)
+        `).bind(
+          t.id || crypto.randomUUID(),
+          t.surveyId || null,
+          t.nombre || '',
+          t.telefono || '',
+          t.email || '',
+          t.timestamp || new Date().toISOString()
+        );
+      });
+      for (let i = 0; i < talStmts.length; i += 50) {
+        await env.DB.batch(talStmts.slice(i, i + 50));
+      }
+    }
+
+    return jsonResponse({
+      ok: true,
+      mensaje: 'Sincronización en Cloudflare D1 exitosa',
+      recibidos: {
+        docentes: docentes.length,
+        respuestas: respuestas.length,
+        talleres: talleres.length
+      }
+    });
+  } catch (err) {
+    return jsonResponse({
+      ok: false,
       error: err && err.message ? err.message : String(err)
     }, 400);
   }
@@ -273,6 +392,17 @@ export default {
     const url = new URL(request.url);
     const { pathname } = url;
 
+    // Soporte preflight CORS
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      });
+    }
+
     // Redirecciones limpias para alias del tablero analítico (/dashboard se sirve directo por Static Assets)
     if (pathname === '/tablero' || pathname === '/tablero/') {
       return Response.redirect(new URL('/dashboard', url.origin), 302);
@@ -281,6 +411,9 @@ export default {
     // Rutas API conectadas a Cloudflare D1
     if (request.method === 'POST' && pathname === '/api/submit') {
       return handleSubmit(request, env);
+    }
+    if (request.method === 'POST' && pathname === '/api/sync') {
+      return handleSync(request, env);
     }
     if (request.method === 'POST' && pathname === '/api/taller') {
       return handleTaller(request, env);
@@ -296,4 +429,3 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
-
