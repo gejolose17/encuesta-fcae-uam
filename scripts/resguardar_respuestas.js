@@ -18,7 +18,7 @@ function getArg(name, defVal) {
   return found ? found.slice(pref.length).trim() : defVal;
 }
 
-const BASE_URL = getArg('url', process.env.ENCUESTA_PROD_URL || 'https://encuesta-fcae-uam.pages.dev').replace(/\/+$/, '');
+const BASE_URL = getArg('url', process.env.ENCUESTA_PROD_URL || 'https://encuesta-fcae-uam.gelopsequeira.workers.dev').replace(/\/+$/, '');
 const DESDE = getArg('desde', '2026-11-19');
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const BACKUPS_DIR = path.join(DATA_DIR, 'backups');
@@ -80,3 +80,4 @@ main().catch(err => {
   console.error('\n[RESGUARDO ERROR]', err.message || err);
   process.exit(1);
 });
+
