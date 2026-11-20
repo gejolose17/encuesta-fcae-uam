@@ -1,0 +1,16 @@
+{
+  "name": "encuesta-fcae-uam",
+  "compatibility_date": "2026-11-20",
+  "main": "./worker.js",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*",
+      "/dashboard",
+      "/dashboard/",
+      "/tablero",
+      "/tablero/"
+    ]
+  }
+}

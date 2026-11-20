@@ -1,0 +1,11 @@
+worker.js
+wrangler.jsonc
+server.js
+db/
+functions/
+scripts/
+data/backups/
+.git/
+.vscode/
+README.md
+Manual_de_Formulas_Analisis_Dashboard_FCAE_UAM.xlsx
