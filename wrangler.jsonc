@@ -10,5 +10,12 @@
       "/tablero",
       "/tablero/"
     ]
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "encuesta-fcae-uam-db",
+      "database_id": "6cffb152-685e-421e-a280-52ed2c5a6f8c"
+    }
+  ]
 }

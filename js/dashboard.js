@@ -2160,9 +2160,13 @@
       }
     });
 
-    // 3. Al volver a enfocar la pestaña del dashboard, verificar si hubo envíos recientes
+    // 3. Al volver a enfocar la pestaña del dashboard, verificar cambios locales y remotos
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState !== 'visible') return;
+      if (modoServidorActivo) {
+        verificarActualizacionRemota();
+        return;
+      }
       try {
         const raw = localStorage.getItem(LS_SYNC_PING_KEY);
         if (raw) {
@@ -2174,6 +2178,43 @@
         }
       } catch (e) {}
     });
+
+    // 4. Sincronización multi-dispositivo en tiempo real (polling ligero cada 10s contra D1)
+    setInterval(() => {
+      if (document.visibilityState === 'visible' && modoServidorActivo) {
+        verificarActualizacionRemota();
+      }
+    }, 10000);
+  }
+
+  let firmaDatosActual = '';
+  function calcularFirmaDatos(data) {
+    const docs = Array.isArray(data && data.docentes) ? data.docentes : [];
+    const resps = Array.isArray(data && data.respuestas) ? data.respuestas : [];
+    const tals = Array.isArray(data && data.talleres) ? data.talleres : [];
+    const ultDoc = docs.length ? (docs[docs.length - 1].id || docs[docs.length - 1].timestamp || '') : '';
+    const ultTal = tals.length ? (tals[tals.length - 1].id || tals[tals.length - 1].timestamp || '') : '';
+    return `${docs.length}|${resps.length}|${tals.length}|${ultDoc}|${ultTal}`;
+  }
+
+  async function verificarActualizacionRemota() {
+    try {
+      const j = await fetchJSON('api/resultados');
+      if (!j || !Array.isArray(j.docentes)) return;
+      const nuevaFirma = calcularFirmaDatos(j);
+      if (firmaDatosActual && nuevaFirma !== firmaDatosActual) {
+        const prevDocs = state.docentes.length;
+        const prevTals = state.talleres.length;
+        aplicarDatosAlTablero(j);
+        if (j.docentes.length > prevDocs) {
+          mostrarToast('✨ <strong>Nueva encuesta recibida:</strong> El tablero se actualizó en tiempo real en todos los dispositivos.', 5500);
+        } else if ((j.talleres || []).length > prevTals) {
+          mostrarToast('👥 <strong>Nuevo inscrito en talleres:</strong> Directorio actualizado en tiempo real.', 5500);
+        } else {
+          mostrarToast('🔄 <strong>Datos sincronizados:</strong> El tablero refleja el estado actual de la base de datos.', 4000);
+        }
+      }
+    } catch (e) { /* reintentará en el siguiente ciclo */ }
   }
 
   async function obtenerDatos() {
@@ -2184,6 +2225,9 @@
       const j = await fetchJSON('api/resultados');
       if (j && Array.isArray(j.docentes)) {
         modoServidorActivo = true;
+        if (j.fuente === 'cloudflare-d1') {
+          return j;
+        }
         asegurarConexionSSE();
         return combinarDatosConLocales(j);
       }
@@ -2202,6 +2246,27 @@
     return combinarDatosConLocales(baseEst);
   }
 
+  function aplicarDatosAlTablero(data) {
+    const prep = preparar(data || {});
+    state.docentes = prep.docentes;
+    state.asignaturas = prep.asignaturas;
+    state.talleres = Array.isArray(data && data.talleres) ? data.talleres : [];
+    state.generado = (data && data.generado) || new Date().toISOString();
+    firmaDatosActual = calcularFirmaDatos(data);
+    const badgeT = $('#badge-talleres-count');
+    if (badgeT) badgeT.textContent = state.talleres.length;
+    $('#state-box').hidden = true;
+    construirFiltros();
+    render();
+    const g = new Date(state.generado);
+    if (state.docentes.length > 0) {
+      const strTalleres = state.talleres.length ? ` · ${state.talleres.length} en talleres` : '';
+      $('#hero-sub').textContent = `${state.docentes.length} docentes · ${state.asignaturas.length} asignaturas distintas${strTalleres} · Actualizado ${g.toLocaleDateString('es-NI', { dateStyle: 'medium' })} ${g.toLocaleTimeString('es-NI', { timeStyle: 'short' })}`;
+    } else {
+      $('#hero-sub').textContent = '0 docentes · 0 asignaturas distintas · Base de datos limpia y lista para datos reales';
+    }
+  }
+
   async function cargar() {
     const btn = $('#btn-refresh');
     btn.classList.add('spinning');
@@ -2209,23 +2274,7 @@
     const box = $('#state-box');
     try {
       const data = await obtenerDatos();
-      const prep = preparar(data || {});
-      state.docentes = prep.docentes;
-      state.asignaturas = prep.asignaturas;
-      state.talleres = Array.isArray(data && data.talleres) ? data.talleres : [];
-      state.generado = (data && data.generado) || new Date().toISOString();
-      const badgeT = $('#badge-talleres-count');
-      if (badgeT) badgeT.textContent = state.talleres.length;
-      box.hidden = true;
-      construirFiltros();
-      render();
-      const g = new Date(state.generado);
-      if (state.docentes.length > 0) {
-        const strTalleres = state.talleres.length ? ` · ${state.talleres.length} en talleres` : '';
-        $('#hero-sub').textContent = `${state.docentes.length} docentes · ${state.asignaturas.length} asignaturas distintas${strTalleres} · Actualizado ${g.toLocaleDateString('es-NI', { dateStyle: 'medium' })} ${g.toLocaleTimeString('es-NI', { timeStyle: 'short' })}`;
-      } else {
-        $('#hero-sub').textContent = '0 docentes · 0 asignaturas distintas · Base de datos limpia y lista para datos reales';
-      }
+      aplicarDatosAlTablero(data);
     } catch (err) {
       console.error(err);
       box.hidden = false;
