@@ -7,8 +7,6 @@
     "binding": "ASSETS",
     "run_worker_first": [
       "/api/*",
-      "/dashboard",
-      "/dashboard/",
       "/tablero",
       "/tablero/"
     ]

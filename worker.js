@@ -273,9 +273,9 @@ export default {
     const url = new URL(request.url);
     const { pathname } = url;
 
-    // Redirecciones limpias para el tablero analítico
-    if (pathname === '/dashboard' || pathname === '/dashboard/' || pathname === '/tablero' || pathname === '/tablero/') {
-      return Response.redirect(new URL('/dashboard.html', url.origin), 302);
+    // Redirecciones limpias para alias del tablero analítico (/dashboard se sirve directo por Static Assets)
+    if (pathname === '/tablero' || pathname === '/tablero/') {
+      return Response.redirect(new URL('/dashboard', url.origin), 302);
     }
 
     // Rutas API conectadas a Cloudflare D1
@@ -296,3 +296,4 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
+

@@ -1,10 +1,9 @@
 # ==============================================================================
-# CLOUDFLARE PAGES - REDIRECCIONES Y RUTAS LIMPIAS
+# CLOUDFLARE WORKERS STATIC ASSETS - REDIRECCIONES DE ALIAS
+# Nota: /dashboard y / se resuelven nativamente hacia dashboard.html e index.html
 # ==============================================================================
 
-/dashboard      /dashboard.html   302
-/dashboard/     /dashboard.html   302
-/tablero        /dashboard.html   302
-/tablero/       /dashboard.html   302
-/encuesta       /index.html       302
-/encuesta/      /index.html       302
+/tablero        /dashboard   302
+/tablero/       /dashboard   302
+/encuesta       /            302
+/encuesta/      /            302
