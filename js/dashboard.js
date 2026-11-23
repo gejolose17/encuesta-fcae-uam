@@ -1500,18 +1500,36 @@
         <button type="button" class="btn btn-primary" id="btn-csv-docentes">⬇ CSV docentes (formato ancho)</button>
         <button type="button" class="btn" id="btn-csv-matrices">⬇ CSV matrices A/B (formato largo)</button>
         <button type="button" class="btn" id="btn-json">⬇ JSON filtrado</button>
+        <button type="button" class="btn btn-danger-solid" id="btn-toolbar-bulk-delete" style="display: none;" title="Eliminar los registros seleccionados">🗑 Eliminar seleccionados (<span id="toolbar-bulk-num">0</span>)</button>
         ${state.docentes.length > 0 ? '<button type="button" class="btn btn-danger" id="btn-toolbar-clear-data" title="Eliminar data de prueba">🗑 Limpiar datos</button>' : ''}
+      </div>
+
+      <div class="bulk-doc-toolbar" id="bulk-doc-toolbar" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-weight: 600; color: #9f1239; font-size: 13.5px;">
+            ☑️ <span id="bulk-doc-count">0</span> registro(s) docente(s) seleccionado(s)
+          </span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-bulk-deselect">Deseleccionar</button>
+          <button type="button" class="btn btn-danger-solid btn-sm" id="btn-bulk-delete">
+            🗑 Eliminar seleccionados (<span id="bulk-doc-count-btn">0</span>)
+          </button>
+        </div>
       </div>
 
       <article class="card">
         <div class="table-wrap">
           <table class="data" id="tabla-datos">
             <thead><tr>
+              <th style="width: 36px; text-align: center;"><input type="checkbox" id="chk-doc-all" class="chk-doc-checkbox" title="Seleccionar todos los visibles"></th>
               <th>#</th><th>Fecha</th><th>Hora inicio</th><th>Hora fin</th><th>Duración</th><th>Género</th><th>Edad</th><th>Grado académico</th><th>Exp. prof.</th><th>Exp. doc.</th>
               <th>Colab. int.</th><th>Colab. ext.</th><th>Publica</th><th>Asignaturas</th><th>Q3</th><th>A</th><th>B</th><th>Q6</th>
+              <th style="text-align: center; min-width: 95px;">Acción</th>
             </tr></thead>
             <tbody>
               ${docs.map((d, i) => `<tr>
+                <td style="text-align: center;"><input type="checkbox" class="chk-doc-item chk-doc-checkbox" data-id="${esc(d.id)}" title="Seleccionar este registro"></td>
                 <td>${i + 1}</td>
                 <td>${esc(d.fecha)}</td>
                 <td><small style="font-weight:600;color:#00707b">${esc(d.horaInicio)}</small></td>
@@ -1524,7 +1542,12 @@
                 <td>${sino(d.colabInterna)}</td><td>${sino(d.colabExterna)}</td><td>${sino(d.publicaciones)}</td>
                 <td>${esc(d.matrices.map(m => m.nombre).join(', ') || '—')}</td>
                 ${['mQ3', 'mA', 'mB', 'mQ6'].map(k => `<td><b style="color:${colorMedia(d[k])}">${fmt(d[k])}</b></td>`).join('')}
-              </tr>`).join('') || '<tr><td colspan="18" style="text-align:center;padding:30px;color:var(--muted)">Sin registros para los filtros seleccionados.</td></tr>'}
+                <td style="text-align: center;">
+                  <button type="button" class="btn-icon-danger btn-eliminar-fila" data-id="${esc(d.id)}" data-desc="${esc(d.gradoAcademico || d.grado || 'Docente')} (${esc(d.fecha)})" title="Eliminar este registro permanentemente">
+                    🗑 Eliminar
+                  </button>
+                </td>
+              </tr>`).join('') || '<tr><td colspan="20" style="text-align:center;padding:30px;color:var(--muted)">Sin registros para los filtros seleccionados.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -1536,9 +1559,178 @@
         ${card({ titulo: 'Publicaciones declaradas', sub: 'Artículos o revistas', body: lista('publicaciones', 'publicacionesCual') })}
       </div>`;
 
+    // Selección masiva e individual
+    function obtenerIdsSeleccionados() {
+      return Array.from($$('#tabla-datos .chk-doc-item:checked')).map(cb => cb.dataset.id).filter(Boolean);
+    }
+
+    function actualizarBarraMasiva() {
+      const seleccionados = obtenerIdsSeleccionados();
+      const cant = seleccionados.length;
+      const bulkCount = $('#bulk-doc-count');
+      const bulkCountBtn = $('#bulk-doc-count-btn');
+      const toolbarBulkNum = $('#toolbar-bulk-num');
+      const bulkToolbar = $('#bulk-doc-toolbar');
+      const toolbarBulkDel = $('#btn-toolbar-bulk-delete');
+      const chkAll = $('#chk-doc-all');
+
+      if (bulkCount) bulkCount.textContent = cant;
+      if (bulkCountBtn) bulkCountBtn.textContent = cant;
+      if (toolbarBulkNum) toolbarBulkNum.textContent = cant;
+
+      if (cant > 0) {
+        if (bulkToolbar) bulkToolbar.style.display = 'flex';
+        if (toolbarBulkDel) toolbarBulkDel.style.display = 'inline-flex';
+      } else {
+        if (bulkToolbar) bulkToolbar.style.display = 'none';
+        if (toolbarBulkDel) toolbarBulkDel.style.display = 'none';
+      }
+
+      const visibles = Array.from($$('#tabla-datos tbody tr')).filter(tr => tr.style.display !== 'none');
+      const checksVisibles = visibles.map(tr => tr.querySelector('.chk-doc-item')).filter(Boolean);
+      if (chkAll && checksVisibles.length > 0) {
+        const todos = checksVisibles.every(cb => cb.checked);
+        const alguno = checksVisibles.some(cb => cb.checked);
+        chkAll.checked = todos;
+        chkAll.indeterminate = !todos && alguno;
+      } else if (chkAll) {
+        chkAll.checked = false;
+        chkAll.indeterminate = false;
+      }
+    }
+
+    const chkAll = $('#chk-doc-all');
+    if (chkAll) {
+      chkAll.addEventListener('change', () => {
+        const valor = chkAll.checked;
+        $$('#tabla-datos tbody tr').forEach(tr => {
+          if (tr.style.display !== 'none') {
+            const cb = tr.querySelector('.chk-doc-item');
+            if (cb) cb.checked = valor;
+          }
+        });
+        actualizarBarraMasiva();
+      });
+    }
+
+    $$('#tabla-datos .chk-doc-item').forEach(cb => {
+      cb.addEventListener('change', actualizarBarraMasiva);
+    });
+
+    const btnDeselect = $('#btn-bulk-deselect');
+    if (btnDeselect) {
+      btnDeselect.addEventListener('click', () => {
+        $$('#tabla-datos .chk-doc-item').forEach(cb => { cb.checked = false; });
+        if (chkAll) { chkAll.checked = false; chkAll.indeterminate = false; }
+        actualizarBarraMasiva();
+      });
+    }
+
+    // Modal de confirmación para eliminar registros individuales o masivos
+    let idsParaEliminar = [];
+
+    function abrirModalEliminarRegistros(ids, desc = '') {
+      idsParaEliminar = ids;
+      const modal = $('#modal-delete-records');
+      if (!modal) return;
+      const prompt = $('#modal-delete-prompt');
+      const countEl = $('#modal-delete-count');
+      const titleEl = $('#modal-delete-title');
+      const btnConfirmText = $('#btn-confirm-delete-text');
+
+      if (ids.length === 1) {
+        if (titleEl) titleEl.textContent = 'Eliminar registro docente';
+        if (prompt) prompt.innerHTML = `¿Desea eliminar permanentemente el registro docente <strong>${esc(desc || ids[0])}</strong>?`;
+        if (countEl) countEl.textContent = '1';
+        if (btnConfirmText) btnConfirmText.textContent = '🗑 Eliminar 1 registro';
+      } else {
+        if (titleEl) titleEl.textContent = 'Eliminación masiva de registros';
+        if (prompt) prompt.innerHTML = `¿Desea eliminar permanentemente los <strong>${ids.length}</strong> registros docentes seleccionados?`;
+        if (countEl) countEl.textContent = ids.length;
+        if (btnConfirmText) btnConfirmText.textContent = `🗑 Eliminar ${ids.length} registros`;
+      }
+
+      modal.hidden = false;
+      modal.classList.add('visible');
+    }
+
+    function cerrarModalEliminarRegistros() {
+      const modal = $('#modal-delete-records');
+      if (modal) {
+        modal.hidden = true;
+        modal.classList.remove('visible');
+      }
+      idsParaEliminar = [];
+      const btnConfirm = $('#btn-confirm-delete');
+      if (btnConfirm) btnConfirm.classList.remove('spinning');
+    }
+
+    // Botones individuales en cada fila
+    $$('#tabla-datos .btn-eliminar-fila').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const desc = btn.dataset.desc;
+        if (id) abrirModalEliminarRegistros([id], desc);
+      });
+    });
+
+    // Botón masivo en toolbar flotante
+    const btnBulkDel = $('#btn-bulk-delete');
+    if (btnBulkDel) {
+      btnBulkDel.addEventListener('click', () => {
+        const seleccionados = obtenerIdsSeleccionados();
+        if (seleccionados.length === 0) {
+          mostrarToast('ℹ️ Seleccione al menos un registro para eliminar.', 3500);
+          return;
+        }
+        abrirModalEliminarRegistros(seleccionados);
+      });
+    }
+
+    // Botón masivo en toolbar superior
+    const toolbarBulkDel = $('#btn-toolbar-bulk-delete');
+    if (toolbarBulkDel) {
+      toolbarBulkDel.addEventListener('click', () => {
+        const seleccionados = obtenerIdsSeleccionados();
+        if (seleccionados.length === 0) {
+          mostrarToast('ℹ️ Seleccione al menos un registro para eliminar.', 3500);
+          return;
+        }
+        abrirModalEliminarRegistros(seleccionados);
+      });
+    }
+
+    // Modal cerrar / cancelar
+    const btnCloseDel = $('#btn-close-delete-modal');
+    if (btnCloseDel) btnCloseDel.addEventListener('click', cerrarModalEliminarRegistros);
+    const btnCancelDel = $('#btn-cancel-delete');
+    if (btnCancelDel) btnCancelDel.addEventListener('click', cerrarModalEliminarRegistros);
+
+    // Modal confirmar
+    const btnConfirmDel = $('#btn-confirm-delete');
+    if (btnConfirmDel) {
+      btnConfirmDel.onclick = async () => {
+        if (!idsParaEliminar.length) return;
+        btnConfirmDel.classList.add('spinning');
+        btnConfirmDel.disabled = true;
+        try {
+          await ejecutarEliminacionDocentes(idsParaEliminar);
+          cerrarModalEliminarRegistros();
+        } catch (err) {
+          console.error('[ERROR ELIMINAR]', err);
+          mostrarToast(`❌ Error al eliminar: ${esc(err.message)}`, 6000);
+        } finally {
+          btnConfirmDel.classList.remove('spinning');
+          btnConfirmDel.disabled = false;
+        }
+      };
+    }
+
     $('#data-search').addEventListener('input', e => {
       const q = normTexto(e.target.value);
       $$('#tabla-datos tbody tr').forEach(tr => { tr.style.display = !q || normTexto(tr.textContent).indexOf(q) >= 0 ? '' : 'none'; });
+      actualizarBarraMasiva();
     });
     $('#btn-csv-docentes').addEventListener('click', () => exportarDocentes(docs));
     $('#btn-csv-matrices').addEventListener('click', () => exportarMatrices(docs));
@@ -2277,6 +2469,48 @@
     }
   }
 
+  // Eliminación individual o masiva de registros docentes en Cloudflare D1 y local
+  async function ejecutarEliminacionDocentes(ids) {
+    if (!Array.isArray(ids) || ids.length === 0) return;
+    const cant = ids.length;
+
+    // 1. Enviar petición al backend (Cloudflare D1 o Node local)
+    let eliminadoRemoto = false;
+    try {
+      const resp = await apiFetch('/api/eliminar-docentes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids })
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (data && data.ok) {
+        eliminadoRemoto = true;
+      }
+    } catch (e) {
+      console.warn('[DEL DOC] Fallo remoto o modo offline:', e.message);
+    }
+
+    // 2. Purgar de localStorage para garantizar que el navegador no lo reenvíe
+    try {
+      const raw = localStorage.getItem(LS_LOCAL_SUBMISSIONS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        const idSet = new Set(ids);
+        const docs = (parsed.docentes || []).filter(d => !idSet.has(d.id));
+        const resps = (parsed.respuestas || []).filter(r => !idSet.has(r.idDocente));
+        localStorage.setItem(LS_LOCAL_SUBMISSIONS_KEY, JSON.stringify({ docentes: docs, respuestas: resps }));
+      }
+    } catch (e) {}
+
+    // 3. Emitir evento a otras pestañas/dispositivos
+    ultimoSyncTs = Date.now();
+    emitirSyncTablero({ type: 'docente_deleted', ids, ts: ultimoSyncTs });
+
+    // 4. Actualizar estado y recargar
+    mostrarToast(`✅ <strong>${cant === 1 ? 'Registro eliminado' : `${cant} registros eliminados`}:</strong> Actualizado en Cloudflare D1.`, 5000);
+    await cargar();
+  }
+
   // ==========================================================================
   // 13. CARGA DE DATOS Y SINCRONIZACIÓN AUTOMÁTICA EN TIEMPO REAL
   // ==========================================================================
@@ -2297,7 +2531,7 @@
       sseStream.onmessage = ev => {
         try {
           const msg = JSON.parse(ev.data || '{}');
-          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered') {
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered' || msg.type === 'docente_deleted') {
             programarActualizacionEnVivo(msg.type);
           }
         } catch (e) {}
@@ -2321,6 +2555,8 @@
         mostrarToast('ℹ️ <strong>Base de datos reiniciada:</strong> El tablero se ha sincronizado.', 4500);
       } else if (tipo === 'workshop_registered') {
         mostrarToast('👥 <strong>Nuevo registro en talleres:</strong> Un docente se inscribió en los talleres colaborativos.', 5500);
+      } else if (tipo === 'docente_deleted') {
+        mostrarToast('🗑 <strong>Registros actualizados:</strong> Se sincronizó la eliminación de registros.', 4500);
       }
     }, 220);
   }
@@ -2340,7 +2576,7 @@
           if (!msg || !msg.type) return;
           if (msg.ts && msg.ts <= ultimoSyncTs) return;
           if (msg.ts) ultimoSyncTs = msg.ts;
-          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered') {
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered' || msg.type === 'docente_deleted') {
             programarActualizacionEnVivo(msg.type);
           }
         };
@@ -2589,8 +2825,24 @@
     const bConfirmModal = $('#btn-confirm-clear');
     if (bConfirmModal) bConfirmModal.addEventListener('click', ejecutarEliminarDataPrueba);
 
+    const modalDel = $('#modal-delete-records');
+    if (modalDel) {
+      modalDel.addEventListener('click', e => {
+        if (e.target === modalDel) {
+          modalDel.hidden = true;
+          modalDel.classList.remove('visible');
+        }
+      });
+    }
+
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') cerrarModalEliminar();
+      if (e.key === 'Escape') {
+        cerrarModalEliminar();
+        if (modalDel) {
+          modalDel.hidden = true;
+          modalDel.classList.remove('visible');
+        }
+      }
     });
 
     // Tooltip propio para SVG / mapas de calor

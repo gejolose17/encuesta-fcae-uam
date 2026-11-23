@@ -155,6 +155,48 @@
     </div>
   </div>
 
+  <!-- MODAL DE CONFIRMACIÓN PARA ELIMINACIÓN INDIVIDUAL O MASIVA DE REGISTROS -->
+  <div class="modal-backdrop" id="modal-delete-records" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-danger">🗑</div>
+        <div class="modal-header-text">
+          <h3 class="modal-title" id="modal-delete-title">Eliminar registros</h3>
+          <p class="modal-subtitle" id="modal-delete-subtitle">Confirmación de eliminación en Cloudflare D1</p>
+        </div>
+        <button type="button" class="modal-close" id="btn-close-delete-modal" aria-label="Cerrar ventana">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-prompt" id="modal-delete-prompt">
+          ¿Desea eliminar permanentemente los registros seleccionados?
+        </p>
+
+        <div class="modal-info-box" style="background: #fff5f5; border-color: #fed7d7;">
+          <div class="modal-stat-item" style="width: 100%;">
+            <span class="modal-stat-number" id="modal-delete-count" style="color: #c53030;">0</span>
+            <span class="modal-stat-label">Docente(s) a eliminar con todas sus respuestas</span>
+          </div>
+        </div>
+
+        <ul class="modal-bullet-list">
+          <li><strong>Impacto en base de datos:</strong> Se eliminarán los registros docentes y todas sus respuestas de matrices asociadas de Cloudflare D1.</li>
+          <li><strong>Sincronización multi-dispositivo:</strong> Se purgarán de los respaldos locales de este navegador para evitar que resurjan.</li>
+          <li><strong>Acción irreversible:</strong> Esta operación es permanente y no se puede deshacer.</li>
+        </ul>
+      </div>
+
+      <div class="modal-actions">
+        <div class="modal-actions-right" style="width: 100%; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-delete">Cancelar</button>
+          <button type="button" class="btn btn-danger-solid" id="btn-confirm-delete">
+            <span id="btn-confirm-delete-text">🗑 Confirmar eliminación</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST DE NOTIFICACIÓN -->
   <div class="dash-toast" id="dash-toast" role="status" aria-live="polite"></div>
 

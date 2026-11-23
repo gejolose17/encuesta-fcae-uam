@@ -295,6 +295,50 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Endpoint API: Eliminación individual y masiva de registros docentes
+  if ((req.method === 'POST' || req.method === 'DELETE') && (pathname === '/api/eliminar-docentes' || pathname === '/api/delete' || pathname === '/api/eliminar')) {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const ids = Array.isArray(payload.ids)
+          ? payload.ids.filter(id => typeof id === 'string' && id.trim())
+          : (payload.id ? [payload.id] : []);
+
+        if (ids.length === 0) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+          res.end(JSON.stringify({ ok: false, error: 'No se indicaron IDs para eliminar.' }));
+          return;
+        }
+
+        const idSet = new Set(ids);
+        const docFile = path.join(DATA_DIR, 'docentes.json');
+        const respFile = path.join(DATA_DIR, 'respuestas.json');
+
+        let docs = fs.existsSync(docFile) ? JSON.parse(fs.readFileSync(docFile, 'utf8')) : [];
+        let resps = fs.existsSync(respFile) ? JSON.parse(fs.readFileSync(respFile, 'utf8')) : [];
+
+        docs = docs.filter(d => !idSet.has(d.id));
+        resps = resps.filter(r => !idSet.has(r.idDocente));
+
+        fs.writeFileSync(docFile, JSON.stringify(docs, null, 2), 'utf8');
+        fs.writeFileSync(respFile, JSON.stringify(resps, null, 2), 'utf8');
+
+        console.log(`[DELETE OK] Eliminados ${ids.length} docentes de data local.`);
+        notificarClientesSSE({ type: 'docente_deleted', ids, ts: Date.now() });
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: true, eliminados: ids.length, ids }));
+      } catch (err) {
+        console.error('[DELETE ERROR]', err);
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   // Endpoint API: Eliminar datos de prueba / reiniciar base de datos para recolección real
   if (req.method === 'POST' && (pathname === '/api/reset' || pathname === '/api/clear' || pathname === '/api/eliminar-datos')) {
     try {
