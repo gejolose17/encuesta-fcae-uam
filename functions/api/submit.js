@@ -4,6 +4,20 @@
  * Con soporte para CORS, lotes (batches de 50) e inserción resiliente.
  */
 
+const IDS_PRUEBA_HISTORICOS = new Set([
+  '5b47b922-2330-4109-8efb-65d7fb10a92c',
+  'ba7318bb-6e9a-48a8-9630-d9ab0dab373c',
+  'b0680876-f44d-4abb-886e-8b936feedd06',
+  '09b20055-e02f-4073-ab13-f9298cb7828d',
+  'd70f1efd-0f0a-4135-9a23-8f5c487ee01d',
+  '93d3ebf0-caa5-41d2-b630-73f101481ada',
+  '50227db6-ba1e-4a0d-9ffc-ae6f32092ef1',
+  '934ab3d2-30c1-4ecb-995f-ae39cfd38f38',
+  '62869bd7-ed4d-438a-aa2c-3e6eff43ab81',
+  '3b2919ce-4512-4f52-bfc0-ca67e031a300',
+  'e95ab3b3-22ca-46a3-b784-5374b4672d95'
+]);
+
 const CORS_HEADERS = {
   'Content-Type': 'application/json; charset=UTF-8',
   'Cache-Control': 'no-store, no-cache, must-revalidate',
@@ -87,6 +101,9 @@ export async function onRequestPost(context) {
   try {
     const payload = await request.json();
     const respondentId = payload.id || crypto.randomUUID();
+    if (IDS_PRUEBA_HISTORICOS.has(respondentId)) {
+      return jsonResponse({ ok: true, id: respondentId, filtradoPrueba: true });
+    }
     const timestampFin = payload.timestampFin || payload.timestamp || new Date().toISOString();
     const timestampInicio = payload.timestampInicio || timestampFin;
 
@@ -106,11 +123,6 @@ export async function onRequestPost(context) {
         timestampFin,
         timestampInicio,
         timestampFin,
-          publicaciones, publicacionesCual, q3, q6, totalAsignaturas
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `).bind(
-        respondentId,
-        timestamp,
         payload.edad ?? null,
         payload.genero || '',
         payload.expProfesional ?? null,

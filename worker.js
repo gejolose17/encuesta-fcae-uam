@@ -10,6 +10,20 @@
  *   POST /api/reset       -> Limpia registros en D1
  */
 
+const IDS_PRUEBA_HISTORICOS = new Set([
+  '5b47b922-2330-4109-8efb-65d7fb10a92c',
+  'ba7318bb-6e9a-48a8-9630-d9ab0dab373c',
+  'b0680876-f44d-4abb-886e-8b936feedd06',
+  '09b20055-e02f-4073-ab13-f9298cb7828d',
+  'd70f1efd-0f0a-4135-9a23-8f5c487ee01d',
+  '93d3ebf0-caa5-41d2-b630-73f101481ada',
+  '50227db6-ba1e-4a0d-9ffc-ae6f32092ef1',
+  '934ab3d2-30c1-4ecb-995f-ae39cfd38f38',
+  '62869bd7-ed4d-438a-aa2c-3e6eff43ab81',
+  '3b2919ce-4512-4f52-bfc0-ca67e031a300',
+  'e95ab3b3-22ca-46a3-b784-5374b4672d95'
+]);
+
 function jsonResponse(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
@@ -71,6 +85,13 @@ async function asegurarTablas(db) {
 
   try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampInicio TEXT").run(); } catch (e) {}
   try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampFin TEXT").run(); } catch (e) {}
+
+  for (const pid of IDS_PRUEBA_HISTORICOS) {
+    try {
+      await db.prepare('DELETE FROM respuestas WHERE idDocente = ?').bind(pid).run();
+      await db.prepare('DELETE FROM docentes WHERE id = ?').bind(pid).run();
+    } catch (e) {}
+  }
 }
 
 async function handleSubmit(request, env) {
@@ -85,6 +106,9 @@ async function handleSubmit(request, env) {
   try {
     const payload = await request.json();
     const respondentId = payload.id || crypto.randomUUID();
+    if (IDS_PRUEBA_HISTORICOS.has(respondentId)) {
+      return jsonResponse({ ok: true, id: respondentId, filtradoPrueba: true });
+    }
     const timestampFin = payload.timestampFin || payload.timestamp || new Date().toISOString();
     const timestampInicio = payload.timestampInicio || timestampFin;
 
@@ -170,8 +194,10 @@ async function handleSync(request, env) {
 
   try {
     const body = await request.json();
-    const docentes = Array.isArray(body && body.docentes) ? body.docentes : [];
-    const respuestas = Array.isArray(body && body.respuestas) ? body.respuestas : [];
+    const docentes = (Array.isArray(body && body.docentes) ? body.docentes : [])
+      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id));
+    const respuestas = (Array.isArray(body && body.respuestas) ? body.respuestas : [])
+      .filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
     const talleres = Array.isArray(body && body.talleres) ? body.talleres : [];
 
     await asegurarTablas(env.DB);
@@ -335,11 +361,15 @@ async function handleResultados(url, env) {
 
     const [resDoc, resResp, resTal] = await env.DB.batch([qDocentes, qRespuestas, qTalleres]);
 
-    const docentes = (resDoc.results || []).map(d => ({
-      ...d,
-      q3: typeof d.q3 === 'string' ? JSON.parse(d.q3 || '[]') : (d.q3 || []),
-      q6: typeof d.q6 === 'string' ? JSON.parse(d.q6 || '[]') : (d.q6 || [])
-    }));
+    const docentes = (resDoc.results || [])
+      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id))
+      .map(d => ({
+        ...d,
+        q3: typeof d.q3 === 'string' ? JSON.parse(d.q3 || '[]') : (d.q3 || []),
+        q6: typeof d.q6 === 'string' ? JSON.parse(d.q6 || '[]') : (d.q6 || [])
+      }));
+
+    const respuestas = (resResp.results || []).filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
 
     return jsonResponse({
       ok: true,
@@ -347,7 +377,7 @@ async function handleResultados(url, env) {
       desde: desde || null,
       generado: new Date().toISOString(),
       docentes,
-      respuestas: resResp.results || [],
+      respuestas,
       talleres: resTal.results || []
     });
   } catch (err) {

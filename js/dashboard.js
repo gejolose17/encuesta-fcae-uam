@@ -12,6 +12,22 @@
   // ==========================================================================
   // 1. CONFIGURACIÓN
   // ==========================================================================
+  // Identificadores de encuestas de prueba previas (resguardadas en data/backups/)
+  // Se filtran y purgan automáticamente para garantizar que sólo se visualicen y sincronicen datos reales.
+  const IDS_PRUEBA_HISTORICOS = new Set([
+    '5b47b922-2330-4109-8efb-65d7fb10a92c',
+    'ba7318bb-6e9a-48a8-9630-d9ab0dab373c',
+    'b0680876-f44d-4abb-886e-8b936feedd06',
+    '09b20055-e02f-4073-ab13-f9298cb7828d',
+    'd70f1efd-0f0a-4135-9a23-8f5c487ee01d',
+    '93d3ebf0-caa5-41d2-b630-73f101481ada',
+    '50227db6-ba1e-4a0d-9ffc-ae6f32092ef1',
+    '934ab3d2-30c1-4ecb-995f-ae39cfd38f38',
+    '62869bd7-ed4d-438a-aa2c-3e6eff43ab81',
+    '3b2919ce-4512-4f52-bfc0-ca67e031a300',
+    'e95ab3b3-22ca-46a3-b784-5374b4672d95'
+  ]);
+
   const SECCIONES = {
     q3: {
       key: 'q3', codigo: 'Q3', prefijo: 'C', titulo: 'Competencias investigativas del docente',
@@ -256,7 +272,7 @@
     const matPorDoc = new Map();
 
     (raw.respuestas || []).forEach(r => {
-      if (!r || !r.idDocente) return;
+      if (!r || !r.idDocente || IDS_PRUEBA_HISTORICOS.has(r.idDocente)) return;
       const nombre = String(r.asignatura || '').trim() || 'Sin nombre';
       const key = normTexto(nombre);
       if (!catalogo.has(key)) catalogo.set(key, { key, nombre });
@@ -271,7 +287,7 @@
       if (arr && idx >= 0 && idx < arr.length) arr[idx] = aNum(r.valor);
     });
 
-    const docentes = (raw.docentes || []).filter(d => d && d.id).map(d => {
+    const docentes = (raw.docentes || []).filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id)).map(d => {
       const edad = aNum(d.edad), expDoc = aNum(d.expDocente), expProf = aNum(d.expProfesional);
       const mats = matPorDoc.has(d.id) ? Array.from(matPorDoc.get(d.id).values()) : [];
       const tsIni = d.timestampInicio || d.timestamp;
@@ -2115,10 +2131,17 @@
       const raw = localStorage.getItem(LS_LOCAL_SUBMISSIONS_KEY);
       if (!raw) return { docentes: [], respuestas: [] };
       const parsed = JSON.parse(raw);
-      return {
-        docentes: Array.isArray(parsed && parsed.docentes) ? parsed.docentes : [],
-        respuestas: Array.isArray(parsed && parsed.respuestas) ? parsed.respuestas : []
-      };
+      let docs = Array.isArray(parsed && parsed.docentes) ? parsed.docentes : [];
+      let resps = Array.isArray(parsed && parsed.respuestas) ? parsed.respuestas : [];
+      const cantOriginal = docs.length;
+      // Purgar inmediatamente cualquier ID de prueba histórico
+      docs = docs.filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id));
+      const validDocIds = new Set(docs.map(d => d.id));
+      resps = resps.filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente) && validDocIds.has(r.idDocente));
+      if (docs.length !== cantOriginal) {
+        try { localStorage.setItem(LS_LOCAL_SUBMISSIONS_KEY, JSON.stringify({ docentes: docs, respuestas: resps })); } catch (e) {}
+      }
+      return { docentes: docs, respuestas: resps };
     } catch (e) {
       return { docentes: [], respuestas: [] };
     }
@@ -2147,14 +2170,16 @@
   function combinarDatosConLocales(base) {
     const locales = leerEnviosLocales();
     const talleresCombinados = combinarTalleres(base && base.talleres);
-    const baseDocentes = Array.isArray(base && base.docentes) ? base.docentes : [];
-    const baseRespuestas = Array.isArray(base && base.respuestas) ? base.respuestas : [];
+    const baseDocentes = (Array.isArray(base && base.docentes) ? base.docentes : [])
+      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id));
+    const baseRespuestas = (Array.isArray(base && base.respuestas) ? base.respuestas : [])
+      .filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
     if (!locales.docentes.length) {
       return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados };
     }
 
     const idsExistentes = new Set(baseDocentes.map(d => d && d.id).filter(Boolean));
-    const nuevosDocentes = locales.docentes.filter(d => d && d.id && !idsExistentes.has(d.id));
+    const nuevosDocentes = locales.docentes.filter(d => d && d.id && !idsExistentes.has(d.id) && !IDS_PRUEBA_HISTORICOS.has(d.id));
     if (!nuevosDocentes.length) {
       return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados };
     }
@@ -2383,9 +2408,9 @@
       const servidorDocIds = new Set((servidorData?.docentes || []).map(d => d.id));
       const servidorTalIds = new Set((servidorData?.talleres || []).map(t => t.id || (t.email + '_' + t.nombre)));
 
-      const nuevosDocentes = locales.docentes.filter(d => d && d.id && !servidorDocIds.has(d.id));
+      const nuevosDocentes = locales.docentes.filter(d => d && d.id && !servidorDocIds.has(d.id) && !IDS_PRUEBA_HISTORICOS.has(d.id));
       const nuevosDocIds = new Set(nuevosDocentes.map(d => d.id));
-      const nuevasRespuestas = locales.respuestas.filter(r => r && nuevosDocIds.has(r.idDocente));
+      const nuevasRespuestas = locales.respuestas.filter(r => r && nuevosDocIds.has(r.idDocente) && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
       const nuevosTalleres = talleresLocales.filter(t => t && !servidorTalIds.has(t.id || (t.email + '_' + t.nombre)));
 
       if (nuevosDocentes.length === 0 && nuevosTalleres.length === 0) return;
