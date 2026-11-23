@@ -49,6 +49,10 @@
           <span class="nav-icon">👥</span><span class="nav-text">Talleres colaborativos</span>
           <span class="sidebar-badge" id="badge-talleres-count">0</span>
         </button>
+        <button type="button" class="nav-item" data-view="papelera" id="nav-papelera">
+          <span class="nav-icon">🗑</span><span class="nav-text">Papelera de reciclaje</span>
+          <span class="sidebar-badge" id="badge-papelera-count" style="display: none; background: #e11d48;">0</span>
+        </button>
       </nav>
     </aside>
 
@@ -94,6 +98,7 @@
         <section class="view" id="view-likert" data-view="likert"></section>
         <section class="view" id="view-datos" data-view="datos"></section>
         <section class="view" id="view-talleres" data-view="talleres"></section>
+        <section class="view" id="view-papelera" data-view="papelera"></section>
       </main>
 
       <footer class="dash-footer">
@@ -161,28 +166,28 @@
       <div class="modal-header">
         <div class="modal-icon-danger">🗑</div>
         <div class="modal-header-text">
-          <h3 class="modal-title" id="modal-delete-title">Eliminar registros</h3>
-          <p class="modal-subtitle" id="modal-delete-subtitle">Confirmación de eliminación en Cloudflare D1</p>
+          <h3 class="modal-title" id="modal-delete-title">Mover a la papelera</h3>
+          <p class="modal-subtitle" id="modal-delete-subtitle">Resguardo de seguridad en Cloudflare D1</p>
         </div>
         <button type="button" class="modal-close" id="btn-close-delete-modal" aria-label="Cerrar ventana">✕</button>
       </div>
 
       <div class="modal-body">
         <p class="modal-prompt" id="modal-delete-prompt">
-          ¿Desea eliminar permanentemente los registros seleccionados?
+          ¿Desea enviar a la papelera los registros seleccionados?
         </p>
 
         <div class="modal-info-box" style="background: #fff5f5; border-color: #fed7d7;">
           <div class="modal-stat-item" style="width: 100%;">
             <span class="modal-stat-number" id="modal-delete-count" style="color: #c53030;">0</span>
-            <span class="modal-stat-label">Docente(s) a eliminar con todas sus respuestas</span>
+            <span class="modal-stat-label">Docente(s) que se moverán a la papelera</span>
           </div>
         </div>
 
         <ul class="modal-bullet-list">
-          <li><strong>Impacto en base de datos:</strong> Se eliminarán los registros docentes y todas sus respuestas de matrices asociadas de Cloudflare D1.</li>
-          <li><strong>Sincronización multi-dispositivo:</strong> Se purgarán de los respaldos locales de este navegador para evitar que resurjan.</li>
-          <li><strong>Acción irreversible:</strong> Esta operación es permanente y no se puede deshacer.</li>
+          <li><strong>Resguardo en Papelera:</strong> Los registros no se destruyen. Se resguardan en la pestaña <em>"Papelera de reciclaje"</em>.</li>
+          <li><strong>Exclusión de métricas:</strong> Se excluirán automáticamente de las estadísticas, gráficas Likert y reportes activos.</li>
+          <li><strong>Recuperables:</strong> Podrás restaurar cualquier registro a su estado original o eliminarlo definitivamente cuando desees.</li>
         </ul>
       </div>
 
@@ -190,7 +195,90 @@
         <div class="modal-actions-right" style="width: 100%; justify-content: flex-end;">
           <button type="button" class="btn btn-secondary" id="btn-cancel-delete">Cancelar</button>
           <button type="button" class="btn btn-danger-solid" id="btn-confirm-delete">
-            <span id="btn-confirm-delete-text">🗑 Confirmar eliminación</span>
+            <span id="btn-confirm-delete-text">🗑 Mover a papelera</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN PARA RESTAURAR REGISTROS DE LA PAPELERA -->
+  <div class="modal-backdrop" id="modal-restore-records" role="dialog" aria-modal="true" aria-labelledby="modal-restore-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-primary" style="background: #e0f2fe; color: #0284c7; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold;">🔄</div>
+        <div class="modal-header-text">
+          <h3 class="modal-title" id="modal-restore-title">Restaurar registro(s)</h3>
+          <p class="modal-subtitle">Reincorporación a estadísticas y reportes activos</p>
+        </div>
+        <button type="button" class="modal-close" id="btn-close-restore-modal" aria-label="Cerrar ventana">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-prompt" id="modal-restore-prompt">
+          ¿Desea restaurar los registros seleccionados desde la papelera?
+        </p>
+
+        <div class="modal-info-box" style="background: #f0fdf4; border-color: #bbf7d0;">
+          <div class="modal-stat-item" style="width: 100%;">
+            <span class="modal-stat-number" id="modal-restore-count" style="color: #16a34a;">0</span>
+            <span class="modal-stat-label">Docente(s) que volverán al tablero activo</span>
+          </div>
+        </div>
+
+        <ul class="modal-bullet-list">
+          <li><strong>Métricas y Gráficas:</strong> Las respuestas de estos docentes volverán a integrarse en los promedios Likert y flujos de investigación.</li>
+          <li><strong>Reportes y Exportaciones:</strong> Aparecerán nuevamente en la pestaña <em>"Datos y exportación"</em> y en las descargas de Excel/CSV.</li>
+          <li><strong>Persistencia:</strong> El cambio se sincronizará de inmediato en Cloudflare D1 en tiempo real.</li>
+        </ul>
+      </div>
+
+      <div class="modal-actions">
+        <div class="modal-actions-right" style="width: 100%; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-restore">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btn-confirm-restore">
+            <span id="btn-confirm-restore-text">🔄 Restaurar registros</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN PARA PURGAR (ELIMINAR DEFINITIVAMENTE) DE LA PAPELERA -->
+  <div class="modal-backdrop" id="modal-purge-records" role="dialog" aria-modal="true" aria-labelledby="modal-purge-title" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-danger">⚠️</div>
+        <div class="modal-header-text">
+          <h3 class="modal-title" id="modal-purge-title">Eliminación definitiva</h3>
+          <p class="modal-subtitle">Purga permanente de Cloudflare D1</p>
+        </div>
+        <button type="button" class="modal-close" id="btn-close-purge-modal" aria-label="Cerrar ventana">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-prompt" id="modal-purge-prompt">
+          ¿Desea eliminar definitivamente los registros seleccionados de la papelera?
+        </p>
+
+        <div class="modal-info-box" style="background: #fff5f5; border-color: #fed7d7;">
+          <div class="modal-stat-item" style="width: 100%;">
+            <span class="modal-stat-number" id="modal-purge-count" style="color: #c53030;">0</span>
+            <span class="modal-stat-label">Registro(s) que se eliminarán irreversiblemente</span>
+          </div>
+        </div>
+
+        <ul class="modal-bullet-list" style="color: #b91c1c;">
+          <li><strong>Acción Irreversible:</strong> Los datos y respuestas asociadas se destruirán permanentemente de la base de datos Cloudflare D1.</li>
+          <li><strong>Sin recuperación:</strong> No será posible recuperar estos registros una vez confirmada la purga.</li>
+        </ul>
+      </div>
+
+      <div class="modal-actions">
+        <div class="modal-actions-right" style="width: 100%; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-purge">Cancelar</button>
+          <button type="button" class="btn btn-danger-solid" id="btn-confirm-purge">
+            <span id="btn-confirm-purge-text">⚠️ Sí, eliminar definitivamente</span>
           </button>
         </div>
       </div>

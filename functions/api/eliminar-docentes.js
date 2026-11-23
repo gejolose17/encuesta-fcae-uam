@@ -50,11 +50,11 @@ async function procesarEliminacion(context) {
       return jsonResponse({ ok: false, error: 'No se indicaron registros para eliminar.' }, 400);
     }
 
+    const now = new Date().toISOString();
     const stmts = [];
     for (const id of ids) {
-      stmts.push(env.DB.prepare('DELETE FROM respuestas WHERE idDocente = ?').bind(id));
-      stmts.push(env.DB.prepare('DELETE FROM docentes WHERE id = ?').bind(id));
-      stmts.push(env.DB.prepare('DELETE FROM talleres WHERE surveyId = ?').bind(id));
+      stmts.push(env.DB.prepare('UPDATE docentes SET eliminado = 1, fechaEliminado = ? WHERE id = ?').bind(now, id));
+      stmts.push(env.DB.prepare('UPDATE respuestas SET eliminado = 1 WHERE idDocente = ?').bind(id));
     }
 
     for (let i = 0; i < stmts.length; i += 50) {
@@ -63,10 +63,10 @@ async function procesarEliminacion(context) {
 
     return jsonResponse({
       ok: true,
-      mensaje: `Se eliminaron ${ids.length} registro(s) exitosamente.`,
+      mensaje: `Se enviaron ${ids.length} registro(s) a la papelera exitosamente.`,
       eliminados: ids.length,
       ids,
-      timestamp: new Date().toISOString()
+      timestamp: now
     });
   } catch (err) {
     return jsonResponse({
@@ -75,3 +75,4 @@ async function procesarEliminacion(context) {
     }, 500);
   }
 }
+

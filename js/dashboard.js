@@ -93,6 +93,7 @@
     docentes: [],
     asignaturas: [],
     talleres: [],
+    papelera: [],
     generado: null,
     filtros: { desde: '', hasta: '' },
     vista: 'resumen',
@@ -1639,15 +1640,15 @@
       const btnConfirmText = $('#btn-confirm-delete-text');
 
       if (ids.length === 1) {
-        if (titleEl) titleEl.textContent = 'Eliminar registro docente';
-        if (prompt) prompt.innerHTML = `¿Desea eliminar permanentemente el registro docente <strong>${esc(desc || ids[0])}</strong>?`;
+        if (titleEl) titleEl.textContent = 'Mover registro a la papelera';
+        if (prompt) prompt.innerHTML = `¿Desea enviar a la papelera el registro docente <strong>${esc(desc || ids[0])}</strong>?`;
         if (countEl) countEl.textContent = '1';
-        if (btnConfirmText) btnConfirmText.textContent = '🗑 Eliminar 1 registro';
+        if (btnConfirmText) btnConfirmText.textContent = '🗑 Mover a papelera';
       } else {
-        if (titleEl) titleEl.textContent = 'Eliminación masiva de registros';
-        if (prompt) prompt.innerHTML = `¿Desea eliminar permanentemente los <strong>${ids.length}</strong> registros docentes seleccionados?`;
+        if (titleEl) titleEl.textContent = 'Mover registros a la papelera';
+        if (prompt) prompt.innerHTML = `¿Desea enviar a la papelera los <strong>${ids.length}</strong> registros docentes seleccionados?`;
         if (countEl) countEl.textContent = ids.length;
-        if (btnConfirmText) btnConfirmText.textContent = `🗑 Eliminar ${ids.length} registros`;
+        if (btnConfirmText) btnConfirmText.textContent = `🗑 Mover ${ids.length} a papelera`;
       }
 
       modal.hidden = false;
@@ -2187,10 +2188,441 @@
   }
 
   // ==========================================================================
+  // VISTA: PAPELERA DE RECICLAJE (RESGUARDO DE REGISTROS ELIMINADOS)
+  // ==========================================================================
+  let idsParaRestaurar = [];
+  function abrirModalRestaurar(ids, desc = '') {
+    idsParaRestaurar = ids;
+    const modal = $('#modal-restore-records');
+    if (!modal) return;
+    const prompt = $('#modal-restore-prompt');
+    const countEl = $('#modal-restore-count');
+    const titleEl = $('#modal-restore-title');
+    const btnConfirmText = $('#btn-confirm-restore-text');
+
+    if (ids.length === 1) {
+      if (titleEl) titleEl.textContent = 'Restaurar registro docente';
+      if (prompt) prompt.innerHTML = `¿Desea restaurar el registro docente <strong>${esc(desc || ids[0])}</strong>?`;
+      if (countEl) countEl.textContent = '1';
+      if (btnConfirmText) btnConfirmText.textContent = '🔄 Restaurar 1 registro';
+    } else {
+      if (titleEl) titleEl.textContent = 'Restauración masiva de registros';
+      if (prompt) prompt.innerHTML = `¿Desea restaurar los <strong>${ids.length}</strong> registros seleccionados?`;
+      if (countEl) countEl.textContent = ids.length;
+      if (btnConfirmText) btnConfirmText.textContent = `🔄 Restaurar ${ids.length} registros`;
+    }
+
+    modal.hidden = false;
+    modal.classList.add('visible');
+  }
+
+  function cerrarModalRestaurar() {
+    const modal = $('#modal-restore-records');
+    if (modal) {
+      modal.hidden = true;
+      modal.classList.remove('visible');
+    }
+    idsParaRestaurar = [];
+    const btn = $('#btn-confirm-restore');
+    if (btn) btn.classList.remove('spinning');
+  }
+
+  let purgaOpciones = { ids: [], all: false };
+  function abrirModalPurgar(opts) {
+    purgaOpciones = opts;
+    const modal = $('#modal-purge-records');
+    if (!modal) return;
+    const prompt = $('#modal-purge-prompt');
+    const countEl = $('#modal-purge-count');
+    const titleEl = $('#modal-purge-title');
+    const btnConfirmText = $('#btn-confirm-purge-text');
+
+    if (opts.all) {
+      const cant = (state.papelera || []).length;
+      if (titleEl) titleEl.textContent = 'Vaciar papelera completamente';
+      if (prompt) prompt.innerHTML = `¿Está seguro de que desea eliminar permanentemente <strong>todos (${cant})</strong> los registros de la papelera?`;
+      if (countEl) countEl.textContent = cant;
+      if (btnConfirmText) btnConfirmText.textContent = '⚠️ Sí, vaciar papelera completa';
+    } else if (opts.ids && opts.ids.length === 1) {
+      if (titleEl) titleEl.textContent = 'Eliminar registro definitivamente';
+      if (prompt) prompt.innerHTML = `¿Desea purgar definitivamente el registro <strong>${esc(opts.desc || opts.ids[0])}</strong>?`;
+      if (countEl) countEl.textContent = '1';
+      if (btnConfirmText) btnConfirmText.textContent = '⚠️ Eliminar definitivamente';
+    } else {
+      const len = opts.ids ? opts.ids.length : 0;
+      if (titleEl) titleEl.textContent = 'Eliminación definitiva masiva';
+      if (prompt) prompt.innerHTML = `¿Desea purgar definitivamente los <strong>${len}</strong> registros seleccionados?`;
+      if (countEl) countEl.textContent = len;
+      if (btnConfirmText) btnConfirmText.textContent = `⚠️ Purgar ${len} registros`;
+    }
+
+    modal.hidden = false;
+    modal.classList.add('visible');
+  }
+
+  function cerrarModalPurgar() {
+    const modal = $('#modal-purge-records');
+    if (modal) {
+      modal.hidden = true;
+      modal.classList.remove('visible');
+    }
+    purgaOpciones = { ids: [], all: false };
+    const btn = $('#btn-confirm-purge');
+    if (btn) btn.classList.remove('spinning');
+  }
+
+  function renderPapelera() {
+    const el = $('#view-papelera');
+    if (!el) return;
+
+    const papelera = Array.isArray(state.papelera) ? state.papelera : [];
+    const cant = papelera.length;
+
+    const formatoFecha = f => {
+      if (!f) return '—';
+      try {
+        const d = new Date(f);
+        if (isNaN(d.getTime())) return String(f);
+        return d.toLocaleDateString('es-NI', { dateStyle: 'short' }) + ' ' + d.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit' });
+      } catch (e) { return String(f); }
+    };
+
+    const formatoHoraMinuto = f => {
+      if (!f) return '—';
+      try {
+        const d = new Date(f);
+        if (isNaN(d.getTime())) return String(f).slice(11, 19) || String(f);
+        return d.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      } catch (e) { return String(f); }
+    };
+
+    const formatoDuracion = s => {
+      if (s == null || s === '' || isNaN(Number(s))) return '—';
+      const segs = Math.round(Number(s));
+      const m = Math.floor(segs / 60);
+      const rest = segs % 60;
+      if (m === 0) return `${rest}s`;
+      return `${m}m ${rest}s`;
+    };
+
+    if (cant === 0) {
+      el.innerHTML = `
+        <div class="view-head">
+          <div>
+            <h2 class="view-title">Papelera de reciclaje</h2>
+            <p class="view-desc">Resguardo de registros de encuestas eliminados. Aquí se custodian las encuestas excluidas de los cálculos para permitir su recuperación o purga definitiva.</p>
+          </div>
+        </div>
+
+        <div class="empty-state-card" style="margin-top: 15px;">
+          <div class="empty-state-badge">🟢 Papelera vacía</div>
+          <h2 class="empty-state-title">No hay registros en la papelera</h2>
+          <p class="empty-state-desc">
+            Todos los registros activos están incorporados en los reportes y estadísticas. Si eliminas encuestas desde la pestaña <strong>«Datos y exportación»</strong>, se resguardarán en esta sección para que no se pierdan y puedas restaurarlas cuando desees.
+          </p>
+          <div class="empty-state-actions">
+            <button type="button" class="btn btn-primary" data-goto="datos">📋 Ir a Datos y exportación</button>
+            <button type="button" class="btn btn-secondary" id="btn-refresh-papelera">⟳ Comprobar papelera</button>
+          </div>
+        </div>`;
+
+      const btnRef = $('#btn-refresh-papelera');
+      if (btnRef) btnRef.addEventListener('click', cargar);
+      return;
+    }
+
+    const filasHtml = papelera.map((p, idx) => {
+      const descDoc = `${p.grado || 'Docente'} (${formatoFecha(p.timestamp)})`;
+      const inicio = formatoHoraMinuto(p.fechaInicio);
+      const fin = formatoHoraMinuto(p.fechaFin);
+      const dur = formatoDuracion(p.duracionSegundos);
+      return `
+        <tr data-id="${esc(p.id)}" data-search="${esc(`${p.grado || ''} ${p.genero || ''} ${p.departamento || ''} ${p.materias || ''} ${p.id || ''}`).toLowerCase()}">
+          <td style="text-align: center;">
+            <input type="checkbox" class="chk-pap-item chk-doc-checkbox" data-id="${esc(p.id)}" data-desc="${esc(descDoc)}" title="Seleccionar registro">
+          </td>
+          <td>${idx + 1}</td>
+          <td><span class="badge-deleted">🗑 ${formatoFecha(p.fechaEliminado)}</span></td>
+          <td>${formatoFecha(p.timestamp)}</td>
+          <td>
+            <small style="display: block; color: var(--text-muted, #64748b); line-height: 1.3;">
+              <strong>Ini:</strong> ${inicio}<br>
+              <strong>Fin:</strong> ${fin}
+            </small>
+          </td>
+          <td><span style="font-weight: 500; font-size: 12px;">${dur}</span></td>
+          <td><strong>${esc(p.grado || '—')}</strong></td>
+          <td>${esc(p.genero || '—')} <small style="color: #64748b;">(${esc(p.edad || '—')})</small></td>
+          <td>
+            <div style="max-width: 220px; font-size: 11.5px; line-height: 1.3;">
+              <strong>${esc(p.departamento || 'FCAE')}</strong><br>
+              <span style="color: #64748b;">${esc(p.materias || '—')}</span>
+            </div>
+          </td>
+          <td style="text-align: center;">
+            <div style="display: inline-flex; gap: 6px; align-items: center; justify-content: center;">
+              <button type="button" class="btn btn-outline-success btn-sm btn-restaurar-fila" data-id="${esc(p.id)}" data-desc="${esc(descDoc)}" title="Restaurar a estadísticas activas">
+                🔄 Restaurar
+              </button>
+              <button type="button" class="btn btn-icon-danger btn-sm btn-purgar-fila" data-id="${esc(p.id)}" data-desc="${esc(descDoc)}" title="Eliminar definitivamente de Cloudflare D1">
+                ✕ Purgar
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+
+    el.innerHTML = `
+      <div class="view-head">
+        <div>
+          <h2 class="view-title">Papelera de reciclaje</h2>
+          <p class="view-desc">Resguardo de registros de encuestas eliminados. Los registros en papelera están excluidos de las estadísticas y reportes activos. Puedes restaurarlos o eliminarlos permanentemente.</p>
+        </div>
+      </div>
+
+      <div class="talleres-intro-card" style="border-left-color: #e11d48; margin-bottom: 20px;">
+        <div class="talleres-intro-header">
+          <div class="talleres-icon-badge" style="background: #fff1f2; color: #e11d48;">🛡️</div>
+          <div>
+            <div class="talleres-intro-title">Resguardo de Seguridad en Cloudflare D1</div>
+            <div class="talleres-intro-desc">
+              Los registros eliminados se conservan protegidos en esta papelera para evitar pérdidas accidentales. Mientras permanezcan aquí, <strong>no afectarán los promedios Likert, gráficos ni métricas de investigación</strong>. Puede restaurar registros individuales o por lote para reincorporarlos al tablero, o vaciar la papelera de forma definitiva.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-kpi" style="margin-bottom: 22px;">
+        ${kpi({ label: 'Registros en papelera', valor: cant, pie: 'Encuestas custodiadas', color: '#e11d48' })}
+        ${kpi({ label: 'Estado en nube', valor: 'D1 Activo', pie: 'Cloudflare D1 Resguardado', color: '#0099A8' })}
+        ${kpi({ label: 'Última eliminación', valor: formatoFecha(papelera[0] ? (papelera[0].fechaEliminado || papelera[0].timestamp) : null), pie: 'Registro más reciente', color: '#c59b27' })}
+      </div>
+
+      <article class="card">
+        <div class="card-head" style="flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
+          <div>
+            <h3 class="card-title">Registros Resguardados (${cant})</h3>
+            <p class="card-sub">Seleccione uno o varios registros para restaurar o purgar definitivamente</p>
+          </div>
+          <div class="card-actions" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <input type="search" id="papelera-search" placeholder="🔍 Buscar por fecha, grado, etc…" class="input-search" style="min-width: 220px;">
+            <button type="button" class="btn btn-outline-success btn-sm" id="btn-toolbar-pap-restore" style="display: none;">
+              🔄 Restaurar (<span id="toolbar-pap-restore-num">0</span>)
+            </button>
+            <button type="button" class="btn btn-icon-danger btn-sm" id="btn-toolbar-pap-purge" style="display: none;">
+              ⚠️ Eliminar (<span id="toolbar-pap-purge-num">0</span>)
+            </button>
+            <button type="button" class="btn btn-danger-solid btn-sm" id="btn-vaciar-papelera">
+              🗑 Vaciar papelera completa
+            </button>
+          </div>
+        </div>
+
+        <div class="bulk-doc-toolbar" id="bulk-pap-toolbar" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a;">
+          <div class="bulk-doc-info" style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-weight: 600; font-size: 13px; color: #15803d;">
+              <span id="bulk-pap-count">0</span> registro(s) seleccionado(s) en papelera
+            </span>
+          </div>
+          <div class="bulk-doc-actions" style="display: flex; gap: 8px; align-items: center;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-bulk-pap-deselect">✕ Deseleccionar</button>
+            <button type="button" class="btn btn-outline-success btn-sm" id="btn-bulk-pap-restore">
+              🔄 Restaurar selección (<span id="bulk-pap-count-restore">0</span>)
+            </button>
+            <button type="button" class="btn btn-icon-danger btn-sm" id="btn-bulk-pap-purge">
+              ⚠️ Purgar definitivamente (<span id="bulk-pap-count-purge">0</span>)
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table" id="tabla-papelera">
+            <thead>
+              <tr>
+                <th style="width: 38px; text-align: center;">
+                  <input type="checkbox" id="chk-pap-all" class="chk-doc-checkbox" title="Seleccionar todos los visibles">
+                </th>
+                <th>#</th>
+                <th>Fecha Eliminado</th>
+                <th>Fecha Encuesta</th>
+                <th>Horarios (Inicio / Fin)</th>
+                <th>Duración</th>
+                <th>Grado</th>
+                <th>Género / Edad</th>
+                <th>Departamento / Materias</th>
+                <th style="text-align: center; min-width: 170px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filasHtml}
+            </tbody>
+          </table>
+        </div>
+      </article>
+    `;
+
+    function obtenerIdsSeleccionadosPapelera() {
+      return Array.from($$('#tabla-papelera .chk-pap-item:checked')).map(cb => cb.dataset.id).filter(Boolean);
+    }
+
+    function actualizarBarraMasivaPapelera() {
+      const ids = obtenerIdsSeleccionadosPapelera();
+      const num = ids.length;
+      const countEl = $('#bulk-pap-count');
+      const countRestore = $('#bulk-pap-count-restore');
+      const countPurge = $('#bulk-pap-count-purge');
+      const toolbarNumRestore = $('#toolbar-pap-restore-num');
+      const toolbarNumPurge = $('#toolbar-pap-purge-num');
+      const toolbarRestoreBtn = $('#btn-toolbar-pap-restore');
+      const toolbarPurgeBtn = $('#btn-toolbar-pap-purge');
+      const bulkToolbar = $('#bulk-pap-toolbar');
+      const chkAll = $('#chk-pap-all');
+
+      if (countEl) countEl.textContent = num;
+      if (countRestore) countRestore.textContent = num;
+      if (countPurge) countPurge.textContent = num;
+      if (toolbarNumRestore) toolbarNumRestore.textContent = num;
+      if (toolbarNumPurge) toolbarNumPurge.textContent = num;
+
+      if (num > 0) {
+        if (bulkToolbar) bulkToolbar.style.display = 'flex';
+        if (toolbarRestoreBtn) toolbarRestoreBtn.style.display = 'inline-flex';
+        if (toolbarPurgeBtn) toolbarPurgeBtn.style.display = 'inline-flex';
+      } else {
+        if (bulkToolbar) bulkToolbar.style.display = 'none';
+        if (toolbarRestoreBtn) toolbarRestoreBtn.style.display = 'none';
+        if (toolbarPurgeBtn) toolbarPurgeBtn.style.display = 'none';
+      }
+
+      const visibles = Array.from($$('#tabla-papelera tbody tr')).filter(tr => tr.style.display !== 'none');
+      const checksVisibles = visibles.map(tr => tr.querySelector('.chk-pap-item')).filter(Boolean);
+      if (chkAll && checksVisibles.length > 0) {
+        const todos = checksVisibles.every(cb => cb.checked);
+        const alguno = checksVisibles.some(cb => cb.checked);
+        chkAll.checked = todos;
+        chkAll.indeterminate = !todos && alguno;
+      } else if (chkAll) {
+        chkAll.checked = false;
+        chkAll.indeterminate = false;
+      }
+    }
+
+    const chkAll = $('#chk-pap-all');
+    if (chkAll) {
+      chkAll.addEventListener('change', () => {
+        const val = chkAll.checked;
+        $$('#tabla-papelera tbody tr').forEach(tr => {
+          if (tr.style.display !== 'none') {
+            const cb = tr.querySelector('.chk-pap-item');
+            if (cb) cb.checked = val;
+          }
+        });
+        actualizarBarraMasivaPapelera();
+      });
+    }
+
+    $$('#tabla-papelera .chk-pap-item').forEach(cb => {
+      cb.addEventListener('change', actualizarBarraMasivaPapelera);
+    });
+
+    const btnDeselect = $('#btn-bulk-pap-deselect');
+    if (btnDeselect) {
+      btnDeselect.addEventListener('click', () => {
+        $$('#tabla-papelera .chk-pap-item').forEach(cb => { cb.checked = false; });
+        if (chkAll) { chkAll.checked = false; chkAll.indeterminate = false; }
+        actualizarBarraMasivaPapelera();
+      });
+    }
+
+    $$('#tabla-papelera .btn-restaurar-fila').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const desc = btn.dataset.desc;
+        if (id) abrirModalRestaurar([id], desc);
+      });
+    });
+
+    $$('#tabla-papelera .btn-purgar-fila').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const desc = btn.dataset.desc;
+        if (id) abrirModalPurgar({ ids: [id], desc });
+      });
+    });
+
+    const btnBulkRestore = $('#btn-bulk-pap-restore');
+    if (btnBulkRestore) {
+      btnBulkRestore.addEventListener('click', () => {
+        const sel = obtenerIdsSeleccionadosPapelera();
+        if (sel.length === 0) {
+          mostrarToast('ℹ️ Seleccione al menos un registro para restaurar.', 3500);
+          return;
+        }
+        abrirModalRestaurar(sel);
+      });
+    }
+    const btnToolbarRestore = $('#btn-toolbar-pap-restore');
+    if (btnToolbarRestore) {
+      btnToolbarRestore.addEventListener('click', () => {
+        const sel = obtenerIdsSeleccionadosPapelera();
+        if (sel.length === 0) {
+          mostrarToast('ℹ️ Seleccione al menos un registro para restaurar.', 3500);
+          return;
+        }
+        abrirModalRestaurar(sel);
+      });
+    }
+
+    const btnBulkPurge = $('#btn-bulk-pap-purge');
+    if (btnBulkPurge) {
+      btnBulkPurge.addEventListener('click', () => {
+        const sel = obtenerIdsSeleccionadosPapelera();
+        if (sel.length === 0) {
+          mostrarToast('ℹ️ Seleccione al menos un registro para purgar.', 3500);
+          return;
+        }
+        abrirModalPurgar({ ids: sel });
+      });
+    }
+    const btnToolbarPurge = $('#btn-toolbar-pap-purge');
+    if (btnToolbarPurge) {
+      btnToolbarPurge.addEventListener('click', () => {
+        const sel = obtenerIdsSeleccionadosPapelera();
+        if (sel.length === 0) {
+          mostrarToast('ℹ️ Seleccione al menos un registro para purgar.', 3500);
+          return;
+        }
+        abrirModalPurgar({ ids: sel });
+      });
+    }
+
+    const btnVaciar = $('#btn-vaciar-papelera');
+    if (btnVaciar) {
+      btnVaciar.addEventListener('click', () => {
+        abrirModalPurgar({ all: true });
+      });
+    }
+
+    const searchInput = $('#papelera-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', e => {
+        const q = (e.target.value || '').trim().toLowerCase();
+        $$('#tabla-papelera tbody tr').forEach(tr => {
+          const hay = !q || (tr.dataset.search || '').indexOf(q) >= 0;
+          tr.style.display = hay ? '' : 'none';
+        });
+        actualizarBarraMasivaPapelera();
+      });
+    }
+  }
+
+  // ==========================================================================
   // 12. NAVEGACIÓN Y RENDER
   // ==========================================================================
   function irVista(v) {
-    if (['resumen', 'flujos', 'datos', 'talleres'].concat(VISTAS_LIKERT).indexOf(v) < 0) v = 'resumen';
+    if (['resumen', 'flujos', 'datos', 'talleres', 'papelera'].concat(VISTAS_LIKERT).indexOf(v) < 0) v = 'resumen';
     state.vista = v;
     $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === v));
     if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v);
@@ -2204,13 +2636,18 @@
     actualizarResumenFiltros(docs);
 
     const v = state.vista;
-    const contId = v === 'resumen' ? 'view-resumen' : v === 'flujos' ? 'view-flujos' : v === 'datos' ? 'view-datos' : v === 'talleres' ? 'view-talleres' : 'view-likert';
+    const contId = v === 'resumen' ? 'view-resumen' : v === 'flujos' ? 'view-flujos' : v === 'datos' ? 'view-datos' : v === 'talleres' ? 'view-talleres' : v === 'papelera' ? 'view-papelera' : 'view-likert';
     $$('.view').forEach(x => x.classList.toggle('active', x.id === contId));
 
     actualizarBotonEliminar();
 
     if (v === 'talleres') {
       renderTalleres();
+      return;
+    }
+
+    if (v === 'papelera') {
+      renderPapelera();
       return;
     }
 
@@ -2362,18 +2799,22 @@
   function combinarDatosConLocales(base) {
     const locales = leerEnviosLocales();
     const talleresCombinados = combinarTalleres(base && base.talleres);
+    const basePapelera = Array.isArray(base && base.papelera) ? base.papelera : [];
+    const idsPapelera = new Set(basePapelera.map(p => p && p.id).filter(Boolean));
+
     const baseDocentes = (Array.isArray(base && base.docentes) ? base.docentes : [])
-      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id));
+      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id) && !idsPapelera.has(d.id));
     const baseRespuestas = (Array.isArray(base && base.respuestas) ? base.respuestas : [])
-      .filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
+      .filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente) && !idsPapelera.has(r.idDocente));
+
     if (!locales.docentes.length) {
-      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados };
+      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados, papelera: basePapelera };
     }
 
     const idsExistentes = new Set(baseDocentes.map(d => d && d.id).filter(Boolean));
-    const nuevosDocentes = locales.docentes.filter(d => d && d.id && !idsExistentes.has(d.id) && !IDS_PRUEBA_HISTORICOS.has(d.id));
+    const nuevosDocentes = locales.docentes.filter(d => d && d.id && !idsExistentes.has(d.id) && !idsPapelera.has(d.id) && !IDS_PRUEBA_HISTORICOS.has(d.id));
     if (!nuevosDocentes.length) {
-      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados };
+      return { generado: base && base.generado, docentes: baseDocentes, respuestas: baseRespuestas, talleres: talleresCombinados, papelera: basePapelera };
     }
 
     const idsNuevos = new Set(nuevosDocentes.map(d => d.id));
@@ -2382,7 +2823,8 @@
       generado: new Date().toISOString(),
       docentes: baseDocentes.concat(nuevosDocentes),
       respuestas: baseRespuestas.concat(nuevasRespuestas),
-      talleres: talleresCombinados
+      talleres: talleresCombinados,
+      papelera: basePapelera
     };
   }
 
@@ -2507,7 +2949,61 @@
     emitirSyncTablero({ type: 'docente_deleted', ids, ts: ultimoSyncTs });
 
     // 4. Actualizar estado y recargar
-    mostrarToast(`✅ <strong>${cant === 1 ? 'Registro eliminado' : `${cant} registros eliminados`}:</strong> Actualizado en Cloudflare D1.`, 5000);
+    mostrarToast(`🗑 <strong>${cant === 1 ? 'Registro enviado a la papelera' : `${cant} registros enviados a la papelera`}:</strong> Resguardado en Cloudflare D1.`, 5000);
+    await cargar();
+  }
+
+  // Restauración individual o masiva de registros docentes desde la papelera
+  async function ejecutarRestaurarDocentes(ids) {
+    if (!Array.isArray(ids) || ids.length === 0) return;
+    const cant = ids.length;
+
+    try {
+      await apiFetch('/api/papelera/restaurar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids })
+      }).catch(async () => {
+        return apiFetch('/api/restaurar-docentes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids })
+        });
+      });
+    } catch (e) {
+      console.warn('[RESTORE DOC] Fallo remoto o modo offline:', e.message);
+    }
+
+    ultimoSyncTs = Date.now();
+    emitirSyncTablero({ type: 'docente_restored', ids, ts: ultimoSyncTs });
+
+    mostrarToast(`🔄 <strong>${cant === 1 ? 'Registro restaurado' : `${cant} registros restaurados`}:</strong> Reincorporado a las estadísticas activas en Cloudflare D1.`, 5000);
+    await cargar();
+  }
+
+  // Eliminación definitiva (purga) de registros de la papelera
+  async function ejecutarPurgarPapelera(opts) {
+    const { ids, all } = opts || {};
+    try {
+      await apiFetch('/api/papelera/purgar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids, all })
+      }).catch(async () => {
+        return apiFetch('/api/purgar-papelera', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ids, all })
+        });
+      });
+    } catch (e) {
+      console.warn('[PURGE PAPELERA] Fallo remoto o modo offline:', e.message);
+    }
+
+    ultimoSyncTs = Date.now();
+    emitirSyncTablero({ type: 'papelera_purged', ids, all, ts: ultimoSyncTs });
+
+    mostrarToast(`⚠️ <strong>${all ? 'Papelera vaciada completamente' : `${(ids || []).length} registro(s) purgado(s) definitivamente`}:</strong> Base de datos Cloudflare D1 actualizada.`, 5000);
     await cargar();
   }
 
@@ -2531,7 +3027,7 @@
       sseStream.onmessage = ev => {
         try {
           const msg = JSON.parse(ev.data || '{}');
-          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered' || msg.type === 'docente_deleted') {
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered' || msg.type === 'docente_deleted' || msg.type === 'docente_restored' || msg.type === 'papelera_purged') {
             programarActualizacionEnVivo(msg.type);
           }
         } catch (e) {}
@@ -2556,7 +3052,11 @@
       } else if (tipo === 'workshop_registered') {
         mostrarToast('👥 <strong>Nuevo registro en talleres:</strong> Un docente se inscribió en los talleres colaborativos.', 5500);
       } else if (tipo === 'docente_deleted') {
-        mostrarToast('🗑 <strong>Registros actualizados:</strong> Se sincronizó la eliminación de registros.', 4500);
+        mostrarToast('🗑 <strong>Registros enviados a papelera:</strong> El tablero se actualizó.', 4500);
+      } else if (tipo === 'docente_restored') {
+        mostrarToast('🔄 <strong>Registros restaurados:</strong> Reincorporados a las estadísticas activas.', 4500);
+      } else if (tipo === 'papelera_purged') {
+        mostrarToast('⚠️ <strong>Papelera actualizada:</strong> Registros eliminados definitivamente.', 4500);
       }
     }, 220);
   }
@@ -2576,7 +3076,7 @@
           if (!msg || !msg.type) return;
           if (msg.ts && msg.ts <= ultimoSyncTs) return;
           if (msg.ts) ultimoSyncTs = msg.ts;
-          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered' || msg.type === 'docente_deleted') {
+          if (msg.type === 'survey_submitted' || msg.type === 'data_reset' || msg.type === 'workshop_registered' || msg.type === 'docente_deleted' || msg.type === 'docente_restored' || msg.type === 'papelera_purged') {
             programarActualizacionEnVivo(msg.type);
           }
         };
@@ -2632,9 +3132,11 @@
     const docs = Array.isArray(data && data.docentes) ? data.docentes : [];
     const resps = Array.isArray(data && data.respuestas) ? data.respuestas : [];
     const tals = Array.isArray(data && data.talleres) ? data.talleres : [];
+    const pap = Array.isArray(data && data.papelera) ? data.papelera : [];
     const ultDoc = docs.length ? (docs[docs.length - 1].id || docs[docs.length - 1].timestamp || '') : '';
     const ultTal = tals.length ? (tals[tals.length - 1].id || tals[tals.length - 1].timestamp || '') : '';
-    return `${docs.length}|${resps.length}|${tals.length}|${ultDoc}|${ultTal}`;
+    const ultPap = pap.length ? (pap[0].id || pap[0].timestamp || '') : '';
+    return `${docs.length}|${resps.length}|${tals.length}|${pap.length}|${ultDoc}|${ultTal}|${ultPap}`;
   }
 
   async function sincronizarLocalesHaciaServidor(servidorData) {
@@ -2724,10 +3226,17 @@
     state.docentes = prep.docentes;
     state.asignaturas = prep.asignaturas;
     state.talleres = Array.isArray(data && data.talleres) ? data.talleres : [];
+    state.papelera = Array.isArray(data && data.papelera) ? data.papelera : [];
     state.generado = (data && data.generado) || new Date().toISOString();
     firmaDatosActual = calcularFirmaDatos(data);
     const badgeT = $('#badge-talleres-count');
     if (badgeT) badgeT.textContent = state.talleres.length;
+    const badgeP = $('#badge-papelera-count');
+    if (badgeP) {
+      const pCount = state.papelera.length;
+      badgeP.textContent = pCount;
+      badgeP.style.display = pCount > 0 ? 'inline-block' : 'none';
+    }
     $('#state-box').hidden = true;
     construirFiltros();
     render();
@@ -2835,9 +3344,72 @@
       });
     }
 
+    const modalRes = $('#modal-restore-records');
+    if (modalRes) {
+      modalRes.addEventListener('click', e => {
+        if (e.target === modalRes) cerrarModalRestaurar();
+      });
+    }
+
+    const modalPurge = $('#modal-purge-records');
+    if (modalPurge) {
+      modalPurge.addEventListener('click', e => {
+        if (e.target === modalPurge) cerrarModalPurgar();
+      });
+    }
+
+    const btnCloseRes = $('#btn-close-restore-modal');
+    if (btnCloseRes) btnCloseRes.addEventListener('click', cerrarModalRestaurar);
+    const btnCancelRes = $('#btn-cancel-restore');
+    if (btnCancelRes) btnCancelRes.addEventListener('click', cerrarModalRestaurar);
+
+    const btnClosePurge = $('#btn-close-purge-modal');
+    if (btnClosePurge) btnClosePurge.addEventListener('click', cerrarModalPurgar);
+    const btnCancelPurge = $('#btn-cancel-purge');
+    if (btnCancelPurge) btnCancelPurge.addEventListener('click', cerrarModalPurgar);
+
+    const btnConfirmRes = $('#btn-confirm-restore');
+    if (btnConfirmRes) {
+      btnConfirmRes.addEventListener('click', async () => {
+        if (!idsParaRestaurar.length) return;
+        btnConfirmRes.classList.add('spinning');
+        btnConfirmRes.disabled = true;
+        try {
+          await ejecutarRestaurarDocentes(idsParaRestaurar);
+          cerrarModalRestaurar();
+        } catch (err) {
+          console.error('[ERROR RESTORE]', err);
+          mostrarToast(`❌ Error al restaurar: ${esc(err.message)}`, 6000);
+        } finally {
+          btnConfirmRes.classList.remove('spinning');
+          btnConfirmRes.disabled = false;
+        }
+      });
+    }
+
+    const btnConfirmPurge = $('#btn-confirm-purge');
+    if (btnConfirmPurge) {
+      btnConfirmPurge.addEventListener('click', async () => {
+        btnConfirmPurge.classList.add('spinning');
+        btnConfirmPurge.disabled = true;
+        try {
+          await ejecutarPurgarPapelera(purgaOpciones);
+          cerrarModalPurgar();
+        } catch (err) {
+          console.error('[ERROR PURGE]', err);
+          mostrarToast(`❌ Error al purgar: ${esc(err.message)}`, 6000);
+        } finally {
+          btnConfirmPurge.classList.remove('spinning');
+          btnConfirmPurge.disabled = false;
+        }
+      });
+    }
+
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         cerrarModalEliminar();
+        cerrarModalRestaurar();
+        cerrarModalPurgar();
         if (modalDel) {
           modalDel.hidden = true;
           modalDel.classList.remove('visible');
@@ -2882,7 +3454,7 @@
 
     const inicial = location.hash.slice(1);
     if (inicial) {
-      state.vista = ['resumen', 'flujos', 'datos', 'talleres'].concat(VISTAS_LIKERT).indexOf(inicial) >= 0 ? inicial : 'resumen';
+      state.vista = ['resumen', 'flujos', 'datos', 'talleres', 'papelera'].concat(VISTAS_LIKERT).indexOf(inicial) >= 0 ? inicial : 'resumen';
       $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === state.vista));
     }
 

@@ -85,6 +85,9 @@ async function asegurarTablas(db) {
 
   try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampInicio TEXT").run(); } catch (e) {}
   try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampFin TEXT").run(); } catch (e) {}
+  try { await db.prepare("ALTER TABLE docentes ADD COLUMN eliminado INTEGER DEFAULT 0").run(); } catch (e) {}
+  try { await db.prepare("ALTER TABLE docentes ADD COLUMN fechaEliminado TEXT").run(); } catch (e) {}
+  try { await db.prepare("ALTER TABLE respuestas ADD COLUMN eliminado INTEGER DEFAULT 0").run(); } catch (e) {}
 
   for (const pid of IDS_PRUEBA_HISTORICOS) {
     try {
@@ -348,18 +351,20 @@ async function handleResultados(url, env) {
     await asegurarTablas(env.DB);
 
     const qDocentes = filtroFecha
-      ? env.DB.prepare('SELECT * FROM docentes WHERE timestamp >= ? ORDER BY timestamp ASC').bind(filtroFecha)
-      : env.DB.prepare('SELECT * FROM docentes ORDER BY timestamp ASC');
+      ? env.DB.prepare('SELECT * FROM docentes WHERE timestamp >= ? AND (eliminado = 0 OR eliminado IS NULL) ORDER BY timestamp ASC').bind(filtroFecha)
+      : env.DB.prepare('SELECT * FROM docentes WHERE (eliminado = 0 OR eliminado IS NULL) ORDER BY timestamp ASC');
 
     const qRespuestas = filtroFecha
-      ? env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas WHERE timestamp >= ? ORDER BY id ASC').bind(filtroFecha)
-      : env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas ORDER BY id ASC');
+      ? env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas WHERE timestamp >= ? AND (eliminado = 0 OR eliminado IS NULL) ORDER BY id ASC').bind(filtroFecha)
+      : env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas WHERE (eliminado = 0 OR eliminado IS NULL) ORDER BY id ASC');
 
     const qTalleres = filtroFecha
       ? env.DB.prepare('SELECT * FROM talleres WHERE timestamp >= ? ORDER BY timestamp ASC').bind(filtroFecha)
       : env.DB.prepare('SELECT * FROM talleres ORDER BY timestamp ASC');
 
-    const [resDoc, resResp, resTal] = await env.DB.batch([qDocentes, qRespuestas, qTalleres]);
+    const qPapelera = env.DB.prepare('SELECT * FROM docentes WHERE eliminado = 1 ORDER BY fechaEliminado DESC, timestamp DESC');
+
+    const [resDoc, resResp, resTal, resPap] = await env.DB.batch([qDocentes, qRespuestas, qTalleres, qPapelera]);
 
     const docentes = (resDoc.results || [])
       .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id))
@@ -371,6 +376,14 @@ async function handleResultados(url, env) {
 
     const respuestas = (resResp.results || []).filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
 
+    const papelera = (resPap.results || [])
+      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id))
+      .map(d => ({
+        ...d,
+        q3: typeof d.q3 === 'string' ? JSON.parse(d.q3 || '[]') : (d.q3 || []),
+        q6: typeof d.q6 === 'string' ? JSON.parse(d.q6 || '[]') : (d.q6 || [])
+      }));
+
     return jsonResponse({
       ok: true,
       fuente: 'cloudflare-d1',
@@ -378,7 +391,8 @@ async function handleResultados(url, env) {
       generado: new Date().toISOString(),
       docentes,
       respuestas,
-      talleres: resTal.results || []
+      talleres: resTal.results || [],
+      papelera
     });
   } catch (err) {
     return jsonResponse({
@@ -444,10 +458,106 @@ async function handleDeleteDocentes(request, env) {
       : (body && body.id ? [body.id] : []);
 
     if (ids.length === 0) {
-      return jsonResponse({ ok: false, error: 'No se indicaron registros para eliminar.' }, 400);
+      return jsonResponse({ ok: false, error: 'No se indicaron registros para enviar a la papelera.' }, 400);
     }
 
     await asegurarTablas(env.DB);
+
+    const now = new Date().toISOString();
+    const stmts = [];
+    for (const id of ids) {
+      stmts.push(env.DB.prepare('UPDATE docentes SET eliminado = 1, fechaEliminado = ? WHERE id = ?').bind(now, id));
+      stmts.push(env.DB.prepare('UPDATE respuestas SET eliminado = 1 WHERE idDocente = ?').bind(id));
+    }
+
+    for (let i = 0; i < stmts.length; i += 50) {
+      await env.DB.batch(stmts.slice(i, i + 50));
+    }
+
+    return jsonResponse({
+      ok: true,
+      mensaje: `Se enviaron ${ids.length} registro(s) a la papelera exitosamente.`,
+      eliminados: ids.length,
+      ids,
+      timestamp: now
+    });
+  } catch (err) {
+    return jsonResponse({
+      ok: false,
+      error: err && err.message ? err.message : String(err)
+    }, 500);
+  }
+}
+
+async function handleRestaurarDocentes(request, env) {
+  if (!env.DB) {
+    return jsonResponse({ ok: false, error: 'Base de datos D1 no vinculada.' }, 500);
+  }
+
+  try {
+    const body = await request.json();
+    const ids = Array.isArray(body && body.ids)
+      ? body.ids.filter(id => typeof id === 'string' && id.trim())
+      : (body && body.id ? [body.id] : []);
+
+    if (ids.length === 0) {
+      return jsonResponse({ ok: false, error: 'No se indicaron registros para restaurar.' }, 400);
+    }
+
+    await asegurarTablas(env.DB);
+
+    const stmts = [];
+    for (const id of ids) {
+      stmts.push(env.DB.prepare('UPDATE docentes SET eliminado = 0, fechaEliminado = NULL WHERE id = ?').bind(id));
+      stmts.push(env.DB.prepare('UPDATE respuestas SET eliminado = 0 WHERE idDocente = ?').bind(id));
+    }
+
+    for (let i = 0; i < stmts.length; i += 50) {
+      await env.DB.batch(stmts.slice(i, i + 50));
+    }
+
+    return jsonResponse({
+      ok: true,
+      mensaje: `Se restauraron ${ids.length} registro(s) exitosamente.`,
+      restaurados: ids.length,
+      ids,
+      timestamp: new Date().toISOString()
+    });
+  } catch (err) {
+    return jsonResponse({ ok: false, error: err && err.message ? err.message : String(err) }, 500);
+  }
+}
+
+async function handlePurgarPapelera(request, env) {
+  if (!env.DB) {
+    return jsonResponse({ ok: false, error: 'Base de datos D1 no vinculada.' }, 500);
+  }
+
+  try {
+    const body = await request.json().catch(() => ({}));
+    const ids = Array.isArray(body && body.ids)
+      ? body.ids.filter(id => typeof id === 'string' && id.trim())
+      : (body && body.id ? [body.id] : []);
+    const purgarTodos = Boolean(body && body.all);
+
+    await asegurarTablas(env.DB);
+
+    if (purgarTodos) {
+      await env.DB.batch([
+        env.DB.prepare('DELETE FROM respuestas WHERE idDocente IN (SELECT id FROM docentes WHERE eliminado = 1)'),
+        env.DB.prepare('DELETE FROM respuestas WHERE eliminado = 1'),
+        env.DB.prepare('DELETE FROM docentes WHERE eliminado = 1')
+      ]);
+      return jsonResponse({
+        ok: true,
+        mensaje: 'Papelera vaciada completamente de forma definitiva.',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    if (ids.length === 0) {
+      return jsonResponse({ ok: false, error: 'No se indicaron registros para purgar.' }, 400);
+    }
 
     const stmts = [];
     for (const id of ids) {
@@ -462,16 +572,13 @@ async function handleDeleteDocentes(request, env) {
 
     return jsonResponse({
       ok: true,
-      mensaje: `Se eliminaron ${ids.length} registro(s) exitosamente.`,
-      eliminados: ids.length,
+      mensaje: `Se eliminaron permanentemente ${ids.length} registro(s) de la papelera.`,
+      purgados: ids.length,
       ids,
       timestamp: new Date().toISOString()
     });
   } catch (err) {
-    return jsonResponse({
-      ok: false,
-      error: err && err.message ? err.message : String(err)
-    }, 500);
+    return jsonResponse({ ok: false, error: err && err.message ? err.message : String(err) }, 500);
   }
 }
 
@@ -509,8 +616,14 @@ export default {
     if (request.method === 'GET' && pathname === '/api/resultados') {
       return handleResultados(url, env);
     }
-    if ((request.method === 'POST' || request.method === 'DELETE') && (pathname === '/api/eliminar-docentes' || pathname === '/api/delete' || pathname === '/api/eliminar')) {
+    if ((request.method === 'POST' || request.method === 'DELETE') && (pathname === '/api/eliminar-docentes' || pathname === '/api/delete' || pathname === '/api/eliminar' || pathname === '/api/papelera/mover')) {
       return handleDeleteDocentes(request, env);
+    }
+    if (request.method === 'POST' && (pathname === '/api/papelera/restaurar' || pathname === '/api/restaurar-docentes')) {
+      return handleRestaurarDocentes(request, env);
+    }
+    if (request.method === 'POST' && (pathname === '/api/papelera/purgar' || pathname === '/api/purgar-papelera')) {
+      return handlePurgarPapelera(request, env);
     }
     if (request.method === 'POST' && (pathname === '/api/reset' || pathname === '/api/clear' || pathname === '/api/eliminar-datos')) {
       return handleReset(env);

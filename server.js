@@ -283,20 +283,25 @@ const server = http.createServer((req, res) => {
       }
     };
     res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8', 'Cache-Control': 'no-store' });
-    const docs = leer('docentes.json').filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id));
-    const resps = leer('respuestas.json').filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
+    const allDocs = leer('docentes.json').filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id));
+    const allResps = leer('respuestas.json').filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
+    const docs = allDocs.filter(d => !d.eliminado);
+    const resps = allResps.filter(r => !r.eliminado);
+    const papelera = allDocs.filter(d => d.eliminado === 1);
+
     res.end(JSON.stringify({
       ok: true,
       generado: new Date().toISOString(),
       docentes: docs,
       respuestas: resps,
-      talleres: leer('talleres.json')
+      talleres: leer('talleres.json'),
+      papelera: papelera
     }));
     return;
   }
 
-  // Endpoint API: Eliminación individual y masiva de registros docentes
-  if ((req.method === 'POST' || req.method === 'DELETE') && (pathname === '/api/eliminar-docentes' || pathname === '/api/delete' || pathname === '/api/eliminar')) {
+  // Endpoint API: Mover registros a la papelera (soft-delete)
+  if ((req.method === 'POST' || req.method === 'DELETE') && (pathname === '/api/eliminar-docentes' || pathname === '/api/delete' || pathname === '/api/eliminar' || pathname === '/api/papelera/mover')) {
     let body = '';
     req.on('data', chunk => { body += chunk; });
     req.on('end', () => {
@@ -308,7 +313,7 @@ const server = http.createServer((req, res) => {
 
         if (ids.length === 0) {
           res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
-          res.end(JSON.stringify({ ok: false, error: 'No se indicaron IDs para eliminar.' }));
+          res.end(JSON.stringify({ ok: false, error: 'No se indicaron IDs para enviar a la papelera.' }));
           return;
         }
 
@@ -319,19 +324,131 @@ const server = http.createServer((req, res) => {
         let docs = fs.existsSync(docFile) ? JSON.parse(fs.readFileSync(docFile, 'utf8')) : [];
         let resps = fs.existsSync(respFile) ? JSON.parse(fs.readFileSync(respFile, 'utf8')) : [];
 
-        docs = docs.filter(d => !idSet.has(d.id));
-        resps = resps.filter(r => !idSet.has(r.idDocente));
+        const now = new Date().toISOString();
+        docs.forEach(d => {
+          if (idSet.has(d.id)) {
+            d.eliminado = 1;
+            d.fechaEliminado = now;
+          }
+        });
+        resps.forEach(r => {
+          if (idSet.has(r.idDocente)) {
+            r.eliminado = 1;
+          }
+        });
 
         fs.writeFileSync(docFile, JSON.stringify(docs, null, 2), 'utf8');
         fs.writeFileSync(respFile, JSON.stringify(resps, null, 2), 'utf8');
 
-        console.log(`[DELETE OK] Eliminados ${ids.length} docentes de data local.`);
+        console.log(`[PAPELERA MOVER] Enviados ${ids.length} docentes a la papelera local.`);
         notificarClientesSSE({ type: 'docente_deleted', ids, ts: Date.now() });
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
-        res.end(JSON.stringify({ ok: true, eliminados: ids.length, ids }));
+        res.end(JSON.stringify({ ok: true, mensaje: `Se enviaron ${ids.length} registro(s) a la papelera.`, eliminados: ids.length, ids }));
       } catch (err) {
         console.error('[DELETE ERROR]', err);
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // Endpoint API: Restaurar registros desde la papelera
+  if (req.method === 'POST' && (pathname === '/api/papelera/restaurar' || pathname === '/api/restaurar-docentes')) {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const ids = Array.isArray(payload.ids)
+          ? payload.ids.filter(id => typeof id === 'string' && id.trim())
+          : (payload.id ? [payload.id] : []);
+
+        if (ids.length === 0) {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+          res.end(JSON.stringify({ ok: false, error: 'No se indicaron IDs para restaurar.' }));
+          return;
+        }
+
+        const idSet = new Set(ids);
+        const docFile = path.join(DATA_DIR, 'docentes.json');
+        const respFile = path.join(DATA_DIR, 'respuestas.json');
+
+        let docs = fs.existsSync(docFile) ? JSON.parse(fs.readFileSync(docFile, 'utf8')) : [];
+        let resps = fs.existsSync(respFile) ? JSON.parse(fs.readFileSync(respFile, 'utf8')) : [];
+
+        docs.forEach(d => {
+          if (idSet.has(d.id)) {
+            d.eliminado = 0;
+            delete d.fechaEliminado;
+          }
+        });
+        resps.forEach(r => {
+          if (idSet.has(r.idDocente)) {
+            d.eliminado = 0;
+          }
+        });
+
+        fs.writeFileSync(docFile, JSON.stringify(docs, null, 2), 'utf8');
+        fs.writeFileSync(respFile, JSON.stringify(resps, null, 2), 'utf8');
+
+        console.log(`[PAPELERA RESTAURAR] Restaurados ${ids.length} docentes.`);
+        notificarClientesSSE({ type: 'docente_deleted', ids, ts: Date.now() });
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: true, mensaje: `Se restauraron ${ids.length} registro(s) exitosamente.`, restaurados: ids.length, ids }));
+      } catch (err) {
+        console.error('[RESTORE ERROR]', err);
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // Endpoint API: Purgar / vaciar papelera definitivamente
+  if (req.method === 'POST' && (pathname === '/api/papelera/purgar' || pathname === '/api/purgar-papelera')) {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const purgarTodos = Boolean(payload && payload.all);
+        const ids = Array.isArray(payload.ids)
+          ? payload.ids.filter(id => typeof id === 'string' && id.trim())
+          : (payload.id ? [payload.id] : []);
+
+        const docFile = path.join(DATA_DIR, 'docentes.json');
+        const respFile = path.join(DATA_DIR, 'respuestas.json');
+
+        let docs = fs.existsSync(docFile) ? JSON.parse(fs.readFileSync(docFile, 'utf8')) : [];
+        let resps = fs.existsSync(respFile) ? JSON.parse(fs.readFileSync(respFile, 'utf8')) : [];
+
+        if (purgarTodos) {
+          const idsPurgar = new Set(docs.filter(d => d.eliminado === 1).map(d => d.id));
+          docs = docs.filter(d => d.eliminado !== 1);
+          resps = resps.filter(r => !idsPurgar.has(r.idDocente));
+        } else if (ids.length > 0) {
+          const idSet = new Set(ids);
+          docs = docs.filter(d => !idSet.has(d.id));
+          resps = resps.filter(r => !idSet.has(r.idDocente));
+        } else {
+          res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+          res.end(JSON.stringify({ ok: false, error: 'No se indicaron registros para purgar.' }));
+          return;
+        }
+
+        fs.writeFileSync(docFile, JSON.stringify(docs, null, 2), 'utf8');
+        fs.writeFileSync(respFile, JSON.stringify(resps, null, 2), 'utf8');
+
+        console.log(`[PAPELERA PURGAR] Purgada papelera local.`);
+        notificarClientesSSE({ type: 'docente_deleted', ts: Date.now() });
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: true, mensaje: 'Papelera purgada exitosamente.' }));
+      } catch (err) {
+        console.error('[PURGE ERROR]', err);
         res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
         res.end(JSON.stringify({ ok: false, error: err.message }));
       }

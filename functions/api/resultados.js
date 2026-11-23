@@ -77,20 +77,25 @@ export async function onRequestGet(context) {
 
     try { await env.DB.prepare("ALTER TABLE docentes ADD COLUMN timestampInicio TEXT").run(); } catch (e) {}
     try { await env.DB.prepare("ALTER TABLE docentes ADD COLUMN timestampFin TEXT").run(); } catch (e) {}
+    try { await env.DB.prepare("ALTER TABLE docentes ADD COLUMN eliminado INTEGER DEFAULT 0").run(); } catch (e) {}
+    try { await env.DB.prepare("ALTER TABLE docentes ADD COLUMN fechaEliminado TEXT").run(); } catch (e) {}
+    try { await env.DB.prepare("ALTER TABLE respuestas ADD COLUMN eliminado INTEGER DEFAULT 0").run(); } catch (e) {}
 
     const qDocentes = filtroFecha
-      ? env.DB.prepare('SELECT * FROM docentes WHERE timestamp >= ? ORDER BY timestamp ASC').bind(filtroFecha)
-      : env.DB.prepare('SELECT * FROM docentes ORDER BY timestamp ASC');
+      ? env.DB.prepare('SELECT * FROM docentes WHERE timestamp >= ? AND (eliminado = 0 OR eliminado IS NULL) ORDER BY timestamp ASC').bind(filtroFecha)
+      : env.DB.prepare('SELECT * FROM docentes WHERE (eliminado = 0 OR eliminado IS NULL) ORDER BY timestamp ASC');
 
     const qRespuestas = filtroFecha
-      ? env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas WHERE timestamp >= ? ORDER BY id ASC').bind(filtroFecha)
-      : env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas ORDER BY id ASC');
+      ? env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas WHERE timestamp >= ? AND (eliminado = 0 OR eliminado IS NULL) ORDER BY id ASC').bind(filtroFecha)
+      : env.DB.prepare('SELECT idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor FROM respuestas WHERE (eliminado = 0 OR eliminado IS NULL) ORDER BY id ASC');
 
     const qTalleres = filtroFecha
       ? env.DB.prepare('SELECT * FROM talleres WHERE timestamp >= ? ORDER BY timestamp ASC').bind(filtroFecha)
       : env.DB.prepare('SELECT * FROM talleres ORDER BY timestamp ASC');
 
-    const [resDoc, resResp, resTal] = await env.DB.batch([qDocentes, qRespuestas, qTalleres]);
+    const qPapelera = env.DB.prepare('SELECT * FROM docentes WHERE eliminado = 1 ORDER BY fechaEliminado DESC, timestamp DESC');
+
+    const [resDoc, resResp, resTal, resPap] = await env.DB.batch([qDocentes, qRespuestas, qTalleres, qPapelera]);
 
     const docentes = (resDoc.results || [])
       .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id))
@@ -102,6 +107,14 @@ export async function onRequestGet(context) {
 
     const respuestas = (resResp.results || []).filter(r => r && r.idDocente && !IDS_PRUEBA_HISTORICOS.has(r.idDocente));
 
+    const papelera = (resPap.results || [])
+      .filter(d => d && d.id && !IDS_PRUEBA_HISTORICOS.has(d.id))
+      .map(d => ({
+        ...d,
+        q3: typeof d.q3 === 'string' ? JSON.parse(d.q3 || '[]') : (d.q3 || []),
+        q6: typeof d.q6 === 'string' ? JSON.parse(d.q6 || '[]') : (d.q6 || [])
+      }));
+
     return jsonResponse({
       ok: true,
       fuente: 'cloudflare-d1',
@@ -109,7 +122,8 @@ export async function onRequestGet(context) {
       generado: new Date().toISOString(),
       docentes,
       respuestas,
-      talleres: resTal.results || []
+      talleres: resTal.results || [],
+      papelera
     });
   } catch (err) {
     return jsonResponse({
