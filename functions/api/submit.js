@@ -28,6 +28,8 @@ async function asegurarTablas(db) {
     db.prepare(`CREATE TABLE IF NOT EXISTS docentes (
       id TEXT PRIMARY KEY,
       timestamp TEXT NOT NULL,
+      timestampInicio TEXT,
+      timestampFin TEXT,
       edad INTEGER,
       genero TEXT,
       expProfesional INTEGER,
@@ -66,6 +68,9 @@ async function asegurarTablas(db) {
     db.prepare(`CREATE INDEX IF NOT EXISTS idx_respuestas_doc ON respuestas(idDocente)`),
     db.prepare(`CREATE INDEX IF NOT EXISTS idx_talleres_ts ON talleres(timestamp)`)
   ]);
+
+  try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampInicio TEXT").run(); } catch (e) {}
+  try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampFin TEXT").run(); } catch (e) {}
 }
 
 export async function onRequestPost(context) {
@@ -82,7 +87,8 @@ export async function onRequestPost(context) {
   try {
     const payload = await request.json();
     const respondentId = payload.id || crypto.randomUUID();
-    const timestamp = payload.timestamp || new Date().toISOString();
+    const timestampFin = payload.timestampFin || payload.timestamp || new Date().toISOString();
+    const timestampInicio = payload.timestampInicio || timestampFin;
 
     await asegurarTablas(env.DB);
 
@@ -91,8 +97,15 @@ export async function onRequestPost(context) {
     statements.push(
       env.DB.prepare(`
         INSERT OR REPLACE INTO docentes (
-          id, timestamp, edad, genero, expProfesional, expDocente, gradoAcademico,
+          id, timestamp, timestampInicio, timestampFin, edad, genero, expProfesional, expDocente, gradoAcademico,
           colabInterna, colabInternaCual, colabExterna, colabExternaCual,
+          publicaciones, publicacionesCual, q3, q6, totalAsignaturas
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `).bind(
+        respondentId,
+        timestampFin,
+        timestampInicio,
+        timestampFin,
           publicaciones, publicacionesCual, q3, q6, totalAsignaturas
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `).bind(

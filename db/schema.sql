@@ -6,6 +6,8 @@
 CREATE TABLE IF NOT EXISTS docentes (
   id TEXT PRIMARY KEY,
   timestamp TEXT NOT NULL,
+  timestampInicio TEXT,
+  timestampFin TEXT,
   edad INTEGER,
   genero TEXT,
   expProfesional INTEGER,

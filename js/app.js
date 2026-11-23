@@ -20,6 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const LS_LOCAL_SUBMISSIONS_KEY = 'encuesta_fcae_envios_locales_v1';
   const LS_FULL_DRAFT_KEY = 'encuesta_fcae_borrador_completo_v1';
   const LS_TALLERES_KEY = 'encuesta_fcae_talleres_v1';
+  const LS_START_TIME_KEY = 'encuesta_fcae_hora_inicio_v1';
+
+  // Marca de tiempo de inicio de la encuesta
+  let surveyStartTime = null;
+  try {
+    surveyStartTime = localStorage.getItem(LS_START_TIME_KEY);
+    if (!surveyStartTime) {
+      surveyStartTime = new Date().toISOString();
+      localStorage.setItem(LS_START_TIME_KEY, surveyStartTime);
+    }
+  } catch (e) {
+    surveyStartTime = new Date().toISOString();
+  }
 
   // ID del último envío finalizado
   let ultimoEnvioId = null;
@@ -105,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const successCard = document.getElementById('card-success');
   const receiptIdEl = document.getElementById('receipt-id');
   const receiptTimestampEl = document.getElementById('receipt-timestamp');
+  const receiptStartTimeEl = document.getElementById('receipt-start-time');
+  const receiptEndTimeEl = document.getElementById('receipt-end-time');
+  const receiptDurationEl = document.getElementById('receipt-duration');
   const progressBar = document.getElementById('progress-bar');
   const progressText = document.getElementById('progress-text');
   const progressCount = document.getElementById('progress-count');
@@ -1196,8 +1212,14 @@ document.addEventListener('DOMContentLoaded', function() {
       q6.push(parseInt(r.value, 10));
     }
 
+    const timestampFin = new Date().toISOString();
+    const timestampInicio = surveyStartTime || timestampFin;
+
     const payload = {
       consent: true,
+      timestampInicio: timestampInicio,
+      timestampFin: timestampFin,
+      timestamp: timestampFin,
       edad: edad,
       genero: cmbGenero.value,
       expProfesional: expProf,
@@ -1246,8 +1268,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('[ENVÍO LOCAL] No se pudo conectar de inmediato a la nube, guardando resguardo local:', err);
         // Persistir localmente con estructura idéntica al servidor para alimentar el dashboard
         const localId = generateUuid();
-        const localTimestamp = new Date().toISOString();
-        guardarEnvioLocalParaDashboard(payload, localId, localTimestamp);
+        guardarEnvioLocalParaDashboard(payload, localId, timestampFin);
         // Reintentar sincronizar en segundo plano
         setTimeout(autoSincronizarEnviosLocales, 1500);
         setTimeout(function() {
@@ -1264,7 +1285,9 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
           localStorage.removeItem('encuesta_fcae_v1');
           localStorage.removeItem(LS_FULL_DRAFT_KEY);
+          localStorage.removeItem(LS_START_TIME_KEY);
         } catch (e) {}
+        surveyStartTime = null;
         ultimoEnvioId = res.id;
         notificarDashboardEnVivo({
           type: 'survey_submitted',
@@ -1276,9 +1299,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (draftResumeBanner) draftResumeBanner.style.display = 'none';
         successCard.style.display = 'block';
         if (receiptIdEl) receiptIdEl.textContent = res.id;
+
+        const dIni = new Date(timestampInicio);
+        const dFin = new Date(timestampFin);
+        if (receiptStartTimeEl) {
+          receiptStartTimeEl.textContent = dIni.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' (' + dIni.toLocaleDateString('es-NI') + ')';
+        }
+        if (receiptEndTimeEl) {
+          receiptEndTimeEl.textContent = dFin.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' (' + dFin.toLocaleDateString('es-NI') + ')';
+        }
+        if (receiptDurationEl) {
+          const diffMs = Math.max(0, dFin - dIni);
+          const mins = Math.floor(diffMs / 60000);
+          const secs = Math.floor((diffMs % 60000) / 1000);
+          receiptDurationEl.textContent = `${mins} min ${secs} s`;
+        }
         if (receiptTimestampEl) {
-          const ahora = new Date();
-          receiptTimestampEl.textContent = 'Fecha de recepción: ' + ahora.toLocaleDateString('es-NI', { dateStyle: 'long' }) + ' a las ' + ahora.toLocaleTimeString('es-NI', { timeStyle: 'short' });
+          receiptTimestampEl.textContent = 'Fecha de recepción: ' + dFin.toLocaleDateString('es-NI', { dateStyle: 'long' }) + ' a las ' + dFin.toLocaleTimeString('es-NI', { timeStyle: 'short' });
         }
 
         // Restablecer vista de invitación a talleres
@@ -1326,6 +1363,8 @@ document.addEventListener('DOMContentLoaded', function() {
       store.docentes.push({
         id: respondentId,
         timestamp: timestamp,
+        timestampInicio: payload.timestampInicio || timestamp,
+        timestampFin: payload.timestampFin || timestamp,
         edad: payload.edad,
         genero: payload.genero,
         expProfesional: payload.expProfesional,
@@ -1383,7 +1422,10 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       localStorage.removeItem('encuesta_fcae_v1');
       localStorage.removeItem(LS_FULL_DRAFT_KEY);
+      localStorage.removeItem(LS_START_TIME_KEY);
     } catch (e) {}
+    surveyStartTime = new Date().toISOString();
+    try { localStorage.setItem(LS_START_TIME_KEY, surveyStartTime); } catch (e) {}
     ultimoEnvioId = null;
     ocultarError();
     form.reset();
@@ -1521,6 +1563,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return {
       version: 1,
       timestamp: new Date().toISOString(),
+      horaInicio: surveyStartTime || new Date().toISOString(),
       etapaActual: etapaActual,
       consent: chkConsent ? chkConsent.checked : false,
       datosGenerales: {
@@ -1680,6 +1723,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 6. Transición a la etapa guardada
+    if (draft.horaInicio) {
+      surveyStartTime = draft.horaInicio;
+      try { localStorage.setItem(LS_START_TIME_KEY, surveyStartTime); } catch (e) {}
+    }
     const dest = draft.etapaActual && draft.etapaActual >= 1 && draft.etapaActual <= TOTAL_ETAPAS ? draft.etapaActual : 1;
     cambiarEtapa(dest, false);
     if (draftResumeBanner) draftResumeBanner.style.display = 'none';

@@ -79,6 +79,8 @@ const server = http.createServer((req, res) => {
         const docenteRecord = {
           id: respondentId,
           timestamp: timestamp,
+          timestampInicio: payload.timestampInicio || timestamp,
+          timestampFin: payload.timestampFin || timestamp,
           edad: payload.edad,
           genero: payload.genero,
           expProfesional: payload.expProfesional,

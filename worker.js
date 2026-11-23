@@ -28,6 +28,8 @@ async function asegurarTablas(db) {
     db.prepare(`CREATE TABLE IF NOT EXISTS docentes (
       id TEXT PRIMARY KEY,
       timestamp TEXT NOT NULL,
+      timestampInicio TEXT,
+      timestampFin TEXT,
       edad INTEGER,
       genero TEXT,
       expProfesional INTEGER,
@@ -66,6 +68,9 @@ async function asegurarTablas(db) {
     db.prepare(`CREATE INDEX IF NOT EXISTS idx_respuestas_doc ON respuestas(idDocente)`),
     db.prepare(`CREATE INDEX IF NOT EXISTS idx_talleres_ts ON talleres(timestamp)`)
   ]);
+
+  try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampInicio TEXT").run(); } catch (e) {}
+  try { await db.prepare("ALTER TABLE docentes ADD COLUMN timestampFin TEXT").run(); } catch (e) {}
 }
 
 async function handleSubmit(request, env) {
@@ -80,7 +85,8 @@ async function handleSubmit(request, env) {
   try {
     const payload = await request.json();
     const respondentId = payload.id || crypto.randomUUID();
-    const timestamp = payload.timestamp || new Date().toISOString();
+    const timestampFin = payload.timestampFin || payload.timestamp || new Date().toISOString();
+    const timestampInicio = payload.timestampInicio || timestampFin;
 
     await asegurarTablas(env.DB);
 
@@ -88,13 +94,15 @@ async function handleSubmit(request, env) {
     statements.push(
       env.DB.prepare(`
         INSERT OR REPLACE INTO docentes (
-          id, timestamp, edad, genero, expProfesional, expDocente, gradoAcademico,
+          id, timestamp, timestampInicio, timestampFin, edad, genero, expProfesional, expDocente, gradoAcademico,
           colabInterna, colabInternaCual, colabExterna, colabExternaCual,
           publicaciones, publicacionesCual, q3, q6, totalAsignaturas
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `).bind(
         respondentId,
-        timestamp,
+        timestampFin,
+        timestampInicio,
+        timestampFin,
         payload.edad ?? null,
         payload.genero || '',
         payload.expProfesional ?? null,
@@ -171,15 +179,19 @@ async function handleSync(request, env) {
     // 1. Sincronizar docentes
     if (docentes.length > 0) {
       const docStmts = docentes.map(d => {
+        const tsFin = d.timestampFin || d.timestamp || new Date().toISOString();
+        const tsIni = d.timestampInicio || tsFin;
         return env.DB.prepare(`
           INSERT OR REPLACE INTO docentes (
-            id, timestamp, edad, genero, expProfesional, expDocente, gradoAcademico,
+            id, timestamp, timestampInicio, timestampFin, edad, genero, expProfesional, expDocente, gradoAcademico,
             colabInterna, colabInternaCual, colabExterna, colabExternaCual,
             publicaciones, publicacionesCual, q3, q6, totalAsignaturas
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `).bind(
           d.id,
-          d.timestamp || new Date().toISOString(),
+          tsFin,
+          tsIni,
+          tsFin,
           d.edad ?? null,
           d.genero || '',
           d.expProfesional ?? null,

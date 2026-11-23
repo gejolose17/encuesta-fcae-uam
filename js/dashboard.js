@@ -274,6 +274,20 @@
     const docentes = (raw.docentes || []).filter(d => d && d.id).map(d => {
       const edad = aNum(d.edad), expDoc = aNum(d.expDocente), expProf = aNum(d.expProfesional);
       const mats = matPorDoc.has(d.id) ? Array.from(matPorDoc.get(d.id).values()) : [];
+      const tsIni = d.timestampInicio || d.timestamp;
+      const tsFin = d.timestampFin || d.timestamp;
+      const dIni = tsIni ? new Date(tsIni) : null;
+      const dFin = tsFin ? new Date(tsFin) : null;
+      const horaInicio = dIni && !isNaN(dIni.getTime()) ? dIni.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '—';
+      const horaFin = dFin && !isNaN(dFin.getTime()) ? dFin.toLocaleTimeString('es-NI', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '—';
+      let duracionMin = '—';
+      if (dIni && dFin && !isNaN(dIni.getTime()) && !isNaN(dFin.getTime())) {
+        const diffMs = Math.max(0, dFin - dIni);
+        const mins = Math.floor(diffMs / 60000);
+        const secs = Math.floor((diffMs % 60000) / 1000);
+        duracionMin = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+      }
+
       const doc = Object.assign({}, d, {
         edad, expDocente: expDoc, expProfesional: expProf,
         q3: arrNum(d.q3, ITEMS_Q3.length),
@@ -283,6 +297,11 @@
         rangoExpDoc: rangoExp(expDoc),
         rangoExpProf: rangoExp(expProf),
         fecha: String(d.timestamp || '').slice(0, 10),
+        timestampInicio: tsIni,
+        timestampFin: tsFin,
+        horaInicio: horaInicio,
+        horaFin: horaFin,
+        duracion: duracionMin,
         matrices: mats
       });
       doc.mQ3 = media(doc.q3);
@@ -1472,18 +1491,24 @@
         <div class="table-wrap">
           <table class="data" id="tabla-datos">
             <thead><tr>
-              <th>#</th><th>Fecha</th><th>Género</th><th>Edad</th><th>Grado académico</th><th>Exp. prof.</th><th>Exp. doc.</th>
+              <th>#</th><th>Fecha</th><th>Hora inicio</th><th>Hora fin</th><th>Duración</th><th>Género</th><th>Edad</th><th>Grado académico</th><th>Exp. prof.</th><th>Exp. doc.</th>
               <th>Colab. int.</th><th>Colab. ext.</th><th>Publica</th><th>Asignaturas</th><th>Q3</th><th>A</th><th>B</th><th>Q6</th>
             </tr></thead>
             <tbody>
               ${docs.map((d, i) => `<tr>
-                <td>${i + 1}</td><td>${esc(d.fecha)}</td><td>${esc(d.genero || '—')}</td><td>${d.edad ?? '—'}</td>
+                <td>${i + 1}</td>
+                <td>${esc(d.fecha)}</td>
+                <td><small style="font-weight:600;color:#00707b">${esc(d.horaInicio)}</small></td>
+                <td><small style="font-weight:600;color:#0f8f86">${esc(d.horaFin)}</small></td>
+                <td><span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:11px">${esc(d.duracion)}</span></td>
+                <td>${esc(d.genero || '—')}</td>
+                <td>${d.edad ?? '—'}</td>
                 <td>${esc(d.gradoAcademico || '—')}<br><small style="color:var(--muted)">${esc(d.grado)}</small></td>
                 <td>${d.expProfesional ?? '—'}</td><td>${d.expDocente ?? '—'}</td>
                 <td>${sino(d.colabInterna)}</td><td>${sino(d.colabExterna)}</td><td>${sino(d.publicaciones)}</td>
                 <td>${esc(d.matrices.map(m => m.nombre).join(', ') || '—')}</td>
                 ${['mQ3', 'mA', 'mB', 'mQ6'].map(k => `<td><b style="color:${colorMedia(d[k])}">${fmt(d[k])}</b></td>`).join('')}
-              </tr>`).join('') || '<tr><td colspan="15" style="text-align:center;padding:30px;color:var(--muted)">Sin registros para los filtros seleccionados.</td></tr>'}
+              </tr>`).join('') || '<tr><td colspan="18" style="text-align:center;padding:30px;color:var(--muted)">Sin registros para los filtros seleccionados.</td></tr>'}
             </tbody>
           </table>
         </div>
@@ -1697,21 +1722,21 @@
   }
 
   function exportarDocentes(docs) {
-    const cab = ['id', 'fecha', 'genero', 'edad', 'rango_edad', 'grado_academico', 'grado_clasificado', 'exp_profesional', 'exp_docente',
+    const cab = ['id', 'fecha', 'hora_inicio', 'hora_fin', 'duracion', 'genero', 'edad', 'rango_edad', 'grado_academico', 'grado_clasificado', 'exp_profesional', 'exp_docente',
       'colab_interna', 'colab_interna_cual', 'colab_externa', 'colab_externa_cual', 'publicaciones', 'publicaciones_cual', 'total_asignaturas']
       .concat(ITEMS_Q3.map((t, i) => 'Q3_' + (i + 1)), ITEMS_Q6.map((t, i) => 'Q6_' + (i + 1)), ['media_Q3', 'media_A', 'media_B', 'media_Q6']);
-    const filas = docs.map(d => [d.id, d.fecha, d.genero, d.edad, d.rangoEdad, d.gradoAcademico, d.grado, d.expProfesional, d.expDocente,
+    const filas = docs.map(d => [d.id, d.fecha, d.horaInicio || '', d.horaFin || '', d.duracion || '', d.genero, d.edad, d.rangoEdad, d.gradoAcademico, d.grado, d.expProfesional, d.expDocente,
       d.colabInterna, d.colabInternaCual, d.colabExterna, d.colabExternaCual, d.publicaciones, d.publicacionesCual, d.matrices.length]
       .concat(d.q3, d.q6, [d.mQ3, d.mA, d.mB, d.mQ6].map(v => esNum(v) ? v.toFixed(3) : '')));
     descargarCSV(`docentes_fcae_${hoy()}.csv`, [cab].concat(filas));
   }
 
   function exportarMatrices(docs) {
-    const cab = ['id_docente', 'fecha', 'genero', 'grado_clasificado', 'rango_edad', 'asignatura', 'matriz', 'item_num', 'item_codigo', 'item_texto', 'valor'];
+    const cab = ['id_docente', 'fecha', 'hora_inicio', 'hora_fin', 'genero', 'grado_clasificado', 'rango_edad', 'asignatura', 'matriz', 'item_num', 'item_codigo', 'item_texto', 'valor'];
     const filas = [];
     docs.forEach(d => d.matrices.forEach(m => {
       ['A', 'B'].forEach(mx => m[mx].forEach((v, i) => {
-        filas.push([d.id, d.fecha, d.genero, d.grado, d.rangoEdad, m.nombre, mx, i + 1, mx + (i + 1), SECCIONES[mx].items[i], v]);
+        filas.push([d.id, d.fecha, d.horaInicio || '', d.horaFin || '', d.genero, d.grado, d.rangoEdad, m.nombre, mx, i + 1, mx + (i + 1), SECCIONES[mx].items[i], v]);
       }));
     }));
     descargarCSV(`matrices_fcae_${hoy()}.csv`, [cab].concat(filas));

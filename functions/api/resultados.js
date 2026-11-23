@@ -40,7 +40,7 @@ export async function onRequestGet(context) {
 
     await env.DB.batch([
       env.DB.prepare(`CREATE TABLE IF NOT EXISTS docentes (
-        id TEXT PRIMARY KEY, timestamp TEXT NOT NULL, edad INTEGER, genero TEXT,
+        id TEXT PRIMARY KEY, timestamp TEXT NOT NULL, timestampInicio TEXT, timestampFin TEXT, edad INTEGER, genero TEXT,
         expProfesional INTEGER, expDocente INTEGER, gradoAcademico TEXT,
         colabInterna TEXT, colabInternaCual TEXT, colabExterna TEXT, colabExternaCual TEXT,
         publicaciones TEXT, publicacionesCual TEXT, q3 TEXT NOT NULL, q6 TEXT NOT NULL,
@@ -60,6 +60,9 @@ export async function onRequestGet(context) {
       env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_respuestas_doc ON respuestas(idDocente)`),
       env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_talleres_ts ON talleres(timestamp)`)
     ]);
+
+    try { await env.DB.prepare("ALTER TABLE docentes ADD COLUMN timestampInicio TEXT").run(); } catch (e) {}
+    try { await env.DB.prepare("ALTER TABLE docentes ADD COLUMN timestampFin TEXT").run(); } catch (e) {}
 
     const qDocentes = filtroFecha
       ? env.DB.prepare('SELECT * FROM docentes WHERE timestamp >= ? ORDER BY timestamp ASC').bind(filtroFecha)
