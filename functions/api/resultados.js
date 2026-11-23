@@ -1,17 +1,36 @@
 /**
- * Cloudflare Pages Function: GET /api/resultados
+ * Cloudflare Pages Function: GET & OPTIONS /api/resultados
  * Devuelve docentes, respuestas y talleres almacenados en Cloudflare D1 (binding: DB).
  * Soporta filtro opcional ?desde=YYYY-MM-DD para resguardo y consulta por fecha.
  */
+
+const CORS_HEADERS = {
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: CORS_HEADERS
+  });
+}
+
+export async function onRequestOptions() {
+  return new Response(null, { headers: CORS_HEADERS });
+}
 
 export async function onRequestGet(context) {
   const { request, env } = context;
 
   if (!env.DB) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       error: 'Base de datos D1 (binding DB) no vinculada en Cloudflare Pages.'
-    }), { status: 500, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 500);
   }
 
   try {
@@ -35,7 +54,11 @@ export async function onRequestGet(context) {
       env.DB.prepare(`CREATE TABLE IF NOT EXISTS talleres (
         id TEXT PRIMARY KEY, surveyId TEXT, nombre TEXT NOT NULL,
         telefono TEXT NOT NULL, email TEXT NOT NULL, timestamp TEXT NOT NULL
-      )`)
+      )`),
+      env.DB.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS uq_respuestas_item ON respuestas(idDocente, asignatura, matriz, itemNum)`),
+      env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_docentes_ts ON docentes(timestamp)`),
+      env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_respuestas_doc ON respuestas(idDocente)`),
+      env.DB.prepare(`CREATE INDEX IF NOT EXISTS idx_talleres_ts ON talleres(timestamp)`)
     ]);
 
     const qDocentes = filtroFecha
@@ -58,7 +81,7 @@ export async function onRequestGet(context) {
       q6: typeof d.q6 === 'string' ? JSON.parse(d.q6 || '[]') : (d.q6 || [])
     }));
 
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: true,
       fuente: 'cloudflare-d1',
       desde: desde || null,
@@ -66,17 +89,11 @@ export async function onRequestGet(context) {
       docentes,
       respuestas: resResp.results || [],
       talleres: resTal.results || []
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Cache-Control': 'no-store'
-      }
     });
   } catch (err) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       error: err && err.message ? err.message : String(err)
-    }), { status: 500, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 500);
   }
 }

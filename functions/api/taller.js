@@ -1,16 +1,35 @@
 /**
- * Cloudflare Pages Function: POST /api/taller
+ * Cloudflare Pages Function: POST & OPTIONS /api/taller
  * Registra participantes interesados en los talleres colaborativos en Cloudflare D1 (binding: DB)
  */
+
+const CORS_HEADERS = {
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: CORS_HEADERS
+  });
+}
+
+export async function onRequestOptions() {
+  return new Response(null, { headers: CORS_HEADERS });
+}
 
 export async function onRequestPost(context) {
   const { request, env } = context;
 
   if (!env.DB) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       error: 'Base de datos D1 (binding DB) no vinculada en Cloudflare Pages.'
-    }), { status: 500, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 500);
   }
 
   try {
@@ -39,14 +58,11 @@ export async function onRequestPost(context) {
       timestamp
     ).run();
 
-    return new Response(JSON.stringify({ ok: true, id: tallerId, timestamp }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json; charset=UTF-8', 'Cache-Control': 'no-store' }
-    });
+    return jsonResponse({ ok: true, id: tallerId, timestamp });
   } catch (err) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       error: err && err.message ? err.message : String(err)
-    }), { status: 400, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 400);
   }
 }

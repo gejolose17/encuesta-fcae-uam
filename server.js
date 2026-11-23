@@ -151,6 +151,61 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Endpoint API: Sincronización en lote de docentes, respuestas y talleres
+  if (req.method === 'POST' && pathname === '/api/sync') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body);
+        const nuevosDocentes = Array.isArray(payload.docentes) ? payload.docentes : [];
+        const nuevasRespuestas = Array.isArray(payload.respuestas) ? payload.respuestas : [];
+        const nuevosTalleres = Array.isArray(payload.talleres) ? payload.talleres : [];
+
+        // 1. Docentes
+        const docFile = path.join(DATA_DIR, 'docentes.json');
+        let docs = fs.existsSync(docFile) ? JSON.parse(fs.readFileSync(docFile, 'utf8')) : [];
+        const docMap = new Map(docs.map(d => [d.id, d]));
+        nuevosDocentes.forEach(d => { if (d && d.id) docMap.set(d.id, d); });
+        docs = Array.from(docMap.values());
+        fs.writeFileSync(docFile, JSON.stringify(docs, null, 2), 'utf8');
+
+        // 2. Respuestas
+        const respFile = path.join(DATA_DIR, 'respuestas.json');
+        let resps = fs.existsSync(respFile) ? JSON.parse(fs.readFileSync(respFile, 'utf8')) : [];
+        const respKey = r => `${r.idDocente}_${r.asignatura}_${r.matriz}_${r.itemNum}`;
+        const respMap = new Map(resps.map(r => [respKey(r), r]));
+        nuevasRespuestas.forEach(r => { if (r && r.idDocente) respMap.set(respKey(r), r); });
+        resps = Array.from(respMap.values());
+        fs.writeFileSync(respFile, JSON.stringify(resps, null, 2), 'utf8');
+
+        // 3. Talleres
+        const talFile = path.join(DATA_DIR, 'talleres.json');
+        let tals = fs.existsSync(talFile) ? JSON.parse(fs.readFileSync(talFile, 'utf8')) : [];
+        const talKey = t => t.id || `${t.email}_${t.nombre}`;
+        const talMap = new Map(tals.map(t => [talKey(t), t]));
+        nuevosTalleres.forEach(t => { if (t) talMap.set(talKey(t), t); });
+        tals = Array.from(talMap.values());
+        fs.writeFileSync(talFile, JSON.stringify(tals, null, 2), 'utf8');
+
+        console.log(`[SYNC OK] Sincronizados: ${nuevosDocentes.length} docentes, ${nuevasRespuestas.length} respuestas, ${nuevosTalleres.length} talleres`);
+        notificarClientesSSE({ type: 'survey_submitted', ts: Date.now() });
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({
+          ok: true,
+          mensaje: 'Sincronización local exitosa',
+          recibidos: { docentes: nuevosDocentes.length, respuestas: nuevasRespuestas.length, talleres: nuevosTalleres.length }
+        }));
+      } catch (err) {
+        console.error('[SYNC ERROR]', err);
+        res.writeHead(400, { 'Content-Type': 'application/json; charset=UTF-8' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   // Endpoint API: Registro de participantes para talleres colaborativos (segunda etapa)
   if (req.method === 'POST' && pathname === '/api/taller') {
     let body = '';

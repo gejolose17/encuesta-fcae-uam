@@ -1,7 +1,27 @@
 /**
- * Cloudflare Pages Function: POST /api/submit
+ * Cloudflare Pages Function: POST & OPTIONS /api/submit
  * Recibe y persiste las respuestas de la encuesta en Cloudflare D1 (binding: DB)
+ * Con soporte para CORS, lotes (batches de 50) e inserción resiliente.
  */
+
+const CORS_HEADERS = {
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: CORS_HEADERS
+  });
+}
+
+export async function onRequestOptions() {
+  return new Response(null, { headers: CORS_HEADERS });
+}
 
 async function asegurarTablas(db) {
   await db.batch([
@@ -32,7 +52,19 @@ async function asegurarTablas(db) {
       itemNum INTEGER NOT NULL,
       itemTexto TEXT,
       valor INTEGER NOT NULL
-    )`)
+    )`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS talleres (
+      id TEXT PRIMARY KEY,
+      surveyId TEXT,
+      nombre TEXT NOT NULL,
+      telefono TEXT NOT NULL,
+      email TEXT NOT NULL,
+      timestamp TEXT NOT NULL
+    )`),
+    db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS uq_respuestas_item ON respuestas(idDocente, asignatura, matriz, itemNum)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_docentes_ts ON docentes(timestamp)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_respuestas_doc ON respuestas(idDocente)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_talleres_ts ON talleres(timestamp)`)
   ]);
 }
 
@@ -40,17 +72,17 @@ export async function onRequestPost(context) {
   const { request, env } = context;
 
   if (!env.DB) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       stage: 'config',
       error: 'Base de datos D1 (binding DB) no vinculada en Cloudflare Pages.'
-    }), { status: 500, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 500);
   }
 
   try {
     const payload = await request.json();
-    const respondentId = crypto.randomUUID();
-    const timestamp = new Date().toISOString();
+    const respondentId = payload.id || crypto.randomUUID();
+    const timestamp = payload.timestamp || new Date().toISOString();
 
     await asegurarTablas(env.DB);
 
@@ -58,7 +90,7 @@ export async function onRequestPost(context) {
 
     statements.push(
       env.DB.prepare(`
-        INSERT INTO docentes (
+        INSERT OR REPLACE INTO docentes (
           id, timestamp, edad, genero, expProfesional, expDocente, gradoAcademico,
           colabInterna, colabInternaCual, colabExterna, colabExternaCual,
           publicaciones, publicacionesCual, q3, q6, totalAsignaturas
@@ -84,7 +116,7 @@ export async function onRequestPost(context) {
     );
 
     const insertResp = env.DB.prepare(`
-      INSERT INTO respuestas (idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor)
+      INSERT OR REPLACE INTO respuestas (idDocente, timestamp, asignatura, matriz, itemNum, itemTexto, valor)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `);
 
@@ -108,17 +140,17 @@ export async function onRequestPost(context) {
       }
     }
 
-    await env.DB.batch(statements);
+    // Ejecutar en lotes de máximo 50 para respetar los límites de Cloudflare D1
+    for (let i = 0; i < statements.length; i += 50) {
+      await env.DB.batch(statements.slice(i, i + 50));
+    }
 
-    return new Response(JSON.stringify({ ok: true, id: respondentId, timestamp }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json; charset=UTF-8', 'Cache-Control': 'no-store' }
-    });
+    return jsonResponse({ ok: true, id: respondentId, timestamp });
   } catch (err) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       stage: 'database',
       error: err && err.message ? err.message : String(err)
-    }), { status: 400, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 400);
   }
 }

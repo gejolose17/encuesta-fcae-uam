@@ -52,3 +52,4 @@ main().catch(err => {
   console.error('\n[MIGRACIÓN D1 ERROR]', err.message || err);
   process.exit(1);
 });
+

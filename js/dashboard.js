@@ -1415,6 +1415,36 @@
         <p class="view-desc">Registros anonimizados de los docentes que cumplen los filtros globales. Exporte a CSV para análisis en Excel, SPSS, R o JASP.</p>
       </div></div>
 
+      <div class="card" style="margin-bottom: 20px; border-left: 4px solid #0099A8; background: var(--card-bg, #fff);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+          <div>
+            <h3 style="margin: 0 0 6px 0; font-size: 1.1rem; color: #00707b; display: flex; align-items: center; gap: 8px;">
+              <span>☁️</span> Resguardo y Sincronización en Tiempo Real (Cloudflare D1)
+            </h3>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--muted, #64748b);">
+              Todos los datos están centralizados en la nube de Cloudflare. Cualquier encuesta respondida desde móvil o computadora se consolida aquí automáticamente.
+            </p>
+            <div style="display: flex; gap: 16px; margin-top: 10px; font-size: 0.85rem; font-weight: 500;">
+              <span>📊 Total docentes en sistema: <strong>${state.docentes.length}</strong></span>
+              <span>📱 Registros locales en este navegador: <strong>${leerEnviosLocales().docentes.length}</strong></span>
+              <span>👥 Registros talleres: <strong>${state.talleres.length}</strong></span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" id="btn-sync-cloud-manual" title="Sube cualquier encuesta guardada en este navegador a Cloudflare D1">
+              🔄 Sincronizar locales a Cloudflare
+            </button>
+            <button type="button" class="btn" id="btn-backup-download-full" title="Descargar archivo JSON con el respaldo total de la base de datos">
+              💾 Respaldo JSON completo
+            </button>
+            <label class="btn" style="cursor: pointer;" title="Subir un archivo de respaldo JSON para restaurar o migrar respuestas">
+              📥 Importar JSON a la nube
+              <input type="file" id="input-import-backup" accept=".json" style="display: none;">
+            </label>
+          </div>
+        </div>
+      </div>
+
       <div class="card admin-data-card">
         <div class="admin-data-header">
           <div class="admin-data-icon">⚙️</div>
@@ -1475,6 +1505,105 @@
       const limpio = docs.map(d => { const c = Object.assign({}, d); return c; });
       descargar(`resultados_fcae_${hoy()}.json`, JSON.stringify(limpio, null, 2), 'application/json');
     });
+
+    // Control manual de sincronización hacia Cloudflare D1
+    const btnSyncManual = $('#btn-sync-cloud-manual');
+    if (btnSyncManual) {
+      btnSyncManual.addEventListener('click', async () => {
+        btnSyncManual.disabled = true;
+        btnSyncManual.textContent = '⏳ Sincronizando...';
+        try {
+          const locales = leerEnviosLocales();
+          const talleresLocales = leerTalleresLocales();
+          if (locales.docentes.length === 0 && talleresLocales.length === 0) {
+            mostrarToast('ℹ️ No hay registros locales pendientes de sincronizar en este navegador.', 4000);
+          } else {
+            const resp = await apiFetch('/api/sync', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                docentes: locales.docentes,
+                respuestas: locales.respuestas,
+                talleres: talleresLocales
+              })
+            });
+            const data = await resp.json().catch(() => ({}));
+            if (data && data.ok) {
+              mostrarToast(`✅ <strong>¡Sincronización exitosa!</strong> Se han subido ${locales.docentes.length} docentes a Cloudflare D1.`, 6000);
+              await cargar();
+            } else {
+              mostrarToast('⚠️ Error en sincronización: ' + (data.error || 'Respuesta inválida'), 5000);
+            }
+          }
+        } catch (err) {
+          mostrarToast('❌ Error de conexión: ' + err.message, 6000);
+        } finally {
+          btnSyncManual.disabled = false;
+          btnSyncManual.textContent = '🔄 Sincronizar locales a Cloudflare';
+        }
+      });
+    }
+
+    // Descarga de respaldo total de Cloudflare D1
+    const btnBackupFull = $('#btn-backup-download-full');
+    if (btnBackupFull) {
+      btnBackupFull.addEventListener('click', async () => {
+        try {
+          btnBackupFull.disabled = true;
+          btnBackupFull.textContent = '⏳ Generando respaldo...';
+          const j = await fetchJSON('/api/resultados');
+          descargar(`respaldo_completo_fcae_uam_${hoy()}.json`, JSON.stringify(j, null, 2), 'application/json');
+          mostrarToast('💾 <strong>Respaldo descargado:</strong> Se generó una copia íntegra de la base de datos.', 4500);
+        } catch (e) {
+          mostrarToast('❌ Error al generar respaldo: ' + e.message, 5000);
+        } finally {
+          btnBackupFull.disabled = false;
+          btnBackupFull.textContent = '💾 Respaldo JSON completo';
+        }
+      });
+    }
+
+    // Importación de respaldo JSON hacia Cloudflare D1
+    const inputImport = $('#input-import-backup');
+    if (inputImport) {
+      inputImport.addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async (evt) => {
+          try {
+            const parsed = JSON.parse(evt.target.result);
+            const docs = Array.isArray(parsed.docentes) ? parsed.docentes : (Array.isArray(parsed) ? parsed : []);
+            const resps = Array.isArray(parsed.respuestas) ? parsed.respuestas : [];
+            const tals = Array.isArray(parsed.talleres) ? parsed.talleres : [];
+
+            if (docs.length === 0 && resps.length === 0 && tals.length === 0) {
+              mostrarToast('⚠️ El archivo no contiene registros válidos para importar.', 4500);
+              return;
+            }
+
+            mostrarToast(`⏳ Subiendo ${docs.length} docentes a Cloudflare D1...`, 4000);
+            const resp = await apiFetch('/api/sync', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ docentes: docs, respuestas: resps, talleres: tals })
+            });
+            const data = await resp.json().catch(() => ({}));
+            if (data && data.ok) {
+              mostrarToast(`✅ <strong>¡Importación completada!</strong> Se consolidaron ${docs.length} registros en Cloudflare D1.`, 6000);
+              await cargar();
+            } else {
+              mostrarToast('❌ Error en importación: ' + (data.error || 'Respuesta no exitosa'), 6000);
+            }
+          } catch (err) {
+            mostrarToast('❌ Error al leer el archivo JSON: ' + err.message, 6000);
+          } finally {
+            inputImport.value = '';
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
 
     const bAdmin = $('#btn-admin-clear-data');
     if (bAdmin) bAdmin.addEventListener('click', abrirModalEliminar);
@@ -1930,6 +2059,27 @@
   const LS_TALLERES_KEY = 'encuesta_fcae_talleres_v1';
   const LS_BASELINE_CLEARED_KEY = 'encuesta_fcae_baseline_cleared_v1';
 
+  // URL del Worker en Cloudflare de producción para sincronización global multi-dispositivo
+  const CLOUD_PROD_URL = 'https://encuesta-fcae-uam.gelopsequeira.workers.dev';
+
+  async function apiFetch(endpoint, options = {}) {
+    const isWorkerHost = typeof window !== 'undefined' && window.location.hostname === 'encuesta-fcae-uam.gelopsequeira.workers.dev';
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
+    const urlsToTry = isWorkerHost ? [cleanEndpoint] : [CLOUD_PROD_URL + cleanEndpoint, cleanEndpoint];
+
+    let lastError = null;
+    for (const url of urlsToTry) {
+      try {
+        const res = await fetch(url, options);
+        if (res.ok) return res;
+        lastError = new Error(`HTTP ${res.status} desde ${url}`);
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    throw lastError || new Error(`No se pudo conectar a ${endpoint}`);
+  }
+
   let modoServidorActivo = false;
   let sseStream = null;
   let syncDebounceTimer = null;
@@ -2023,15 +2173,15 @@
       let cantDoc = cantActual;
 
       try {
-        const resp = await fetch('api/reset', { method: 'POST' });
+        const resp = await apiFetch('/api/reset', { method: 'POST' });
         const data = await resp.json().catch(() => ({}));
-        if (resp.ok && data.ok) {
+        if (data && data.ok) {
           limpioEnServidor = true;
           if (data.eliminados && typeof data.eliminados.docentes === 'number') {
             cantDoc = data.eliminados.docentes;
           }
         }
-      } catch (e) { /* modo estático / GitHub Pages */ }
+      } catch (e) { /* modo offline */ }
 
       try {
         localStorage.removeItem(LS_LOCAL_SUBMISSIONS_KEY);
@@ -2081,6 +2231,10 @@
   // 13. CARGA DE DATOS Y SINCRONIZACIÓN AUTOMÁTICA EN TIEMPO REAL
   // ==========================================================================
   async function fetchJSON(url) {
+    if (url.startsWith('/api/') || url.startsWith('api/')) {
+      const res = await apiFetch(url, { cache: 'no-store' });
+      return res.json();
+    }
     const r = await fetch(url, { cache: 'no-store' });
     if (!r.ok) throw new Error(`${url} respondió ${r.status}`);
     return r.json();
@@ -2212,7 +2366,7 @@
       if (nuevosDocentes.length === 0 && nuevosTalleres.length === 0) return;
 
       console.log(`[SYNC AUTO] Sincronizando ${nuevosDocentes.length} docentes y ${nuevosTalleres.length} talleres locales a Cloudflare D1...`);
-      const resp = await fetch('/api/sync', {
+      const resp = await apiFetch('/api/sync', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -2224,6 +2378,7 @@
       const resData = await resp.json().catch(() => ({}));
       if (resData && resData.ok) {
         console.log('[SYNC AUTO OK] Datos locales resguardados exitosamente en Cloudflare D1.');
+        mostrarToast(`☁️ <strong>Datos locales sincronizados:</strong> Se resguardaron ${nuevosDocentes.length} encuesta(s) en Cloudflare D1.`, 6000);
       }
     } catch (e) {
       console.warn('[SYNC AUTO WARN] No se pudo sincronizar locales a la nube aún:', e.message);

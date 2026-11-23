@@ -24,6 +24,72 @@ document.addEventListener('DOMContentLoaded', function() {
   // ID del último envío finalizado
   let ultimoEnvioId = null;
 
+  // URL del Worker en Cloudflare de producción para persistencia en D1
+  const CLOUD_PROD_URL = 'https://encuesta-fcae-uam.gelopsequeira.workers.dev';
+
+  async function apiFetch(endpoint, options = {}) {
+    const isWorkerHost = typeof window !== 'undefined' && window.location.hostname === 'encuesta-fcae-uam.gelopsequeira.workers.dev';
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
+    const urlsToTry = isWorkerHost ? [cleanEndpoint] : [CLOUD_PROD_URL + cleanEndpoint, cleanEndpoint];
+
+    let lastError = null;
+    for (const url of urlsToTry) {
+      try {
+        const res = await fetch(url, options);
+        if (res.ok) return res;
+        lastError = new Error(`HTTP ${res.status} desde ${url}`);
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    throw lastError || new Error(`No se pudo conectar a ${endpoint}`);
+  }
+
+  async function autoSincronizarEnviosLocales() {
+    try {
+      const raw = localStorage.getItem(LS_LOCAL_SUBMISSIONS_KEY);
+      const rawTal = localStorage.getItem(LS_TALLERES_KEY);
+      if (!raw && !rawTal) return;
+
+      let store = { docentes: [], respuestas: [] };
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.docentes) && parsed.docentes.length > 0) {
+          store = parsed;
+        }
+      }
+      let talleres = [];
+      if (rawTal) {
+        const parsedTal = JSON.parse(rawTal);
+        if (Array.isArray(parsedTal) && parsedTal.length > 0) {
+          talleres = parsedTal;
+        }
+      }
+
+      if (store.docentes.length === 0 && talleres.length === 0) return;
+
+      console.log(`[RESGUARDO AUTO] Sincronizando ${store.docentes.length} docentes y ${talleres.length} talleres con Cloudflare D1...`);
+
+      const res = await apiFetch('/api/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          docentes: store.docentes,
+          respuestas: store.respuestas,
+          talleres: talleres
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (data && data.ok) {
+        console.log('[RESGUARDO OK] Datos locales resguardados exitosamente en Cloudflare D1:', data);
+        notificarDashboardEnVivo({ type: 'survey_submitted', ts: Date.now() });
+      }
+    } catch (e) {
+      console.warn('[RESGUARDO WARN] Pendiente de sincronización a Cloudflare D1:', e.message);
+    }
+  }
+
   // Elementos DOM principales
   const form = document.getElementById('survey-form');
   const brandHomeLink = document.getElementById('brand-home-link');
@@ -1164,23 +1230,26 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .processForm(payload);
     } else {
-      fetch('/api/submit', {
+      // Envío resiliente directo a Cloudflare D1 (soporta tanto Workers como GitHub Pages y Local)
+      apiFetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
       .then(function(res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       })
       .then(function(data) {
         procesarRespuestaServidor(data);
       })
-      .catch(function() {
-        // Entorno estático (ej. GitHub Pages o Live Server): persistir localmente con estructura idéntica al servidor para alimentar el dashboard
+      .catch(function(err) {
+        console.warn('[ENVÍO LOCAL] No se pudo conectar de inmediato a la nube, guardando resguardo local:', err);
+        // Persistir localmente con estructura idéntica al servidor para alimentar el dashboard
         const localId = generateUuid();
         const localTimestamp = new Date().toISOString();
         guardarEnvioLocalParaDashboard(payload, localId, localTimestamp);
+        // Reintentar sincronizar en segundo plano
+        setTimeout(autoSincronizarEnviosLocales, 1500);
         setTimeout(function() {
           procesarRespuestaServidor({ ok: true, id: localId });
         }, 450);
@@ -1751,13 +1820,17 @@ document.addEventListener('DOMContentLoaded', function() {
         ts: Date.now()
       });
 
-      // Enviar al servidor si está disponible
-      fetch('/api/taller', {
+      // Enviar al servidor o Cloudflare D1
+      apiFetch('/api/taller', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadTaller)
       })
-      .catch(function() { /* Entorno estático GitHub Pages */ })
+      .then(function(res) { return res.json(); })
+      .catch(function(err) {
+        console.warn('[TALLER LOCAL] Guardado localmente, reintentando sincronización:', err);
+        setTimeout(autoSincronizarEnviosLocales, 1500);
+      })
       .finally(function() {
         if (btnSubmitTaller) {
           btnSubmitTaller.disabled = false;
@@ -1784,6 +1857,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   comprobarBorradorGuardado();
+  autoSincronizarEnviosLocales();
 
   form.addEventListener('input', function() {
     calcularProgreso();

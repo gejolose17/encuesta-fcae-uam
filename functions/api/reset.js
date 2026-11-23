@@ -1,16 +1,35 @@
 /**
- * Cloudflare Pages Function: POST /api/reset
+ * Cloudflare Pages Function: POST & OPTIONS /api/reset
  * Limpia los registros de prueba en Cloudflare D1 (binding: DB)
  */
+
+const CORS_HEADERS = {
+  'Content-Type': 'application/json; charset=UTF-8',
+  'Cache-Control': 'no-store, no-cache, must-revalidate',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type'
+};
+
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: CORS_HEADERS
+  });
+}
+
+export async function onRequestOptions() {
+  return new Response(null, { headers: CORS_HEADERS });
+}
 
 export async function onRequestPost(context) {
   const { env } = context;
 
   if (!env.DB) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       error: 'Base de datos D1 (binding DB) no vinculada en Cloudflare Pages.'
-    }), { status: 500, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 500);
   }
 
   try {
@@ -26,7 +45,7 @@ export async function onRequestPost(context) {
       env.DB.prepare('DELETE FROM talleres')
     ]);
 
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: true,
       mensaje: 'Base de datos D1 limpiada exitosamente.',
       eliminados: {
@@ -35,14 +54,11 @@ export async function onRequestPost(context) {
         talleres: cTal?.results?.[0]?.c || 0
       },
       timestamp: new Date().toISOString()
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json; charset=UTF-8', 'Cache-Control': 'no-store' }
     });
   } catch (err) {
-    return new Response(JSON.stringify({
+    return jsonResponse({
       ok: false,
       error: err && err.message ? err.message : String(err)
-    }), { status: 500, headers: { 'Content-Type': 'application/json; charset=UTF-8' } });
+    }, 500);
   }
 }
